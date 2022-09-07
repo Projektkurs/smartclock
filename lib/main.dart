@@ -47,7 +47,7 @@ class AppState extends State<App>
   configMenuMainParse(List<Key> key,Type type,ComponentConfig config){
     menu.componenttype=type;
     menu.componentconfig=config;
-    
+    menu.openMenu(1);
   }
 
   //number of Widgets by the first scaffholding

@@ -11,7 +11,7 @@ class Menu extends StatefulWidget
   Type componenttype=Container;
   ComponentConfig? componentconfig;
   Function? function;
-
+  Function openMenu= (){};
   @override
   State<Menu> createState() => MenuState();
 }
@@ -53,26 +53,30 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
   double opacityLevel = 0;
 
   bool isOpen = false;
-  _handleOnPressed()
+  //0:invert;1:enable;-1:disable
+  _handleOnPressed(int enable)
   {
-    setState(() {
-      opacityLevel = opacityLevel == 0 ? 0.8 : 0.0;
-    });
-    setState(() {
-      isOpen = !isOpen;
-      if (isOpen) {
-        _animationController.forward();
-      } else {
-        _animationController.reverse();
-      }
-    });
+    if(enable==0 || enable==1 && !isOpen || enable==-1 && isOpen){
+      //if(enable==0 && !isOpen)
+      setState(() {
+        opacityLevel = opacityLevel == 0 ? 0.8 : 0.0;
+      });
+      setState(() {
+        isOpen = !isOpen;
+        if (isOpen) {
+          _animationController.forward();
+        } else {
+          _animationController.reverse();
+        }
+      });
+    }
   }
   bool _darkmode=false;
   @override
   Widget build(BuildContext context)
-  {
+  { 
+    widget.openMenu=_handleOnPressed;
     List<Widget> returnStack = [];
-
     //background greys if Menu is open
     returnStack.add(AnimatedOpacity(
       curve: Curves.linear,
@@ -132,7 +136,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
     }
     // Button in upper left corner to open and close menu
     returnStack.add(FloatingActionButton(
-      onPressed: () => _handleOnPressed(),
+      onPressed: () => _handleOnPressed(0),
       tooltip: 'menu',
       child: AnimatedIcon(
         icon: AnimatedIcons.menu_close,
