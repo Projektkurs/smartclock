@@ -88,16 +88,6 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
       )
     ));
 
-    // Button in upper left corner to open and close menu
-    returnStack.add(FloatingActionButton(
-      onPressed: () => _handleOnPressed(),
-      tooltip: 'menu',
-      child: AnimatedIcon(
-        icon: AnimatedIcons.menu_close,
-        progress: _animationController,
-        semanticLabel: 'Show menu',
-      ),
-    ));
     if (isOpen) {
     Widget frontmenu =Container();
     List<Widget> menutext =[];
@@ -145,6 +135,16 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
           //))
           )));
     }
+    // Button in upper left corner to open and close menu
+    returnStack.add(FloatingActionButton(
+      onPressed: () => _handleOnPressed(),
+      tooltip: 'menu',
+      child: AnimatedIcon(
+        icon: AnimatedIcons.menu_close,
+        progress: _animationController,
+        semanticLabel: 'Show menu',
+      ),
+    ));
     return Stack(children: returnStack);
   }
 }
