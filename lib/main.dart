@@ -3,20 +3,19 @@
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 
-import 'dart:io';
-
 import 'main_header.dart';
 
 void main() 
 {
   runApp(const Entry());
 }
-//Entry is used to ensure the theme and text direction is inherited on all widgets
+//Entry class, used to set default theme
 class Entry extends StatelessWidget 
 {
-  const Entry({Key? key}) : super(key: key);
+  const Entry({Key? key,this.isepaper=false} ) : super(key: key);
   static const title = 'SmartClock';
-
+  //will be used later to switch between end-user mode and embeddded
+  final bool isepaper;
   @override
   Widget build(BuildContext context) 
   {
@@ -41,28 +40,32 @@ class App extends StatefulWidget
 
 class AppState extends State<App> 
 {
+  //main menu laying on top the top of Widget stack
   late Menu menu=Menu(function: _addContainer);
+
+  //own method to parse up a config to be configured by menu
   configMenuMainParse(List<Key> key,Type type,ComponentConfig config){
-    print(config);
     menu.componenttype=type;
     menu.componentconfig=config;
-    print(menu.componentconfig);
-    print(key);
     
   }
 
-
-  int _maincontainers = 1; // defines the number of rows / columns of the first Scaffold
+  //number of Widgets by the first scaffholding
+  int _maincontainers = 1;
   _addContainer() {setState(() {
     _maincontainers<6 ? _maincontainers++: null;});}
   _removeContainer() {setState(() {
     _maincontainers>0 ? _maincontainers--: null ;});}
 
+  //changes variable "enabled" of every resizeline  -> see resizeline.dart
   bool _showlines=false;
   _updatelines() {setState(() {
     _showlines=!_showlines;
   });}
-  Key Scaffholdingkey=GlobalKey();
+
+  //Key is used for callbacks(scaffholding/callbacks.dart)
+  //it mustn't change, as they are saved at various places in the Widget tree
+  final Key scaffholdingkey=GlobalKey();
   @override
   Widget build(BuildContext context) 
   {
@@ -71,31 +74,33 @@ class AppState extends State<App>
         child: Stack(children: [
           // menu laying on top of the main Scaffholding
           Flex(direction: Axis.horizontal,
-            children: [Scaffholding(key:Scaffholdingkey,
-              config:ComponentConfig<ScaffholdingConfig>(Theme.of(context),2<<40,ScaffholdingConfig(),Scaffholding) ,notconfigMenu: (){},//(Theme.of(context) as ComponentConfig),
-              //key:GlobalKey(), 
+            children: [Scaffholding(key:scaffholdingkey,
+              config:ComponentConfig<ScaffholdingConfig>(
+                Theme.of(context),
+                2<<40,//arbitrary value for flex 
+                //should be high as to have many to have smooth transition
+                ScaffholdingConfig(),
+                Scaffholding) ,notconfigMenu: (){},
             direction: true, subcontainers: _maincontainers,showlines:_showlines,
             parentConfigMenu: configMenuMainParse)]),
           menu
         ])
       ),
+      //start: Buttons in the bottom right to add/remove Containers 
+      //and enable/disable resizelines
+      //!the menu button is part of menu!
       floatingActionButton: Column(
-        //two buttons at the downer right corner to add / remove a container
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Flexible(
-            
-            child: FloatingActionButton
-            (
+            child: FloatingActionButton(
               onPressed: _updatelines,
               tooltip: 'lines',
               child: const Icon(Icons.add),
             )
           ),
           Flexible(
-            
-            child: FloatingActionButton
-            (
+            child: FloatingActionButton(
               onPressed: _addContainer,
               tooltip: 'Increment',
               child: const Icon(Icons.add),
@@ -109,7 +114,7 @@ class AppState extends State<App>
             )
           )
         ]
-      )
+      )//end: Buttons
     ); 
   } 
 }
