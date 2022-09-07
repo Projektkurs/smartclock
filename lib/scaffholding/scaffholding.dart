@@ -26,8 +26,6 @@ class Scaffholding extends Component
   final String? title;
   final bool direction;
   final int subcontainers;
-  //@override
-  //ScaffholdingState child=ScaffholdingState();
   final Function parentConfigMenu;
   @override
   ScaffholdingState createState() => ScaffholdingState();
@@ -35,10 +33,9 @@ class Scaffholding extends Component
 
 class ScaffholdingState extends State<Scaffholding> with callbacks
 {
-  //static Scaffholding parent=widget;
+
    double resizeline_width=8.0;
   List<Widget> childs = [];
-  //List _childs 
   List<int> width = [];
   BoxConstraints callconstraints=new BoxConstraints();
   // returns the given Widget wraped into a box with rounded corners

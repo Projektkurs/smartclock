@@ -38,8 +38,7 @@ class ComponentState extends State<Component>{
   }
 } 
 mixin ComponentBuild<Parent extends Component>
-{//<Contenttype>{
-  //bool built=false;
+{
   Parent get widget;
   BuildContext get context;
   Widget component_build(Widget child) {
@@ -64,7 +63,4 @@ mixin ComponentBuild<Parent extends Component>
       )
     );
   }
-  //Widget component_build(BuildContext context){
-  //  return Container();
-  //}
 }

@@ -25,10 +25,9 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
         key:const Key("0"),
         config: widget.componentconfig!,
         configMenu:(){},
-        //cconf: const Clockconfig.dark(),
+
       );
-      
-      //case(ConfigureComponent):return ConfigureComponent();
+
       default:return Container();
     }
   }
@@ -99,7 +98,6 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
         Widget Configitem=showComponent();
         print("$widget.componentconfig,asd");
         frontmenu =
-          //SizedBox.expand(child:
           Row(
           children: [
               showComponent(),
@@ -129,10 +127,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
         }
       returnStack.add(SizedBox.expand(child:Container(
         alignment: Alignment.center,
-        child: frontmenu//Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
-          //children: menutext,
-          //))
+        child: frontmenu
           )));
     }
     // Button in upper left corner to open and close menu

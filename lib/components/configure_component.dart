@@ -25,7 +25,6 @@ class ConfigureComponent extends Component
   final Function resizeWidget;
   final Function replaceChildren;
   final Function parentConfigMenu;
-  //final Key identifier;
   @override
   ConfigureComponentState createState() => ConfigureComponentState();
 }
@@ -62,7 +61,6 @@ enum Components { nothing, clock, note, scaffholding }
         {
           newwidget = Scaffholding(key:GlobalKey(),
             config:ComponentConfig(Theme.of(context),widget.config.flex,ScaffholdingConfig,Scaffholding),
-            //config:widget.config,
               direction: _horizontal, subcontainers: asubchildren.round(),showlines:false,
               parentConfigMenu: widget.parentConfigMenu,notconfigMenu: (){});
           break;

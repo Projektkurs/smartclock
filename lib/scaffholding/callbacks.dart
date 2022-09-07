@@ -27,11 +27,9 @@ mixin callbacks
     return 0;
   }
   //todo:update for loops to account RL / Comp 
-  //ConfigMenu
   ConfigMenu(Key key, Type type,ComponentConfig config)
   {
     ConfigMenuParse([key], type, config);
-    //ConfigMenuParse([key], type, config);
   }
   ConfigMenuParse(List<Key> key, Type type,ComponentConfig config){
     assert(widget.key!=null);
