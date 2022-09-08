@@ -154,10 +154,10 @@ enum Components { nothing, clock, note, scaffholding }
         ), // end Radio to select component
         const Text('number subchildren'),
         Slider(
-            //key: UniqueKey(),
             value: asubchildren,
             max: 6,
-            divisions: 6,
+            min: 2,
+            divisions: 4,
             label: '${asubchildren.round()}',
             onChanged: (double value) {
               setState(() => asubchildren = value);

@@ -100,7 +100,7 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
         ));
       }
     if(widget.subcontainers*2-1 < childs.length)
-      childs.removeRange(widget.subcontainers*2-1, childs.length);
+      childs.removeRange(max(widget.subcontainers*2-1,0), childs.length);
     
 
     //immitation start componentbuild

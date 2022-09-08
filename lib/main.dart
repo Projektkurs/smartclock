@@ -55,7 +55,7 @@ class AppState extends State<App>
   _addContainer() {setState(() {
     _maincontainers<6 ? _maincontainers++: null;});}
   _removeContainer() {setState(() {
-    _maincontainers>0 ? _maincontainers--: null ;});}
+    _maincontainers>1 ? _maincontainers--: null ;});}
 
   //changes variable "enabled" of every resizeline  -> see resizeline.dart
   bool _showlines=false;
