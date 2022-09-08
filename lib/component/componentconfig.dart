@@ -11,6 +11,7 @@ class ComponentConfig<ContentType>{
     int flex;
     ContentType config;
     Type type;
+    Function? setState;
   }
 
 class ScaffholdingConfig{

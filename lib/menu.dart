@@ -18,19 +18,49 @@ class Menu extends StatefulWidget
 
 class MenuState extends State<Menu> with SingleTickerProviderStateMixin 
 {
+  bool _emptyVal=false;
   Widget showComponent(){
     print("showComponent");
     switch(widget.componenttype){
-      case(Clock):print("$widget.componenttype");return Clock(
+      case(Clock):print("$widget.componenttype");
+      return  Row(
+          children: [
+              Clock(
         key:const Key("0"),
         config: widget.componentconfig!,
-        configMenu:(){},
-
-      );
-
+        configMenu:(){},),
+            Expanded(
+            flex:widget.componentconfig!.flex,
+            child:
+              SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          const Text('darkmode'),
+          Switch(
+            onChanged: (bool value) {
+              setState(()  {_darkmode = value;
+              if(_darkmode && widget.componentconfig!.config.runtimeType==Clockconfig){
+                print("asdfg");
+                (widget.componentconfig! as ComponentConfig<Clockconfig>).config=const Clockconfig.dark();//=Clockconfig.dark;
+              }else{
+                (widget.componentconfig! as ComponentConfig<Clockconfig>).config=const Clockconfig();
+              }
+              });
+            },
+            value: _darkmode,
+          )
+        ])))
+        ]);
+      case(EmptyComponent): 
+        return Switch(onChanged: (bool val){
+          _emptyVal=true;
+          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).config.replacement=Clock(key: GlobalKey(), config: ComponentConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
+          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).config.apply=true;
+          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).config.replace!();
+        },
+        
+        value:_emptyVal);
       default:return Container();
     }
-  }
+    }
   MenuState({Key? key, this.function});
   Function? function;
   late AnimationController _animationController;
@@ -101,30 +131,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
       if(widget.componentconfig!=null){
         Widget Configitem=showComponent();
         print("$widget.componentconfig,asd");
-        frontmenu =
-          Row(
-          children: [
-              showComponent(),
-            Expanded(
-            flex:widget.componentconfig!.flex,
-            child:
-              SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('darkmode'),
-          Switch(
-            onChanged: (bool value) {
-              setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.config.runtimeType==Clockconfig){
-                print("asdfg");
-                (widget.componentconfig! as ComponentConfig<Clockconfig>).config=const Clockconfig.dark();//=Clockconfig.dark;
-              }else{
-                (widget.componentconfig! as ComponentConfig<Clockconfig>).config=const Clockconfig();
-              }
-              });
-            },
-            value: _darkmode,
-          )
-        ])))
-        ]);
+        frontmenu = showComponent();
           
     
         

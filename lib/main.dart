@@ -63,6 +63,10 @@ class AppState extends State<App>
     _showlines=!_showlines;
   });}
 
+  //editing mode
+  bool _editmode=false;
+
+
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
   final GlobalKey<ScaffholdingState> scaffholdingkey=GlobalKey();
@@ -77,17 +81,26 @@ class AppState extends State<App>
           children: <Widget>[
             ListTile(
               leading: const Icon(Icons.add),
-              title: Text('add Container'),
+              title: const Text('add Container'),
               onTap: _addContainer,
             ),
             ListTile(
               leading: const Icon(Icons.remove),
-              title: Text('remove Container'),
+              title: const Text('remove Container'),
               onTap: _removeContainer,
             ),
             ListTile(
+              leading: const Icon(Icons.edit),
+              title: Text('editmode'),
+              trailing: Switch(
+                onChanged: (bool val){Navigator.of(context).pop();},
+                value: _editmode,),
+              onTap: (){setState((){_editmode=!_editmode;});
+              Navigator.of(context).pop();}
+            ),
+            ListTile(
               leading: const Icon(Icons.view_array_outlined),
-              title: Text('resize widgets'),
+              title: const Text('resize widgets'),
               onTap: () {
                 _updatelines();
                 Navigator.of(context).pop();
@@ -95,7 +108,7 @@ class AppState extends State<App>
             ),
             ListTile(
               leading: const Icon(Icons.settings),
-              title: Text('Settings'),
+              title: const  Text('Settings'),
               onTap: () => {Navigator.of(context).pop()},
             ),
           ],

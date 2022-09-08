@@ -90,8 +90,11 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
             direction: widget.direction,
             resizefromline: resizefromline));
         }      
-        childs.add(ConfigureComponent(
-          config: widget.config,
+        ComponentConfig<EmptyComponentConfig> tmpconf=ComponentConfig(widget.config.theme, widget.config.flex, EmptyComponentConfig(), EmptyComponent);
+
+        childs.add(EmptyComponent(
+          //config: widget.config,
+          config:tmpconf,
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,

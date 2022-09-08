@@ -32,7 +32,7 @@ class ConfigureComponent extends Component
 enum Components { nothing, clock, note, scaffholding }
 
 @override
- class ConfigureComponentState extends State<ConfigureComponent> with ComponentBuild<ConfigureComponent>
+class ConfigureComponentState extends State<ConfigureComponent> with ComponentBuild<ConfigureComponent>
 { 
   double asubchildren = 3;
   bool _horizontal = true;
@@ -67,7 +67,7 @@ enum Components { nothing, clock, note, scaffholding }
         }
       case Components.clock:
         {
-          ComponentConfig<Clockconfig> newconfig=ComponentConfig<Clockconfig>(widget.config.theme, widget.config.flex,new Clockconfig(), Clock);
+          ComponentConfig<Clockconfig> newconfig=ComponentConfig<Clockconfig>(widget.config.theme, widget.config.flex,const Clockconfig(), Clock);
           newwidget = Clock(
             key:UniqueKey(),
             config: newconfig,

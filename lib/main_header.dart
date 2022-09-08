@@ -18,3 +18,7 @@ export 'component/component.dart';
 // components
 export 'components/clock.dart';
 export 'components/configure_component.dart';
+export 'components/empty_component.dart';
+
+// component configs
+export 'component/configs/empty_component-config.dart';
