@@ -6,10 +6,10 @@
 import '../main_header.dart';
 
 class ComponentConfig<ContentType>{
-    ComponentConfig(this.theme,this.flex,this.config,this.type);
+    ComponentConfig(this.theme,this.flex,this.cconfig,this.type);
     ThemeData theme; 
     int flex;
-    ContentType config;
+    ContentType cconfig;
     Type type;
     Function? setState;
   }

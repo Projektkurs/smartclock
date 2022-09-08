@@ -83,17 +83,17 @@ class Clock extends Component
   final DateTime? datetime;
   final bool isLive;
   //final Clockconfig cconf;
-  final ComponentConfig config;
+  final ComponentConfig gconfig;
   Function configMenu;
    Clock({
     required Key key,
-    required this.config,
+    required this.gconfig,
     //required this.cconf,
     this.datetime,
     required this.configMenu,
     isLive,
   })  : isLive = isLive ?? (datetime == null),
-        super(key: key,config:config,configMenu: configMenu){print(this.runtimeType);}
+        super(key: key,gconfig:gconfig,configMenu: configMenu){print(this.runtimeType);}
 
   @override
   State<Clock> createState() =>
@@ -136,7 +136,7 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
             child: CustomPaint(
                 size: const Size(double.infinity, double.infinity),
                 painter:
-                    ClockPainter(cconf: (widget.config.config as Clockconfig), datetime: datetime)))));
+                    ClockPainter(cconf: (widget.gconfig.cconfig as Clockconfig), datetime: datetime)))));
   }
 }
 

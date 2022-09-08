@@ -13,15 +13,15 @@ class Scaffholding extends Component
   Scaffholding(
       {required Key key,
       this.title,
-      required this.config,
+      required this.gconfig,
       required this.direction, //false=vertical, true=horizontal
       required this.showlines,
       required this.subcontainers,
       required this.parentConfigMenu,
       required this.notconfigMenu}) //number of subcontainers
-      : super(key: key,config:config,configMenu:notconfigMenu);
+      : super(key: key,gconfig:gconfig,configMenu:notconfigMenu);
   Function notconfigMenu=(){};
-  ComponentConfig config;
+  ComponentConfig gconfig;
   bool showlines;
   final String? title;
   final bool direction;
@@ -57,7 +57,7 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
   Widget build(BuildContext context) 
   {
     return Expanded(
-        flex: widget.config.flex,
+        flex: widget.gconfig.flex,
         child: Container(
         alignment: Alignment.center,
         child:LayoutBuilder(builder:(BuildContext context, BoxConstraints constraints){
@@ -90,11 +90,11 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
             direction: widget.direction,
             resizefromline: resizefromline));
         }      
-        ComponentConfig<EmptyComponentConfig> tmpconf=ComponentConfig(widget.config.theme, widget.config.flex, EmptyComponentConfig(), EmptyComponent);
+        ComponentConfig<EmptyComponentConfig> tmpconf=ComponentConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), EmptyComponent);
 
         childs.add(EmptyComponent(
           //config: widget.config,
-          config:tmpconf,
+          gconfig:tmpconf,
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,

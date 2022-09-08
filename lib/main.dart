@@ -119,7 +119,7 @@ class AppState extends State<App>
           // menu laying on top of the main Scaffholding
           Flex(direction: Axis.horizontal,
             children: [Scaffholding(key:scaffholdingkey,
-              config:ComponentConfig<ScaffholdingConfig>(
+              gconfig:ComponentConfig<ScaffholdingConfig>(
                 Theme.of(context),
                 2<<40,//arbitrary value for flex 
                 //should be high as to have many to have smooth transition

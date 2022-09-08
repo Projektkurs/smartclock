@@ -27,7 +27,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
           children: [
               Clock(
         key:const Key("0"),
-        config: widget.componentconfig!,
+        gconfig: widget.componentconfig!,
         configMenu:(){},),
             Expanded(
             flex:widget.componentconfig!.flex,
@@ -37,11 +37,11 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
           Switch(
             onChanged: (bool value) {
               setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.config.runtimeType==Clockconfig){
+              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==Clockconfig){
                 print("asdfg");
-                (widget.componentconfig! as ComponentConfig<Clockconfig>).config=const Clockconfig.dark();//=Clockconfig.dark;
+                (widget.componentconfig! as ComponentConfig<Clockconfig>).cconfig=const Clockconfig.dark();//=Clockconfig.dark;
               }else{
-                (widget.componentconfig! as ComponentConfig<Clockconfig>).config=const Clockconfig();
+                (widget.componentconfig! as ComponentConfig<Clockconfig>).cconfig=const Clockconfig();
               }
               });
             },
@@ -52,9 +52,9 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
       case(EmptyComponent): 
         return Switch(onChanged: (bool val){
           _emptyVal=true;
-          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).config.replacement=Clock(key: GlobalKey(), config: ComponentConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
-          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).config.apply=true;
-          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).config.replace!();
+          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: GlobalKey(), gconfig: ComponentConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
+          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).cconfig.apply=true;
+          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).cconfig.replace!();
         },
         
         value:_emptyVal);

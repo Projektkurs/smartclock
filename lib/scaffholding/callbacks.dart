@@ -72,15 +72,15 @@ mixin callbacks
         -(childs.length-1)*resizeline_width;
       double totalflex=0;
       for(int n=0;n<widget.subcontainers;n++){
-        totalflex+=(childs[n*2] as Component).config.flex;
+        totalflex+=(childs[n*2] as Component).gconfig.flex;
       }
       int flexdif=(totalflex*(length/width)).floor();
       setState(() {
         (childs[caller-1] as Component).child.setState(() {
-          (childs[caller-1] as Component)..config.flex+=flexdif;
+          (childs[caller-1] as Component)..gconfig.flex+=flexdif;
         });
         (childs[caller+1] as Component).child.setState(() {
-          (childs[caller+1] as Component).config..flex-=flexdif;
+          (childs[caller+1] as Component).gconfig..flex-=flexdif;
         });
       });
     }//todo: do future call with delay so it will be built eventually

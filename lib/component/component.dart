@@ -6,9 +6,9 @@
 import '../main_header.dart';
 
 class Component extends StatefulWidget {
-    Component({required Key key,required this.config,  required this.configMenu}): super(key: key);
+    Component({required Key key,required this.gconfig,  required this.configMenu}): super(key: key);
   Function configMenu;
-  ComponentConfig config;  //int flex;
+  ComponentConfig gconfig;
   State child=ComponentState();
   bool built=false;
   changeflex(){}
@@ -20,7 +20,7 @@ class ComponentState extends State<Component>{
     @override 
   Widget build(BuildContext context) {
     return Expanded(
-          flex: widget.config.flex,
+          flex: widget.gconfig.flex,
           child:  Container(
       alignment: Alignment.center,
       // 5px and 20px should be changed to a value relative to screen size 
@@ -46,11 +46,11 @@ mixin ComponentBuild<Parent extends Component>
     widget.built=true;
     return
     Expanded(
-          flex: widget.config.flex,
+          flex: widget.gconfig.flex,
           child: 
           GestureDetector(
       onDoubleTap:
-        (){widget.configMenu(widget.key!,Parent,widget.config);},
+        (){widget.configMenu(widget.key!,Parent,widget.gconfig);},
       child:Container(
       alignment: Alignment.center,
       // 5px and 20px should be changed to a value relative to screen size 

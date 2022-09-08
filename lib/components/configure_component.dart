@@ -13,15 +13,15 @@ class ConfigureComponent extends Component
   @override
   ConfigureComponent(
     {required Key key,
-    required this.config,
+    required this.gconfig,
     required this.resizeWidget,
     required this.replaceChildren,
     required this.parentConfigMenu,
     required this.configMenu,
     })
-    : super(key: key,config:config,configMenu:configMenu);
+    : super(key: key,gconfig:gconfig,configMenu:configMenu);
   final Function configMenu;
-  final ComponentConfig config;
+  final ComponentConfig gconfig;
   final Function resizeWidget;
   final Function replaceChildren;
   final Function parentConfigMenu;
@@ -60,20 +60,20 @@ class ConfigureComponentState extends State<ConfigureComponent> with ComponentBu
       case Components.scaffholding:
         {
           newwidget = Scaffholding(key:GlobalKey(),
-            config:ComponentConfig(Theme.of(context),widget.config.flex,ScaffholdingConfig,Scaffholding),
+            gconfig:ComponentConfig(Theme.of(context),widget.gconfig.flex,ScaffholdingConfig,Scaffholding),
               direction: _horizontal, subcontainers: asubchildren.round(),showlines:false,
               parentConfigMenu: widget.parentConfigMenu,notconfigMenu: (){});
           break;
         }
       case Components.clock:
         {
-          ComponentConfig<Clockconfig> newconfig=ComponentConfig<Clockconfig>(widget.config.theme, widget.config.flex,const Clockconfig(), Clock);
+          ComponentConfig<Clockconfig> newconfig=ComponentConfig<Clockconfig>(widget.gconfig.theme, widget.gconfig.flex,const Clockconfig(), Clock);
           newwidget = Clock(
             key:UniqueKey(),
-            config: newconfig,
+            gconfig: newconfig,
             configMenu: widget.configMenu,);
           break;
-        }
+        } 
       case Components.note:
         {
           final controller = TextEditingController();
@@ -99,7 +99,7 @@ class ConfigureComponentState extends State<ConfigureComponent> with ComponentBu
       widget.child=this;
       //built=true;
       widget.built=true;
-      int tmp=widget.config.flex;
+      int tmp=widget.gconfig.flex;
       return component_build(Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: <Widget>[
