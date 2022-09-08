@@ -9,7 +9,7 @@ class Menu extends StatefulWidget
 {
   Menu({Key? key, this.function}) : super(key: key);
   Type componenttype=Container;
-  ComponentConfig? componentconfig;
+  GeneralConfig? componentconfig;
   Function? function;
   Function openMenu= (){};
   @override
@@ -38,10 +38,9 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
             onChanged: (bool value) {
               setState(()  {_darkmode = value;
               if(_darkmode && widget.componentconfig!.cconfig.runtimeType==Clockconfig){
-                print("asdfg");
-                (widget.componentconfig! as ComponentConfig<Clockconfig>).cconfig=const Clockconfig.dark();//=Clockconfig.dark;
+                (widget.componentconfig! as GeneralConfig<Clockconfig>).cconfig=const Clockconfig.dark();
               }else{
-                (widget.componentconfig! as ComponentConfig<Clockconfig>).cconfig=const Clockconfig();
+                (widget.componentconfig! as GeneralConfig<Clockconfig>).cconfig=const Clockconfig();
               }
               });
             },
@@ -52,9 +51,9 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
       case(EmptyComponent): 
         return Switch(onChanged: (bool val){
           _emptyVal=true;
-          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: GlobalKey(), gconfig: ComponentConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
-          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).cconfig.apply=true;
-          (widget.componentconfig! as ComponentConfig<EmptyComponentConfig>).cconfig.replace!();
+          (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: GlobalKey(), gconfig: GeneralConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
+          (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.apply=true;
+          (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replace!();
         },
         
         value:_emptyVal);

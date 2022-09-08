@@ -18,10 +18,11 @@ class Scaffholding extends Component
       required this.showlines,
       required this.subcontainers,
       required this.parentConfigMenu,
-      required this.notconfigMenu}) //number of subcontainers
-      : super(key: key,gconfig:gconfig,configMenu:notconfigMenu);
-  Function notconfigMenu=(){};
-  ComponentConfig gconfig;
+      required this.configMenu}) //number of subcontainers
+      : super(key: key,gconfig:gconfig,configMenu: configMenu);
+  
+  final Function configMenu;
+  GeneralConfig gconfig;
   bool showlines;
   final String? title;
   final bool direction;
@@ -72,7 +73,7 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
           });
         }
         else if(childs[i].runtimeType==Scaffholding && (childs[i] as Scaffholding).built){
-          (childs[i] as Scaffholding).child.setState(() {
+          (childs[i] as Scaffholding).setState!(() {
             (childs[i] as Scaffholding).showlines=widget.showlines;
           });
         }
@@ -90,7 +91,7 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
             direction: widget.direction,
             resizefromline: resizefromline));
         }      
-        ComponentConfig<EmptyComponentConfig> tmpconf=ComponentConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), EmptyComponent);
+        GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), EmptyComponent);
 
         childs.add(EmptyComponent(
           //config: widget.config,
@@ -98,8 +99,9 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,
-          parentConfigMenu: ConfigMenuParse,
-          configMenu: ConfigMenu,
+          //parentConfigMenu: ConfigMenuParse,
+          //configMenu: ConfigMenu,
+          configMenu: widget.configMenu,
         ));
       }
     if(widget.subcontainers*2-1 < childs.length)
@@ -107,7 +109,6 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
     
 
     //immitation start componentbuild
-    widget.child=this;
     widget.built=true;
 
     if(widget.direction)

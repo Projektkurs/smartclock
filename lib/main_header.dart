@@ -13,12 +13,12 @@ export 'scaffholding/scaffholding.dart';
 export 'menu.dart';
 
 //component
-export 'component/componentconfig.dart';
+export 'component/generalconfig.dart';
 export 'component/component.dart';
 // components
 export 'components/clock.dart';
-export 'components/configure_component.dart';
 export 'components/empty_component.dart';
 
 // component configs
-export 'component/configs/empty_component-config.dart';
+export 'component/configs/clock_config.dart';
+export 'component/configs/empty_component_config.dart';

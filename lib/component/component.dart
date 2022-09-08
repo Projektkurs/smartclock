@@ -6,12 +6,16 @@
 import '../main_header.dart';
 
 class Component extends StatefulWidget {
-    Component({required Key key,required this.gconfig,  required this.configMenu}): super(key: key);
+  Component({
+    required Key key,
+    required this.gconfig,
+    required this.configMenu
+  }): super(key: key);
+  //todo: configMenu should be final
   Function configMenu;
-  ComponentConfig gconfig;
-  State child=ComponentState();
+  GeneralConfig gconfig;
   bool built=false;
-  changeflex(){}
+  Function? setState;
   @override
   State<Component> createState() => ComponentState();
 }
@@ -39,18 +43,23 @@ class ComponentState extends State<Component>{
 } 
 mixin ComponentBuild<Parent extends Component>
 {
+  //constructor cannot be used as setState will not have been declared at that time
+  bool firstbuild=true;
+  defaultfirstbuild(){
+    widget.built=true;
+    widget.setState=setState;
+    firstbuild=false;
+  }
   Parent get widget;
   BuildContext get context;
+  void setState(VoidCallback fn);
   Widget component_build(Widget child) {
-    widget.child=(this as State);
-    widget.built=true;
-    return
-    Expanded(
+    return Expanded(
           flex: widget.gconfig.flex,
           child: 
           GestureDetector(
       onDoubleTap:
-        (){widget.configMenu(widget.key!,Parent,widget.gconfig);},
+        (){widget.configMenu([widget.key!],Parent,widget.gconfig);},
       child:Container(
       alignment: Alignment.center,
       // 5px and 20px should be changed to a value relative to screen size 

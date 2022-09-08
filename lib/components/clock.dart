@@ -5,77 +5,8 @@
  * TODO: making (some) parameters not mandatory
 */
 
-import '../main_header.dart';
+import 'package:smartclock/main_header.dart';
 
-class Clockconfig
-{
-  final bool digital;
-
-  final double secLength1;
-  final double secLength2;
-  final double minLength1;
-  final double minLength2;
-  final double hourLength1;
-  final double hourLength2;
-
-  //colors
-  final Color backgroundColor;
-  final Color outlineColor;
-  final Color hourColor;
-  final Color minColor;
-  final Color secColor;
-
-  final Color indicatorColor;
-
-    const Clockconfig({
-    this.digital = false,
-    this.indicatorColor = const Color(0xFF000000),
-    this.outlineColor = const Color(0xFF000000),
-    this.minColor = const Color(0xFF000000),
-    this.hourColor = const Color(0xFF000000),
-    this.backgroundColor = const Color(0xEE9EA4C0),
-    this.secColor = const Color(0xFFFF0000),
-    this.secLength1 = 0.4,
-    this.secLength2 = 0.9,
-    this.minLength1 = 0.18,
-    this.minLength2 = 0.9,
-    this.hourLength1 = 0.18,
-    this.hourLength2 = 0.7,
-  });
-
-  const Clockconfig.dark({
-    this.digital = false,
-    this.indicatorColor = const Color(0xFFFFFFFF),
-    this.outlineColor = const Color(0x00000000),
-    this.minColor = const Color(0xFFFFFFFF),
-    this.hourColor = const Color(0xFFFFFFFF),
-    this.backgroundColor = const Color(0xFF000000),
-    this.secColor = const Color(0xFFFF0000),
-    this.secLength1 = 0,
-    this.secLength2 = 0.9,
-    this.minLength1 = 0,
-    this.minLength2 = 0.9,
-    this.hourLength1 = 0,
-    this.hourLength2 = 0.7,
-  });
-
-  ///The default digitalclock
-  const Clockconfig.digital({
-    this.digital = true,
-    this.indicatorColor = const Color(0x00000000),
-    this.outlineColor = const Color(0x00000000),
-    this.minColor = const Color(0x00000000),
-    this.hourColor = const Color(0x00000000),
-    this.backgroundColor = const Color(0xFF8D8D8D),
-    this.secColor = const Color(0x00000000),
-    this.secLength1 = 0,
-    this.secLength2 = 0,
-    this.minLength1 = 0,
-    this.minLength2 = 0,
-    this.hourLength1 = 0,
-    this.hourLength2 = 0,
-  });
-}
 
 // Creates an analog or digital clock
 class Clock extends Component
@@ -83,7 +14,7 @@ class Clock extends Component
   final DateTime? datetime;
   final bool isLive;
   //final Clockconfig cconf;
-  final ComponentConfig gconfig;
+  final GeneralConfig gconfig;
   Function configMenu;
    Clock({
     required Key key,
@@ -108,7 +39,6 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
   _AnalogClockState(datetime)
       : datetime = datetime ?? DateTime.now(),
         initialDatetime = datetime ?? DateTime.now();
-
   @override
   initState()
   {
@@ -127,9 +57,13 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
     }
   }
 
+
   @override
   Widget build(BuildContext context)
   {
+    if(firstbuild){
+      defaultfirstbuild();
+    }
     return component_build(Container(
         constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
         child: Center(

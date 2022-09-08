@@ -26,18 +26,6 @@ mixin callbacks
     //return 0 to not crash the program 
     return 0;
   }
-  //todo:update for loops to account RL / Comp 
-  ConfigMenu(Key key, Type type,ComponentConfig config)
-  {
-    ConfigMenuParse([key], type, config);
-  }
-  ConfigMenuParse(List<Key> key, Type type,ComponentConfig config){
-    assert(widget.key!=null);
-    if(widget.key==null) throw Exception("test");
-    //widget.parentConfigMenu([key,widget.key!], type, config)
-    key.add(widget.key!);
-    widget.parentConfigMenu(key, type, config);
-  }
   //Key used so children can replace themselves without needing to know their relative position.
   resizeWidget(Key key, int width) 
   {
@@ -76,10 +64,10 @@ mixin callbacks
       }
       int flexdif=(totalflex*(length/width)).floor();
       setState(() {
-        (childs[caller-1] as Component).child.setState(() {
-          (childs[caller-1] as Component)..gconfig.flex+=flexdif;
+        (childs[caller-1] as Component).setState!(() {
+          (childs[caller-1] as Component).gconfig.flex+=flexdif;
         });
-        (childs[caller+1] as Component).child.setState(() {
+        (childs[caller+1] as Component).setState!(() {
           (childs[caller+1] as Component).gconfig..flex-=flexdif;
         });
       });

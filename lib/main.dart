@@ -44,7 +44,7 @@ class AppState extends State<App>
   late Menu menu=Menu(function: _addContainer);
 
   //own method to parse up a config to be configured by menu
-  configMenuMainParse(List<Key> key,Type type,ComponentConfig config){
+  configMenuMainParse(List<Key> key,Type type,GeneralConfig config){
     menu.componenttype=type;
     menu.componentconfig=config;
     menu.openMenu(1);
@@ -119,12 +119,12 @@ class AppState extends State<App>
           // menu laying on top of the main Scaffholding
           Flex(direction: Axis.horizontal,
             children: [Scaffholding(key:scaffholdingkey,
-              gconfig:ComponentConfig<ScaffholdingConfig>(
+              gconfig:GeneralConfig<EmptyConfig>(
                 Theme.of(context),
                 2<<40,//arbitrary value for flex 
                 //should be high as to have many to have smooth transition
-                ScaffholdingConfig(),
-                Scaffholding) ,notconfigMenu: (){},
+                EmptyConfig(),
+                Scaffholding) ,configMenu: configMenuMainParse,
             direction: true, subcontainers: _maincontainers,showlines:_showlines,
             parentConfigMenu: configMenuMainParse)]),
           menu
