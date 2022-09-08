@@ -7,7 +7,7 @@ import '../main_header.dart';
 
 class Component extends StatefulWidget {
     Component({required Key key,required this.config,  required this.configMenu}): super(key: key);
-  final Function configMenu;
+  Function configMenu;
   ComponentConfig config;  //int flex;
   State child=ComponentState();
   bool built=false;

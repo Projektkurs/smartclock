@@ -31,6 +31,7 @@ class EmptyComponent extends Component
 class EmptyComponentState extends State<EmptyComponent> with ComponentBuild<EmptyComponent>
 {
   replace(){
+    (widget.config.config.replacement as Component).configMenu=widget.configMenu;
     widget.replaceChildren(widget.key, widget.config.config.replacement);
   }
   @override

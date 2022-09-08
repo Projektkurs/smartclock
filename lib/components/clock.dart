@@ -84,7 +84,7 @@ class Clock extends Component
   final bool isLive;
   //final Clockconfig cconf;
   final ComponentConfig config;
-  final Function configMenu;
+  Function configMenu;
    Clock({
     required Key key,
     required this.config,
