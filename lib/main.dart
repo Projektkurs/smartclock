@@ -65,11 +65,42 @@ class AppState extends State<App>
 
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
-  final Key scaffholdingkey=GlobalKey();
+  final GlobalKey<ScaffholdingState> scaffholdingkey=GlobalKey();
+  final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
   @override
   Widget build(BuildContext context) 
   {
     return Scaffold(
+      key:scaffoldkey,
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.add),
+              title: Text('add Container'),
+              onTap: _addContainer,
+            ),
+            ListTile(
+              leading: const Icon(Icons.remove),
+              title: Text('remove Container'),
+              onTap: _removeContainer,
+            ),
+            ListTile(
+              leading: const Icon(Icons.view_array_outlined),
+              title: Text('resize widgets'),
+              onTap: () {
+                _updatelines();
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: Text('Settings'),
+              onTap: () => {Navigator.of(context).pop()},
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Stack(children: [
           // menu laying on top of the main Scaffholding
@@ -94,25 +125,11 @@ class AppState extends State<App>
         children: <Widget>[
           Flexible(
             child: FloatingActionButton(
-              onPressed: _updatelines,
-              tooltip: 'lines',
-              child: const Icon(Icons.add),
+              onPressed: () => scaffoldkey.currentState!.openDrawer(),
+              tooltip: 'menu',
+              child: const Icon(Icons.menu),
             )
           ),
-          Flexible(
-            child: FloatingActionButton(
-              onPressed: _addContainer,
-              tooltip: 'Increment',
-              child: const Icon(Icons.add),
-            )
-          ),
-          Flexible(
-            child: FloatingActionButton(
-              onPressed: _removeContainer,
-              tooltip: 'Decrement',
-              child: const Icon(Icons.remove),
-            )
-          )
         ]
       )//end: Buttons
     ); 
