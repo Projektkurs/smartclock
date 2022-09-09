@@ -38,8 +38,8 @@ class EmptyState extends State<Empty> with ComponentBuild<Empty>
     }
     //widget.config.config.setState=setState;
     if(widget.gconfig.cconfig.apply){
-      print("apply");
+      debugPrint("apply");
     }
-    return component_build(const SizedBox.expand());
+    return componentbuild(const SizedBox.expand());
   }
 }

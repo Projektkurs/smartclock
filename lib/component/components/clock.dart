@@ -22,20 +22,21 @@ class Clock extends Component
     required configMenu,
     isLive,
   })  : isLive = isLive ?? (datetime == null),
-        super(key: key,gconfig:gconfig,configMenu: configMenu){print(this.runtimeType);}
+        super(key: key,gconfig:gconfig,configMenu: configMenu);
 
   @override
-  State<Clock> createState() => _AnalogClockState(datetime); //todo: outsource logic
+  State<Clock> createState() => _AnalogClockState(); //todo: outsource logic
 }
 
 class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
 {
-  DateTime initialDatetime; // to keep track of time changes
-  DateTime datetime;
+  late DateTime initialDatetime; // to keep track of time changes
+  late DateTime datetime;
   Duration updateDuration = const Duration(seconds: 1); // repaint frequency
-  _AnalogClockState(datetime)
-      : datetime = datetime ?? DateTime.now(),
-        initialDatetime = datetime ?? DateTime.now();
+  _AnalogClockState(){
+    datetime = widget.datetime ?? DateTime.now();
+    initialDatetime = widget.datetime ?? DateTime.now();
+  }
   @override
   initState()
   {
@@ -61,7 +62,7 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
     if(firstbuild){
       defaultfirstbuild();
     }
-    return component_build(Container(
+    return componentbuild(Container(
         constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
         child: Center(
             child: CustomPaint(

@@ -16,6 +16,7 @@ class ExampleComponent extends Component
     required configMenu,
     })
     : super(key: key,gconfig:gconfig,configMenu:configMenu);
+  @override 
   final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   @override
@@ -29,7 +30,7 @@ class ExampleComponentState extends State<ExampleComponent> with ComponentBuild<
     if(firstbuild){
       defaultfirstbuild();
     }
-    return component_build(Container(
+    return componentbuild(Container(
       color: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
       child:const SizedBox.expand())
     );

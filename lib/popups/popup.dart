@@ -20,9 +20,9 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
 {
   bool _emptyVal=false;
   Widget showComponent(){
-    print("showComponent");
+    debugPrint("showComponent");
     switch(widget.componenttype){
-      case(Clock):print("$widget.componenttype");
+      case(Clock):debugPrint("$widget.componenttype");
       return  Row(
           children: [
               Clock(

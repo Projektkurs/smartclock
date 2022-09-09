@@ -33,13 +33,11 @@ class ComponentState extends State<Component>{
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
-      child: SizedBox.expand(child:component_build(context)),
+      child: SizedBox.expand(child:Container()),
     )
       );
   }
-  Widget component_build(BuildContext context){
-    return Container();
-  }
+
 } 
 mixin ComponentBuild<Parent extends Component>
 {
@@ -53,7 +51,7 @@ mixin ComponentBuild<Parent extends Component>
   Parent get widget;
   BuildContext get context;
   void setState(VoidCallback fn);
-  Widget component_build(Widget child) {
+  Widget componentbuild(Widget child) {
     return Expanded(
       flex: widget.gconfig.flex,
       child:LayoutBuilder(builder:(BuildContext context, BoxConstraints constraints)
