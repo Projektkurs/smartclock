@@ -14,7 +14,6 @@ class Clock extends Component
   final DateTime? datetime;
   final bool isLive;
   @override
-
    Clock({
     required Key key,
     required gconfig,
@@ -33,10 +32,7 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
   late DateTime initialDatetime; // to keep track of time changes
   late DateTime datetime;
   Duration updateDuration = const Duration(seconds: 1); // repaint frequency
-  _AnalogClockState(){
-    datetime = widget.datetime ?? DateTime.now();
-    initialDatetime = widget.datetime ?? DateTime.now();
-  }
+  _AnalogClockState();
   @override
   initState()
   {
@@ -60,6 +56,8 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
   Widget build(BuildContext context)
   {
     if(firstbuild){
+      datetime = widget.datetime ?? DateTime.now();
+      initialDatetime = widget.datetime ?? DateTime.now();
       defaultfirstbuild();
     }
     return componentbuild(Container(

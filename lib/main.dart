@@ -41,7 +41,7 @@ class App extends StatefulWidget
 class AppState extends State<App> 
 {
   //main menu laying on top the top of Widget stack
-  late Popup menu=Popup(function: _addContainer);
+  late Popup menu=Popup();
 
   //own method to parse up a config to be configured by menu
   configMenuMainParse(List<Key> key,Type type,GeneralConfig config,double width,double height){

@@ -7,10 +7,9 @@ import '../main_header.dart';
 
 class Popup extends StatefulWidget 
 {
-  Popup({Key? key, this.function}) : super(key: key);
+  Popup({Key? key}) : super(key: key);
   Type componenttype=Container;
   GeneralConfig? componentconfig;
-  Function? function;
   Function openMenu= (){};
   @override
   State<Popup> createState() => PopupState();
@@ -60,8 +59,6 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
       default:return Container();
     }
     }
-  PopupState({Key? key, this.function});
-  Function? function;
   late AnimationController _animationController;
   Duration animationDuration = const Duration(milliseconds: 300);
   @override
