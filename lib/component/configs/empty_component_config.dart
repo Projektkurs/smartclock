@@ -9,7 +9,7 @@ class EmptyComponentConfig
 {
   int width=0;
   int height=0;
-  Component replacement=Component(key:const Key("0"), gconfig: GeneralConfig(ThemeData(), 0, EmptyConfig, Component), configMenu: (){});
+  late Component replacement;
   bool apply=false;
   Function? replace;
 

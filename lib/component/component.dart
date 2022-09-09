@@ -5,7 +5,7 @@
  */
 import '../main_header.dart';
 
-class Component extends StatefulWidget {
+abstract class Component extends StatefulWidget {
   Component({
     required Key key,
     required this.gconfig,

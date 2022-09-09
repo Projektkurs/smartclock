@@ -11,16 +11,15 @@ import 'resizeline.dart';
 class Scaffholding extends Component
 {
   Scaffholding(
-      {required Key key,
-      this.title,
-      required this.gconfig,
-      required this.direction, //false=vertical, true=horizontal
-      required this.showlines,
-      required this.subcontainers,
-      required this.parentConfigMenu,
-      required this.configMenu}) //number of subcontainers
-      : super(key: key,gconfig:gconfig,configMenu: configMenu);
-  
+    {required Key key,
+    this.title,
+    required this.gconfig,
+    required this.direction, //false=vertical, true=horizontal
+    required this.showlines,
+    required this.subcontainers,
+    required this.parentConfigMenu,
+    required this.configMenu}) //number of subcontainers
+  : super(key: key,gconfig:gconfig,configMenu: configMenu);
   final Function configMenu;
   GeneralConfig gconfig;
   bool showlines;
@@ -34,11 +33,10 @@ class Scaffholding extends Component
 
 class ScaffholdingState extends State<Scaffholding> with callbacks
 {
-
-   double resizeline_width=8.0;
+  final double resizelineWidth=8.0;
   List<Widget> childs = [];
   List<int> width = [];
-  BoxConstraints callconstraints=new BoxConstraints();
+  BoxConstraints callconstraints=const BoxConstraints();
   // returns the given Widget wraped into a box with rounded corners
   Widget containment(Widget n) 
   {
@@ -87,7 +85,7 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
             transparency: 1.0,
             enabled: widget.showlines,
             length: widget.direction ? constraints.maxHeight: constraints.maxWidth,
-            width: resizeline_width,
+            width: resizelineWidth,
             direction: widget.direction,
             resizefromline: resizefromline));
         }      
@@ -101,17 +99,19 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
           configMenu: widget.configMenu,
         ));
       }
-    if(widget.subcontainers*2-1 < childs.length)
+    if(widget.subcontainers*2-1 < childs.length){
       childs.removeRange(max(widget.subcontainers*2-1,0), childs.length);
-    
+    }
 
     //immitation start componentbuild
     widget.built=true;
 
-    if(widget.direction)
+    if(widget.direction){
       return Row(children: childs);
-    else
+    }
+    else{
       return Column(children: childs);
+    }
     })));
   }
 }

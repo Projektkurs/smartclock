@@ -91,7 +91,7 @@ class AppState extends State<App>
             ),
             ListTile(
               leading: const Icon(Icons.edit),
-              title: Text('editmode'),
+              title: const  Text('editmode'),
               trailing: Switch(
                 onChanged: (bool val){Navigator.of(context).pop();},
                 value: _editmode,),

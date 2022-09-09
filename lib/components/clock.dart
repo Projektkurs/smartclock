@@ -13,13 +13,12 @@ class Clock extends Component
 {
   final DateTime? datetime;
   final bool isLive;
-  //final Clockconfig cconf;
+  @override
   final GeneralConfig gconfig;
   Function configMenu;
    Clock({
     required Key key,
     required this.gconfig,
-    //required this.cconf,
     this.datetime,
     required this.configMenu,
     isLive,
@@ -27,8 +26,7 @@ class Clock extends Component
         super(key: key,gconfig:gconfig,configMenu: configMenu){print(this.runtimeType);}
 
   @override
-  State<Clock> createState() =>
-      _AnalogClockState(datetime); //todo: outsource logic
+  State<Clock> createState() => _AnalogClockState(datetime); //todo: outsource logic
 }
 
 class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>

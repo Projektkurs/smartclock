@@ -14,24 +14,20 @@ class EmptyComponent extends Component
     required this.gconfig,
     required this.resizeWidget,
     required this.replaceChildren,
-    //required this.parentConfigMenu,
     required this.configMenu,
     })
     : super(key: key,gconfig:gconfig,configMenu:configMenu);
   final Function configMenu;
-
   final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   final Function replaceChildren;
-  //final Function parentConfigMenu;
-  @override
   EmptyComponentState createState() => EmptyComponentState();
 }
 
 class EmptyComponentState extends State<EmptyComponent> with ComponentBuild<EmptyComponent>
 {
   replace(){
-    (widget.gconfig.cconfig.replacement as Component).configMenu=widget.configMenu;
+    widget.gconfig.cconfig.replacement.configMenu=widget.configMenu;
     widget.replaceChildren(widget.key, widget.gconfig.cconfig.replacement);
   }
   @override

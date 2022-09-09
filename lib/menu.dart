@@ -128,12 +128,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
       }
       frontmenu = Column(children: menutext);
       if(widget.componentconfig!=null){
-        Widget Configitem=showComponent();
-        print("$widget.componentconfig,asd");
         frontmenu = showComponent();
-          
-    
-        
         }
       returnStack.add(SizedBox.expand(child:Container(
         alignment: Alignment.center,

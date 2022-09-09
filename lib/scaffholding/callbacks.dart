@@ -3,17 +3,16 @@
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 
-import 'dart:io';
 import '../main_header.dart';
 import 'resizeline.dart';
 
 mixin callbacks 
-{//on ScaffholdingState{
+{
   late List<Widget> childs;
   Scaffholding get widget;
   late List<int> width;
   late BoxConstraints  callconstraints;
-  late double resizeline_width;
+  late double resizelineWidth;
   void setState(void Function() fn);
 
   int _caller(key)
@@ -40,8 +39,9 @@ mixin callbacks
   {
     //caller might not have recent information on showlines of main
     //scaffholding is guaranteed to have
-    if(newwidget.runtimeType==Scaffholding)
+    if(newwidget.runtimeType==Scaffholding){
       (newwidget as Scaffholding).showlines=widget.showlines;
+    }
     setState(() {
       childs[_caller(key)] = newwidget;
     });
@@ -57,7 +57,7 @@ mixin callbacks
       //pixels in main direction excluding ResizeLine which is not flex
       double width =
         widget.direction? callconstraints.maxWidth : callconstraints.maxHeight
-        -(childs.length-1)*resizeline_width;
+        -(childs.length-1)*resizelineWidth;
       double totalflex=0;
       for(int n=0;n<widget.subcontainers;n++){
         totalflex+=(childs[n*2] as Component).gconfig.flex;
@@ -68,7 +68,7 @@ mixin callbacks
           (childs[caller-1] as Component).gconfig.flex+=flexdif;
         });
         (childs[caller+1] as Component).setState!(() {
-          (childs[caller+1] as Component).gconfig..flex-=flexdif;
+          (childs[caller+1] as Component).gconfig.flex-=flexdif;
         });
       });
     }//todo: do future call with delay so it will be built eventually
