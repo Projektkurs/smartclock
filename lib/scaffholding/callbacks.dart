@@ -9,7 +9,7 @@ import 'resizeline.dart';
 mixin callbacks 
 {
   late List<Widget> childs;
-  Scaffholding get widget;
+  Scaffolding get widget;
   late List<int> width;
   late BoxConstraints  callconstraints;
   late double resizelineWidth;
@@ -39,8 +39,8 @@ mixin callbacks
   {
     //caller might not have recent information on showlines of main
     //scaffholding is guaranteed to have
-    if(newwidget.runtimeType==Scaffholding){
-      (newwidget as Scaffholding).showlines=widget.showlines;
+    if(newwidget.runtimeType==Scaffolding){
+      (newwidget as Scaffolding).showlines=widget.showlines;
     }
     setState(() {
       childs[_caller(key)] = newwidget;

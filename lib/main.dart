@@ -69,7 +69,7 @@ class AppState extends State<App>
 
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
-  final GlobalKey<ScaffholdingState> scaffholdingkey=GlobalKey();
+  final GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
   final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
   @override
   Widget build(BuildContext context) 
@@ -118,13 +118,13 @@ class AppState extends State<App>
         child: Stack(children: [
           // menu laying on top of the main Scaffholding
           Flex(direction: Axis.horizontal,
-            children: [Scaffholding(key:scaffholdingkey,
+            children: [Scaffolding(key:scaffholdingkey,
               gconfig:GeneralConfig<EmptyConfig>(
                 Theme.of(context),
                 2<<40,//arbitrary value for flex 
                 //should be high as to have many to have smooth transition
                 EmptyConfig(),
-                Scaffholding) ,configMenu: configMenuMainParse,
+                Scaffolding) ,configMenu: configMenuMainParse,
             direction: true, subcontainers: _maincontainers,showlines:_showlines,
             parentConfigMenu: configMenuMainParse)]),
           menu

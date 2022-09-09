@@ -1,4 +1,4 @@
-/* scaffholding.dart - wraper for components or itself
+/* scaffolding.dart - wraper for components or itself
  *
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
@@ -8,9 +8,9 @@ import '../main_header.dart';
 import 'callbacks.dart';
 import 'resizeline.dart';
 
-class Scaffholding extends Component
+class Scaffolding extends Component
 {
-  Scaffholding(
+  Scaffolding(
     {required Key key,
     this.title,
     required gconfig,
@@ -26,29 +26,15 @@ class Scaffholding extends Component
   final int subcontainers;
   final Function parentConfigMenu;
   @override
-  ScaffholdingState createState() => ScaffholdingState();
+  ScaffoldingState createState() => ScaffoldingState();
 }
 
-class ScaffholdingState extends State<Scaffholding> with callbacks
+class ScaffoldingState extends State<Scaffolding> with callbacks
 {
   final double resizelineWidth=8.0;
   List<Widget> childs = [];
   List<int> width = [];
   BoxConstraints callconstraints=const BoxConstraints();
-  // returns the given Widget wraped into a box with rounded corners
-  Widget containment(Widget n) 
-  {
-    return Container(
-      alignment: Alignment.center,
-      // 5px and 20px should be changed to a value relative to screen size 
-      // and relative position
-      margin: const EdgeInsets.all(5.0),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
-      child: n,
-    );
-  }
 
   @override
   Widget build(BuildContext context) 
@@ -68,9 +54,9 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
             (childs[i] as ResizeLine).enabled=widget.showlines;
           });
         }
-        else if(childs[i].runtimeType==Scaffholding && (childs[i] as Scaffholding).built){
-          (childs[i] as Scaffholding).setState!(() {
-            (childs[i] as Scaffholding).showlines=widget.showlines;
+        else if(childs[i].runtimeType==Scaffolding && (childs[i] as Scaffolding).built){
+          (childs[i] as Scaffolding).setState!(() {
+            (childs[i] as Scaffolding).showlines=widget.showlines;
           });
         }
       }
@@ -87,9 +73,9 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
             direction: widget.direction,
             resizefromline: resizefromline));
         }      
-        GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), EmptyComponent);
+        GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), Empty);
 
-        childs.add(EmptyComponent(
+        childs.add(Empty(
           gconfig:tmpconf,
           key: GlobalKey(),
           resizeWidget: resizeWidget,

@@ -9,7 +9,7 @@ export 'dart:async';
 export 'dart:math';
 
 // Top Level UI
-export 'scaffholding/scaffholding.dart';
+export 'scaffholding/scaffolding.dart';
 export 'menu.dart';
 
 //component
@@ -17,8 +17,8 @@ export 'component/generalconfig.dart';
 export 'component/component.dart';
 // components
 export 'components/clock.dart';
-//export 'components/example.dart';
-export 'components/empty_component.dart';
+export 'components/example.dart';
+export 'components/empty.dart';
 
 // component configs
 export 'component/configs/clock_config.dart';

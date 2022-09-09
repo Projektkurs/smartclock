@@ -1,13 +1,13 @@
-/* empty_component - initial component used which config can be used to replace itself
+/* empty.dart - initial component used which config can be used to replace itself
  *
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 
 import 'package:smartclock/main_header.dart';
 
-class EmptyComponent extends Component 
+class Empty extends Component 
 {
-  EmptyComponent(
+  Empty(
     {required Key key,
     required this.gconfig,
     required this.resizeWidget,
@@ -20,10 +20,10 @@ class EmptyComponent extends Component
   final Function replaceChildren;
   
   @override
-  EmptyComponentState createState() => EmptyComponentState();
+  EmptyState createState() => EmptyState();
 }
 
-class EmptyComponentState extends State<EmptyComponent> with ComponentBuild<EmptyComponent>
+class EmptyState extends State<Empty> with ComponentBuild<Empty>
 {
   replace(){
     widget.gconfig.cconfig.replacement.configMenu=widget.configMenu;

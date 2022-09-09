@@ -48,7 +48,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
           )
         ])))
         ]);
-      case(EmptyComponent): 
+      case(Empty): 
         return Switch(onChanged: (bool val){
           _emptyVal=true;
           (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: GlobalKey(), gconfig: GeneralConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
