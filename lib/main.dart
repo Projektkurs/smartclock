@@ -41,7 +41,7 @@ class App extends StatefulWidget
 class AppState extends State<App> 
 {
   //main menu laying on top the top of Widget stack
-  late Menu menu=Menu(function: _addContainer);
+  late Popup menu=Popup(function: _addContainer);
 
   //own method to parse up a config to be configured by menu
   configMenuMainParse(List<Key> key,Type type,GeneralConfig config,double width,double height){
@@ -132,7 +132,6 @@ class AppState extends State<App>
       ),
       //start: Buttons in the bottom right to add/remove Containers 
       //and enable/disable resizelines
-      //!the menu button is part of menu!
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[

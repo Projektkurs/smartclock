@@ -1,22 +1,22 @@
-/* menu.dart - dropdown menu 
+/* popup.dart - all popups for smartclock 
  *
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 
-import 'main_header.dart';
+import '../main_header.dart';
 
-class Menu extends StatefulWidget 
+class Popup extends StatefulWidget 
 {
-  Menu({Key? key, this.function}) : super(key: key);
+  Popup({Key? key, this.function}) : super(key: key);
   Type componenttype=Container;
   GeneralConfig? componentconfig;
   Function? function;
   Function openMenu= (){};
   @override
-  State<Menu> createState() => MenuState();
+  State<Popup> createState() => PopupState();
 }
 
-class MenuState extends State<Menu> with SingleTickerProviderStateMixin 
+class PopupState extends State<Popup> with SingleTickerProviderStateMixin 
 {
   bool _emptyVal=false;
   Widget showComponent(){
@@ -60,7 +60,7 @@ class MenuState extends State<Menu> with SingleTickerProviderStateMixin
       default:return Container();
     }
     }
-  MenuState({Key? key, this.function});
+  PopupState({Key? key, this.function});
   Function? function;
   late AnimationController _animationController;
   Duration animationDuration = const Duration(milliseconds: 300);
