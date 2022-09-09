@@ -31,9 +31,13 @@ class Scaffolding extends Component
 
 class ScaffoldingState extends State<Scaffolding> with callbacks
 {
+  @override
   final double resizelineWidth=8.0;
+  @override
   List<Widget> childs = [];
+  @override
   List<int> width = [];
+  @override
   BoxConstraints callconstraints=const BoxConstraints();
 
   @override

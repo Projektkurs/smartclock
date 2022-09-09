@@ -6,13 +6,13 @@
 import '../main_header.dart';
 import 'resizeline.dart';
 
-mixin callbacks 
+mixin callbacks
 {
-  late List<Widget> childs;
+  List<Widget> get childs;
   Scaffolding get widget;
-  late List<int> width;
-  late BoxConstraints  callconstraints;
-  late double resizelineWidth;
+  List<int> get width;
+  BoxConstraints get callconstraints;
+  double get resizelineWidth;
   void setState(void Function() fn);
 
   int _caller(key)
