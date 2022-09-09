@@ -7,20 +7,19 @@ import 'package:smartclock/main_header.dart';
 
 class EmptyComponent extends Component 
 {
-  
-  @override
   EmptyComponent(
     {required Key key,
     required this.gconfig,
     required this.resizeWidget,
     required this.replaceChildren,
-    required this.configMenu,
+    required configMenu,
     })
     : super(key: key,gconfig:gconfig,configMenu:configMenu);
-  final Function configMenu;
   final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   final Function replaceChildren;
+  
+  @override
   EmptyComponentState createState() => EmptyComponentState();
 }
 
@@ -34,6 +33,7 @@ class EmptyComponentState extends State<EmptyComponent> with ComponentBuild<Empt
   Widget build(BuildContext context) {
     if(firstbuild){
       widget.gconfig.cconfig.replace=replace;
+      widget.gconfig.cconfig.key=widget.key!;
       defaultfirstbuild();
     }
     //widget.config.config.setState=setState;

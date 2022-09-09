@@ -13,15 +13,13 @@ class Scaffholding extends Component
   Scaffholding(
     {required Key key,
     this.title,
-    required this.gconfig,
+    required gconfig,
     required this.direction, //false=vertical, true=horizontal
     required this.showlines,
     required this.subcontainers,
     required this.parentConfigMenu,
-    required this.configMenu}) //number of subcontainers
+    required configMenu}) //number of subcontainers
   : super(key: key,gconfig:gconfig,configMenu: configMenu);
-  final Function configMenu;
-  GeneralConfig gconfig;
   bool showlines;
   final String? title;
   final bool direction;

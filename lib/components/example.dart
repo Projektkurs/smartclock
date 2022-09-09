@@ -13,10 +13,9 @@ class ExampleComponent extends Component
     {required Key key,
     required this.gconfig,
     required this.resizeWidget,
-    required this.configMenu,
+    required configMenu,
     })
     : super(key: key,gconfig:gconfig,configMenu:configMenu);
-  final Function configMenu;
   final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   @override

@@ -12,5 +12,5 @@ class EmptyComponentConfig
   late Component replacement;
   bool apply=false;
   Function? replace;
-
+  late Key key;
 }

@@ -14,13 +14,12 @@ class Clock extends Component
   final DateTime? datetime;
   final bool isLive;
   @override
-  final GeneralConfig gconfig;
-  Function configMenu;
+
    Clock({
     required Key key,
-    required this.gconfig,
+    required gconfig,
     this.datetime,
-    required this.configMenu,
+    required configMenu,
     isLive,
   })  : isLive = isLive ?? (datetime == null),
         super(key: key,gconfig:gconfig,configMenu: configMenu){print(this.runtimeType);}
