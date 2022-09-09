@@ -44,7 +44,7 @@ class AppState extends State<App>
   late Menu menu=Menu(function: _addContainer);
 
   //own method to parse up a config to be configured by menu
-  configMenuMainParse(List<Key> key,Type type,GeneralConfig config){
+  configMenuMainParse(List<Key> key,Type type,GeneralConfig config,double width,double height){
     menu.componenttype=type;
     menu.componentconfig=config;
     menu.openMenu(1);

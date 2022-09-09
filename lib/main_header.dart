@@ -17,6 +17,7 @@ export 'component/generalconfig.dart';
 export 'component/component.dart';
 // components
 export 'components/clock.dart';
+//export 'components/example.dart';
 export 'components/empty_component.dart';
 
 // component configs

@@ -55,21 +55,22 @@ mixin ComponentBuild<Parent extends Component>
   void setState(VoidCallback fn);
   Widget component_build(Widget child) {
     return Expanded(
-          flex: widget.gconfig.flex,
-          child: 
-          GestureDetector(
-      onDoubleTap:
-        (){widget.configMenu([widget.key!],Parent,widget.gconfig);},
-      child:Container(
-      alignment: Alignment.center,
-      // 5px and 20px should be changed to a value relative to screen size 
-      // and relative position
-      margin: const EdgeInsets.all(5.0),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
-      child: SizedBox.expand(child:child)),
-      )
+      flex: widget.gconfig.flex,
+      child:LayoutBuilder(builder:(BuildContext context, BoxConstraints constraints)
+      {
+        return GestureDetector(
+          onDoubleTap:
+          (){widget.configMenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight);},
+          child:Container(
+          alignment: Alignment.center,
+          // 5px and 20px should be changed to a value relative to screen size 
+          // and relative position
+          margin: const EdgeInsets.all(5.0),
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
+          child: SizedBox.expand(child:child)),
+      );})
     );
   }
 }

@@ -94,13 +94,10 @@ class ScaffholdingState extends State<Scaffholding> with callbacks
         GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), EmptyComponent);
 
         childs.add(EmptyComponent(
-          //config: widget.config,
           gconfig:tmpconf,
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,
-          //parentConfigMenu: ConfigMenuParse,
-          //configMenu: ConfigMenu,
           configMenu: widget.configMenu,
         ));
       }
