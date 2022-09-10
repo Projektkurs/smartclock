@@ -69,13 +69,6 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
       duration: animationDuration,
     );
   }
-
-  // options shown if menu is clicked
-  static const _menuTitles = [
-    'Reset',
-    'some stuff',
-    'test',
-  ];
   double backgroundopacity = 0;
   double menuopacity = 0;
   bool isOpen = false;
@@ -83,7 +76,6 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
   _handleOnPressed(int enable)
   {
     if(enable==0 || enable==1 && !isOpen || enable==-1 && isOpen){
-      //if(enable==0 && !isOpen)
       setState(() {
         backgroundopacity = backgroundopacity == 0 ? 0.2 : 0.0;
         menuopacity = menuopacity == 0 ? 1 : 0.0;
@@ -97,10 +89,9 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
     }
   }
   bool _darkmode=false;
-  Key Stackkey=Key("Stackkey");
   @override
   Widget build(BuildContext context)
-  { 
+  {
 
     double width = MediaQuery.of(context).size.width;
     debugPrint("$width");
@@ -120,14 +111,7 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
       )
     ));
 
-    //if (isOpen) {
     Widget frontmenu =Container();
-    List<Widget> menutext =[];
-    //for (int i = 0; i < _menuTitles.length; i++) {
-    //  menutext.add(Text(_menuTitles[i]));
-    //}
-    Widget menu=Container();
-    frontmenu = Column(children: menutext);
     if(widget.componentconfig!=null){
       frontmenu = showComponent();
     }
@@ -139,7 +123,25 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
       duration: animationDuration*.8,
       opacity: menuopacity,
       
-        child: singleMenu(frontmenu)));
+        child: singleMenu(Scaffold(
+
+
+          floatingActionButton: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width*.006),
+              backgroundColor: const Color.fromARGB(255, 101, 184, 90),
+              //backgroundColor: Theme.of(context).colorScheme.primary,
+            ),//.copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
+            onPressed: () =>  _handleOnPressed(0),
+            child: Text(
+              'Apply',
+              
+              style:TextStyle(fontSize: Theme.of(context).textTheme.headlineLarge!.fontSize!)
+            ),
+          ),
+          body: frontmenu,
+        ))));
     //}
     // Button in upper left corner to open and close menu
     returnStack.add(FloatingActionButton(
@@ -152,7 +154,6 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
       ),
     ));
     return IgnorePointer(
-      key:Stackkey,
       ignoring: !isOpen,
       child: Stack(children: returnStack)
     );
