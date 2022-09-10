@@ -26,10 +26,12 @@ class ExampleComponent extends Component
 class ExampleComponentState extends State<ExampleComponent> with ComponentBuild<ExampleComponent>
 {
   @override
+  void initState() {
+    defaultfirstbuild();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    if(firstbuild){
-      defaultfirstbuild();
-    }
     return componentbuild(Container(
       color: Color((Random().nextDouble() * 0xFFFFFF).toInt()).withOpacity(1.0),
       child:const SizedBox.expand())

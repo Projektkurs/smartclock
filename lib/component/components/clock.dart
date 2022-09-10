@@ -36,6 +36,9 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
   @override
   initState()
   {
+    datetime = widget.datetime ?? DateTime.now();
+    initialDatetime = widget.datetime ?? DateTime.now();
+    defaultfirstbuild();
     super.initState();
     if (widget.isLive) {
       // update clock every second or minute based on second hand's visibility.
@@ -51,15 +54,11 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
     }
   }
 
+  
 
   @override
   Widget build(BuildContext context)
   {
-    if(firstbuild){
-      datetime = widget.datetime ?? DateTime.now();
-      initialDatetime = widget.datetime ?? DateTime.now();
-      defaultfirstbuild();
-    }
     return componentbuild(Container(
         constraints: const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
         child: Center(

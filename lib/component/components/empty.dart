@@ -30,12 +30,14 @@ class EmptyState extends State<Empty> with ComponentBuild<Empty>
     widget.replaceChildren(widget.key, widget.gconfig.cconfig.replacement);
   }
   @override
+  void initState() {
+    widget.gconfig.cconfig.replace=replace;
+    widget.gconfig.cconfig.key=widget.key!;
+    defaultfirstbuild();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    if(firstbuild){
-      widget.gconfig.cconfig.replace=replace;
-      widget.gconfig.cconfig.key=widget.key!;
-      defaultfirstbuild();
-    }
     //widget.config.config.setState=setState;
     if(widget.gconfig.cconfig.apply){
       debugPrint("apply");

@@ -42,11 +42,9 @@ class ComponentState extends State<Component>{
 mixin ComponentBuild<Parent extends Component>
 {
   //constructor cannot be used as setState will not have been declared at that time
-  bool firstbuild=true;
   defaultfirstbuild(){
     widget.built=true;
     widget.setState=setState;
-    firstbuild=false;
   }
   Parent get widget;
   BuildContext get context;
