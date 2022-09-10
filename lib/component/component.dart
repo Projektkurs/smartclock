@@ -3,7 +3,7 @@
  *
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
-import '../main_header.dart';
+import 'package:smartclock/main_header.dart';
 
 abstract class Component extends StatefulWidget {
   Component({
