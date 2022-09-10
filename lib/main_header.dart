@@ -13,6 +13,9 @@ export 'scaffholding/scaffolding.dart';
 export 'popups/popup.dart';
 export 'popups/menuoptions.dart';
 
+//configmenus
+export 'popups/configmenus/empty_menu.dart';
+
 //component
 export 'component/generalconfig.dart';
 export 'component/component.dart';

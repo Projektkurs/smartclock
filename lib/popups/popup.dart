@@ -4,7 +4,6 @@
  */
 
 import 'package:smartclock/main_header.dart';
-
 class Popup extends StatefulWidget 
 {
   Popup({Key? key, }) : super(key: key);
@@ -15,13 +14,16 @@ class Popup extends StatefulWidget
   State<Popup> createState() => PopupState();
 }
 
-class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions
+class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions, Emptymenu
 {
-  bool _emptyVal=false;
+  VoidCallback applyCallback=(){};
+  @override
+  bool emptyVal=false;
   Widget showComponent(){
     debugPrint("showComponent");
     switch(widget.componenttype){
       case(Clock):debugPrint("$widget.componenttype");
+      applyCallback=() => handleOnPressed(-1);
       return  Row(
           children: [
               Clock(
@@ -48,14 +50,8 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
         ])))
         ]);
       case(Empty): 
-        return Switch(onChanged: (bool val){
-          _emptyVal=true;
-          (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: GlobalKey(), gconfig: GeneralConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock), configMenu: (){});
-          (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.apply=true;
-          (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replace!();
-        },
-        
-        value:_emptyVal);
+        applyCallback=emptymenuapplycallback;
+        return emptymenu();
       default:return Container();
     }
     }
@@ -73,7 +69,7 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
   double menuopacity = 0;
   bool isOpen = false;
   //0:invert;1:enable;-1:disable
-  _handleOnPressed(int enable)
+  handleOnPressed(int enable)
   {
     if(enable==0 || enable==1 && !isOpen || enable==-1 && isOpen){
       setState(() {
@@ -95,7 +91,7 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
 
     double width = MediaQuery.of(context).size.width;
     debugPrint("$width");
-    widget.openMenu=_handleOnPressed;
+    widget.openMenu=handleOnPressed;
     List<Widget> returnStack = [];
     //background greys if Menu is open
     returnStack.add(AnimatedOpacity(
@@ -133,19 +129,19 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
               backgroundColor: const Color.fromARGB(255, 101, 184, 90),
               //backgroundColor: Theme.of(context).colorScheme.primary,
             ),//.copyWith(elevation: ButtonStyleButton.allOrNull(0.0)),
-            onPressed: () =>  _handleOnPressed(0),
+            onPressed: () =>  applyCallback(),
             child: Text(
               'Apply',
               
               style:TextStyle(fontSize: Theme.of(context).textTheme.headlineLarge!.fontSize!)
             ),
           ),
-          body: frontmenu,
+          body: frontmenu
         ))));
     //}
     // Button in upper left corner to open and close menu
     returnStack.add(FloatingActionButton(
-      onPressed: () => _handleOnPressed(0),
+      onPressed: () => applyCallback(),
       tooltip: 'menu',
       child: AnimatedIcon(
         icon: AnimatedIcons.menu_close,
