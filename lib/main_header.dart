@@ -11,6 +11,7 @@ export 'dart:math';
 // Top Level UI
 export 'scaffholding/scaffolding.dart';
 export 'popups/popup.dart';
+export 'popups/menuoptions.dart';
 
 //component
 export 'component/generalconfig.dart';

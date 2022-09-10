@@ -7,7 +7,7 @@ import '../main_header.dart';
 
 class Popup extends StatefulWidget 
 {
-  Popup({Key? key}) : super(key: key);
+  Popup({Key? key, }) : super(key: key);
   Type componenttype=Container;
   GeneralConfig? componentconfig;
   Function openMenu= (){};
@@ -15,7 +15,7 @@ class Popup extends StatefulWidget
   State<Popup> createState() => PopupState();
 }
 
-class PopupState extends State<Popup> with SingleTickerProviderStateMixin 
+class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions
 {
   bool _emptyVal=false;
   Widget showComponent(){
@@ -76,8 +76,8 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
     'some stuff',
     'test',
   ];
-  double opacityLevel = 0;
-
+  double backgroundopacity = 0;
+  double menuopacity = 0;
   bool isOpen = false;
   //0:invert;1:enable;-1:disable
   _handleOnPressed(int enable)
@@ -85,9 +85,8 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
     if(enable==0 || enable==1 && !isOpen || enable==-1 && isOpen){
       //if(enable==0 && !isOpen)
       setState(() {
-        opacityLevel = opacityLevel == 0 ? 0.8 : 0.0;
-      });
-      setState(() {
+        backgroundopacity = backgroundopacity == 0 ? 0.2 : 0.0;
+        menuopacity = menuopacity == 0 ? 1 : 0.0;
         isOpen = !isOpen;
         if (isOpen) {
           _animationController.forward();
@@ -98,16 +97,20 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
     }
   }
   bool _darkmode=false;
+  Key Stackkey=Key("Stackkey");
   @override
   Widget build(BuildContext context)
   { 
+
+    double width = MediaQuery.of(context).size.width;
+    debugPrint("$width");
     widget.openMenu=_handleOnPressed;
     List<Widget> returnStack = [];
     //background greys if Menu is open
     returnStack.add(AnimatedOpacity(
       curve: Curves.linear,
       duration: animationDuration,
-      opacity: opacityLevel,
+      opacity: backgroundopacity,
       child: IgnorePointer(
         ignoring: true,
         child: Container(
@@ -117,21 +120,27 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
       )
     ));
 
-    if (isOpen) {
+    //if (isOpen) {
     Widget frontmenu =Container();
     List<Widget> menutext =[];
-      for (int i = 0; i < _menuTitles.length; i++) {
-        menutext.add(Text(_menuTitles[i]));
-      }
-      frontmenu = Column(children: menutext);
-      if(widget.componentconfig!=null){
-        frontmenu = showComponent();
-        }
-      returnStack.add(SizedBox.expand(child:Container(
-        alignment: Alignment.center,
-        child: frontmenu
-          )));
+    //for (int i = 0; i < _menuTitles.length; i++) {
+    //  menutext.add(Text(_menuTitles[i]));
+    //}
+    Widget menu=Container();
+    frontmenu = Column(children: menutext);
+    if(widget.componentconfig!=null){
+      frontmenu = showComponent();
     }
+    //the AnimationController needs to be there always so the Transition starts
+    //not after the new opacity is set
+    returnStack.add(
+      AnimatedOpacity(
+      curve: Curves.ease,
+      duration: animationDuration*.8,
+      opacity: menuopacity,
+      
+        child: singleMenu(frontmenu)));
+    //}
     // Button in upper left corner to open and close menu
     returnStack.add(FloatingActionButton(
       onPressed: () => _handleOnPressed(0),
@@ -142,6 +151,10 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin
         semanticLabel: 'Show menu',
       ),
     ));
-    return Stack(children: returnStack);
+    return IgnorePointer(
+      key:Stackkey,
+      ignoring: !isOpen,
+      child: Stack(children: returnStack)
+    );
   }
 }
