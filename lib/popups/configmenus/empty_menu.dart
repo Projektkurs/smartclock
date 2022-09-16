@@ -29,21 +29,21 @@ mixin Emptymenu
           value: Componentenum.horizontal,
           groupvalue: components,
           onPressed: (){setState(() {components=Componentenum.horizontal;});},
-          text: 'horizontal',
+          text: 'Column',
           leading: const Icon(Icons.view_column_rounded)
         ),
         SelectableRadio<Componentenum>(
           value: Componentenum.vertical, 
           groupvalue: components, 
           onPressed: (){setState(() {components=Componentenum.vertical;});}, 
-          text: 'vertical',
+          text: 'Row',
           leading: const Icon(Icons.table_rows)
         ),
         SelectableRadio<Componentenum>(
           value: Componentenum.clock,
           groupvalue: components,
           onPressed: (){setState(() {components=Componentenum.clock;});},
-          text: 'clock',
+          text: 'Clock',
           leading: const Icon(Icons.query_builder ),
         )
       ])//end Component Radio

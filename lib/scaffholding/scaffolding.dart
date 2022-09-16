@@ -25,8 +25,20 @@ class Scaffolding extends Component
   final bool direction;
   final int subcontainers;
   final Function parentConfigMenu;
+  var state=ScaffoldingState();
   @override
   ScaffoldingState createState() => ScaffoldingState();
+  Map<String, dynamic> toJson(){
+    Map<String,dynamic> retval={
+      'direction': direction,
+      'subcontainers': subcontainers,
+      'length': state.childs.length};
+    for(int i=0;i<(state.childs.length+1)/2;i++){
+      retval["$i"] = state.childs[i*2];
+    }
+    return retval;
+  }
+
 }
 
 class ScaffoldingState extends State<Scaffolding> with callbacks
@@ -39,10 +51,12 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
   List<int> width = [];
   @override
   BoxConstraints callconstraints=const BoxConstraints();
+ 
 
   @override
   Widget build(BuildContext context) 
   {
+    widget.state=this;
     return Expanded(
         flex: widget.gconfig.flex,
         child: Container(

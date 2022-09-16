@@ -23,6 +23,10 @@ class Clock extends Component
   })  : isLive = isLive ?? (datetime == null),
         super(key: key,gconfig:gconfig,configMenu: configMenu);
 
+    Map<String, dynamic> toJson() => {
+    'type':'clock'
+  };
+
   @override
   State<Clock> createState() => _AnalogClockState(); //todo: outsource logic
 }

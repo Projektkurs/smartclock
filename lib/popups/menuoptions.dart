@@ -9,7 +9,10 @@ mixin Menuoptions
 {
   BuildContext get context;
   Widget singleMenu(child){
-  return Container(
+  return Stack(
+    
+    
+    children: [Container(
         margin: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width*.07,
           vertical: MediaQuery.of(context).size.height*.07
@@ -22,6 +25,6 @@ mixin Menuoptions
         ),
         alignment: Alignment.center,
         child: child
-    );
+    )]);
   }
 }

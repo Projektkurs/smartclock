@@ -7,7 +7,7 @@
 export 'package:flutter/material.dart';
 export 'dart:async';
 export 'dart:math';
-
+export 'dart:convert';
 // Top Level UI
 export 'scaffholding/scaffolding.dart';
 export 'popups/popup.dart';

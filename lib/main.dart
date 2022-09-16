@@ -66,7 +66,6 @@ class AppState extends State<App>
   //editing mode
   bool _editmode=false;
 
-
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
   final GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
@@ -74,6 +73,21 @@ class AppState extends State<App>
   @override
   Widget build(BuildContext context) 
   {
+    Scaffolding mainscaffolding = Scaffolding(key:scaffholdingkey,
+      gconfig:GeneralConfig<EmptyConfig>(
+      Theme.of(context),
+      2<<40,//arbitrary value for flex 
+      //should be high as to have many to have smooth transition
+      EmptyConfig(),
+      Scaffolding) ,configMenu: configMenuMainParse,
+      direction: true, subcontainers: _maincontainers,showlines:_showlines,
+      parentConfigMenu: configMenuMainParse);
+
+    ()async{
+      //racing betweeen append to DOM and Future
+      await Future.delayed(const Duration(milliseconds: 800), (){});
+      debugPrint(jsonEncode(mainscaffolding));
+    }();
     return Scaffold(
       key:scaffoldkey,
       drawer: Drawer(
@@ -118,15 +132,7 @@ class AppState extends State<App>
         child: Stack(children: [
           // menu laying on top of the main Scaffholding
           Flex(direction: Axis.horizontal,
-            children: [Scaffolding(key:scaffholdingkey,
-              gconfig:GeneralConfig<EmptyConfig>(
-                Theme.of(context),
-                2<<40,//arbitrary value for flex 
-                //should be high as to have many to have smooth transition
-                EmptyConfig(),
-                Scaffolding) ,configMenu: configMenuMainParse,
-            direction: true, subcontainers: _maincontainers,showlines:_showlines,
-            parentConfigMenu: configMenuMainParse)]),
+            children: [mainscaffolding]),
           menu
         ])
       ),
