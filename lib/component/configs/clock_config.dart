@@ -23,6 +23,22 @@ class Clockconfig
   final Color minColor;
   final Color secColor;
 
+  Map<String,dynamic> toJson() => {
+    'secLength1':secLength1,
+    'secLength2':secLength2,
+    'minLength1':minLength1,
+    'minLength2':minLength2,
+    'hourLength1':hourLength1,
+    'hourLength2':hourLength2,
+    'backgroundColor':backgroundColor,
+    'outlineColor':outlineColor,
+    'hourColor':hourColor,
+    'minColor':minColor,
+    'secColor':secColor,
+    //'repacement':replacement,
+  };
+
+  
   final Color indicatorColor;
 
     const Clockconfig({
