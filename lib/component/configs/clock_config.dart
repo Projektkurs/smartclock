@@ -23,24 +23,39 @@ class Clockconfig
   final Color minColor;
   final Color secColor;
 
+  final Color indicatorColor;
+
   Map<String,dynamic> toJson() => {
+    'digital':digital,
     'secLength1':secLength1,
     'secLength2':secLength2,
     'minLength1':minLength1,
     'minLength2':minLength2,
     'hourLength1':hourLength1,
     'hourLength2':hourLength2,
-    'backgroundColor':backgroundColor.toString(),
-    'outlineColor':outlineColor.toString(),
-    'hourColor':hourColor.toString(),
-    'minColor':minColor.toString(),
-    'secColor':secColor.toString(),
-    //'repacement':replacement,
+    'backgroundColor':backgroundColor.value,
+    'outlineColor':outlineColor.value,
+    'hourColor':hourColor.value,
+    'minColor':minColor.value,
+    'secColor':secColor.value,
+    'indicatorColor':indicatorColor.value,
   };
-  
-  final Color indicatorColor;
+  Clockconfig.fromJson(Map<String, dynamic> json)
+  : digital=json['digital'],
+    secLength1=json['secLength1'],
+    secLength2=json['secLength2'],
+    minLength1=json['minLength1'],
+    minLength2=json['minLength2'],
+    hourLength1=json['hourLength1'],
+    hourLength2=json['hourLength2'],
+    backgroundColor=Color(json['backgroundColor']),
+    outlineColor=Color(json['outlineColor']),
+    hourColor=Color(json['hourColor']),
+    minColor=Color(json['minColor']),
+    secColor=Color(json['secColor']),
+    indicatorColor=Color(json['indicatorColor']);
 
-    const Clockconfig({
+  const Clockconfig({
     this.digital = false,
     this.indicatorColor = const Color(0xFF000000),
     this.outlineColor = const Color(0xFF000000),

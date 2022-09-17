@@ -16,6 +16,11 @@ class GeneralConfig<ContentType>
     'type':type.toString(),
     'cconfig':cconfig
   };
-  
+  GeneralConfig.fromjson(Map<String,dynamic> json,ContentType cconfig):
+    flex=json['flex'],
+    type=stringtoType(json['type']),
+    cconfig=cconfig;
 }
-class EmptyConfig{}
+class EmptyConfig{
+  Map<String, dynamic> toJson() =>{};
+}

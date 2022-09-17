@@ -18,4 +18,9 @@ class EmptyComponentConfig
     'height':height,
     //'repacement':replacement,
   };
+  EmptyComponentConfig();
+
+  EmptyComponentConfig.fromJson(Map<String,dynamic> json)
+    :width=json['width'],
+    height=json['height'];
 }

@@ -19,36 +19,43 @@ class Scaffolding extends Component
   : super(key: key,gconfig:gconfig);
   bool showlines;
   final bool direction;
-  final int subcontainers;
+  int subcontainers;
   var state=ScaffoldingState();
   @override
-  ScaffoldingState createState() => ScaffoldingState();
+  ScaffoldingState createState() => state;
+  @override
   Map<String, dynamic> toJson(){
     Map<String,dynamic> retval={
+      //'key':key.toString(),
       'direction': direction,
       'subcontainers': subcontainers,
-      'length': state.childs.length};
+      'length': state.childs.length,
+      'gconfig':gconfig};
     if(state.childs.isNotEmpty){
     for(int i=0;i<(state.childs.length+1)/2;i++){
-      retval["$i"] = state.childs[i*2];
+      retval["Child$i"] = state.childs[i*2];
     }}
     return retval;
   }
 
   Map<String, dynamic>? jsonconf;
   bool updatejson=false;
-  Scaffolding.scafffromJson(Map<String, dynamic> json,Key key, GeneralConfig gconfig)
-    :direction=true,//json['direction'],
-    subcontainers=1,//json['subcontainers'],
+  Scaffolding.fromJson(Map<String, dynamic> json,{Key? key})
+    :direction=json['direction'],
+    subcontainers=json['subcontainers'],
     showlines=false,
     jsonconf=json,
-    super(key: key,gconfig:gconfig)
+    updatejson=true,
+    super(key: key ?? GlobalKey(),gconfig:GeneralConfig.fromjson(json['gconfig'],EmptyConfig()))
   {
-    //childs=[];
+    print("Scaffolding.fromJson");
     if(state.mounted){
+      print("a");
       state.setState(() {updatejson=true;});
     }{
-      updatejson=true;
+      print("b");
+      state.updatejson=true;
+      print(state.childs);
     }
     //updatejson=true
   }
@@ -57,6 +64,17 @@ class Scaffolding extends Component
 
 class ScaffoldingState extends State<Scaffolding> with callbacks
 {
+  Component? jsontoComp(Map<String,dynamic> json,Function resizeWidget,Function replaceChildren){
+    switch(json['gconfig']['type']){
+      case("Scaffolding"):return Scaffolding.fromJson(json);
+      case("Empty"):return Empty.fromJson(json,resizeWidget,replaceChildren);
+      case("Clock"):return Clock.fromJson(json);
+      //case("ExampleComponent"):return ExampleComponent;
+      default:return null;
+    }
+  }
+  bool test=false;
+  bool updatejson=false;
   @override
   final double resizelineWidth=8.0;
   @override
@@ -69,6 +87,8 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
   @override
   Widget build(BuildContext context) 
   {
+    print("test:$test");
+    print(updatejson);
     widget.state=this;
     return Expanded(
         flex: widget.gconfig.flex,
@@ -91,8 +111,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
           });
         }
       }
-
-      while( widget.subcontainers*2-1 > childs.length){
+      for(int i=0; widget.subcontainers*2-1 > childs.length;i++){
         if(childs.isNotEmpty){
           childs.add(ResizeLine(
             key:GlobalKey() ,
@@ -103,16 +122,24 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
             width: resizelineWidth,
             direction: widget.direction,
             resizefromline: resizefromline));
-        }      
-        GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.flex, EmptyComponentConfig(), Empty);
-
-        childs.add(Empty(
-          gconfig:tmpconf,
+        }
+        Component? tmpcomp;
+        if(updatejson){
+          print(widget.jsonconf!['Child$i']['gconfig']['type']);
+          //switch(widget.jsonconf!['Child$i']['']){
+          stringtoType(widget.jsonconf!['Child$i']['gconfig']['type']);
+          tmpcomp=jsontoComp(widget.jsonconf!['Child$i'],resizeWidget,replaceChildren); 
+          test=true;
+        }
+        tmpcomp??=Empty(
+          gconfig:GeneralConfig<EmptyComponentConfig>(widget.gconfig.flex, EmptyComponentConfig(), Empty),
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,
-        ));
+        );
+        childs.add(tmpcomp);
       }
+      updatejson=false;
     if(widget.subcontainers*2-1 < childs.length){
       childs.removeRange(max(widget.subcontainers*2-1,0), childs.length);
     }

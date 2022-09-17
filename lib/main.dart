@@ -43,6 +43,18 @@ enum Componentenum {horizontal,vertical,clock,defaultcase,empty}
 typedef Configmenu_t= void Function(List<Key> key,Type type,GeneralConfig config,double width,double height);
 Configmenu_t configmenu=(List<Key> key,Type type,GeneralConfig config,double width,double height){};
 
+Type stringtoType(String type){
+    switch(type){
+      case("Scaffolding"):return Scaffolding;
+      case("Empty"):return Empty;
+      case("Clock"):return Clock;
+      case("ExampleComponent"):return ExampleComponent;
+      default:return Component;
+    }
+  }
+
+
+
 class AppState extends State<App> 
 {
   //main menu laying on top the top of Widget stack
@@ -78,21 +90,28 @@ class AppState extends State<App>
   String jsonsave="";
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
-  final GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
+  GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
   final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
+  Scaffolding? mainscaffolding;
+  bool scafffromjson=false;
   @override
   Widget build(BuildContext context) 
   {
-    Scaffolding mainscaffolding = Scaffolding(key:scaffholdingkey,
+    mainscaffolding=Scaffolding(key:scaffholdingkey,
       gconfig:GeneralConfig<EmptyConfig>(
       2<<40,//arbitrary value for flex 
       //should be high as to have many to have smooth transition
       EmptyConfig(),
       Scaffolding),
       direction: true, subcontainers: _maincontainers,showlines:_showlines);
+    if(scafffromjson){
+      scaffholdingkey=GlobalKey();
+      mainscaffolding=Scaffolding.fromJson(jsonDecode(jsonsave),key:scaffholdingkey);
+      scafffromjson=false;
+    }
 
     ()async{
-      while(!mainscaffolding.state.mounted){
+      while(!mainscaffolding!.state.mounted){
         await Future.delayed(const Duration(milliseconds: 10), (){});
       }
       debugPrint(jsonEncode(mainscaffolding));
@@ -126,7 +145,7 @@ class AppState extends State<App>
               title: const Text('resize widgets'),
               onTap: () {
                 _updatelines();
-                Navigator.of(context).pop();
+                //Navigator.of(context).pop();
               },
             ),
             ListTile(
@@ -139,15 +158,15 @@ class AppState extends State<App>
               title: const  Text('save'),
               onTap: (){jsonsave=jsonEncode(mainscaffolding);},
             ),
-                        ListTile(
+            ListTile(
               leading: const Icon(Icons.file_download),
               title: const  Text('load'),
-              onTap: (){setState(()
-              {
+              onTap: (){setState(() {
                 debugPrint("apply Config");
                 _maincontainers=jsonDecode(jsonsave)['subcontainers'];
-
-                });},
+                scafffromjson=true;
+              });
+                },
             ),
           ],
         ),
@@ -156,7 +175,7 @@ class AppState extends State<App>
         child: Stack(children: [
           // menu laying on top of the main Scaffholding
           Flex(direction: Axis.horizontal,
-            children: [mainscaffolding]),
+            children: [mainscaffolding!]),
           menu
         ])
       ),
