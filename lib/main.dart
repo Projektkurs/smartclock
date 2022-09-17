@@ -37,6 +37,9 @@ class App extends StatefulWidget
   @override
   AppState createState() => AppState();
 }
+
+enum Componentenum {horizontal,vertical,clock,defaultcase,empty}
+
 typedef Configmenu_t= void Function(List<Key> key,Type type,GeneralConfig config,double width,double height);
 Configmenu_t configmenu=(List<Key> key,Type type,GeneralConfig config,double width,double height){};
 
@@ -82,7 +85,6 @@ class AppState extends State<App>
   {
     Scaffolding mainscaffolding = Scaffolding(key:scaffholdingkey,
       gconfig:GeneralConfig<EmptyConfig>(
-      Theme.of(context),
       2<<40,//arbitrary value for flex 
       //should be high as to have many to have smooth transition
       EmptyConfig(),

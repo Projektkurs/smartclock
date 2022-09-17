@@ -104,7 +104,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
             direction: widget.direction,
             resizefromline: resizefromline));
         }      
-        GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.theme, widget.gconfig.flex, EmptyComponentConfig(), Empty);
+        GeneralConfig<EmptyComponentConfig> tmpconf=GeneralConfig(widget.gconfig.flex, EmptyComponentConfig(), Empty);
 
         childs.add(Empty(
           gconfig:tmpconf,
