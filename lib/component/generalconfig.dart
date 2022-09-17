@@ -6,15 +6,13 @@
 import 'package:smartclock/main_header.dart';
 
 class GeneralConfig<ContentType>{
-    GeneralConfig(this.theme,this.flex,this.cconfig,this.type);
-    ThemeData theme; 
+    GeneralConfig(this.flex,this.cconfig,this.type);
     int flex;
     ContentType cconfig;
     Type type;
   Map<String, dynamic> toJson() => {
     'flex':flex,
     //'type':type,
-    //'theme':theme,
     'cconfig':cconfig
   };
   }

@@ -54,7 +54,7 @@ mixin Emptymenu
   emptymenuapplycallback(){
     switch(components){
       case Componentenum.clock:
-        (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.key, gconfig: GeneralConfig<Clockconfig>(widget.componentconfig!.theme, widget.componentconfig!.flex,const Clockconfig(), Clock));
+        (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replacement=Clock(key: (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.key, gconfig: GeneralConfig<Clockconfig>(widget.componentconfig!.flex,const Clockconfig(), Clock));
         (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.apply=true;
         (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replace!();
         break;

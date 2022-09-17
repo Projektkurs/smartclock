@@ -82,7 +82,6 @@ class AppState extends State<App>
   {
     Scaffolding mainscaffolding = Scaffolding(key:scaffholdingkey,
       gconfig:GeneralConfig<EmptyConfig>(
-      Theme.of(context),
       2<<40,//arbitrary value for flex 
       //should be high as to have many to have smooth transition
       EmptyConfig(),
