@@ -16,6 +16,7 @@ class Entry extends StatelessWidget
   static const title = 'SmartClock';
   //will be used later to switch between end-user mode and embeddded
   final bool isepaper;
+
   @override
   Widget build(BuildContext context) 
   {
@@ -37,22 +38,6 @@ class App extends StatefulWidget
   @override
   AppState createState() => AppState();
 }
-
-enum Componentenum {horizontal,vertical,clock,defaultcase,empty}
-
-typedef Configmenu_t= void Function(List<Key> key,Type type,GeneralConfig config,double width,double height);
-Configmenu_t configmenu=(List<Key> key,Type type,GeneralConfig config,double width,double height){};
-
-Type stringtoType(String type){
-    switch(type){
-      case("Scaffolding"):return Scaffolding;
-      case("Empty"):return Empty;
-      case("Clock"):return Clock;
-      case("ExampleComponent"):return ExampleComponent;
-      default:return Component;
-    }
-  }
-
 
 
 class AppState extends State<App> 

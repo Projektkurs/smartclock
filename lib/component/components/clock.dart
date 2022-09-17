@@ -16,11 +16,11 @@ class Clock extends Component
   @override
    Clock({
     required Key key,
-    required gconfig,
+    required GeneralConfig gconfig,
     this.datetime,
-    isLive,
-  })  : isLive = isLive ?? (datetime == null),
-        super(key: key,gconfig:gconfig);
+    isLive})
+    : isLive = isLive ?? (datetime == null),
+      super(key: key,gconfig:gconfig);
 
   @override
   Map<String, dynamic> toJson(){
@@ -29,10 +29,17 @@ class Clock extends Component
     tmpconf['isLive']=isLive;
     return tmpconf;  
   }
+
   Clock.fromJson(Map<String, dynamic> json)
     :datetime=json['datetime'],
     isLive =json['isLive'],
-    super(key:GlobalKey(),gconfig: GeneralConfig<Clockconfig>.fromjson(json['gconfig'], Clockconfig.fromJson(json['gconfig']['cconfig'])));
+    super(
+      key:GlobalKey(),
+      gconfig: GeneralConfig<Clockconfig>.fromjson(
+        json['gconfig'],
+        Clockconfig.fromJson(json['gconfig']['cconfig'])
+      )
+    );
 
   @override
   State<Clock> createState() => _AnalogClockState(); //todo: outsource logic

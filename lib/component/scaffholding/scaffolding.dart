@@ -48,16 +48,11 @@ class Scaffolding extends Component
     updatejson=true,
     super(key: key ?? GlobalKey(),gconfig:GeneralConfig.fromjson(json['gconfig'],EmptyConfig()))
   {
-    print("Scaffolding.fromJson");
     if(state.mounted){
-      print("a");
       state.setState(() {updatejson=true;});
     }{
-      print("b");
       state.updatejson=true;
-      print(state.childs);
     }
-    //updatejson=true
   }
 
 }
@@ -73,7 +68,6 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
       default:return null;
     }
   }
-  bool test=false;
   bool updatejson=false;
   @override
   final double resizelineWidth=8.0;
@@ -87,8 +81,6 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
   @override
   Widget build(BuildContext context) 
   {
-    print("test:$test");
-    print(updatejson);
     widget.state=this;
     return Expanded(
         flex: widget.gconfig.flex,
@@ -125,11 +117,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
         }
         Component? tmpcomp;
         if(updatejson){
-          print(widget.jsonconf!['Child$i']['gconfig']['type']);
-          //switch(widget.jsonconf!['Child$i']['']){
-          stringtoType(widget.jsonconf!['Child$i']['gconfig']['type']);
           tmpcomp=jsontoComp(widget.jsonconf!['Child$i'],resizeWidget,replaceChildren); 
-          test=true;
         }
         tmpcomp??=Empty(
           gconfig:GeneralConfig<EmptyComponentConfig>(widget.gconfig.flex, EmptyComponentConfig(), Empty),

@@ -11,13 +11,12 @@ class ExampleComponent extends Component
   @override
   ExampleComponent(
     {required Key key,
-    required this.gconfig,
+    required GeneralConfig gconfig,
     required this.resizeWidget,
     required configMenu,
     })
     : super(key: key,gconfig:gconfig);
-  @override 
-  final GeneralConfig<EmptyComponentConfig> gconfig;
+
   final Function resizeWidget;
   @override
   ExampleComponentState createState() => ExampleComponentState();

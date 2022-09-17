@@ -14,15 +14,20 @@ class Empty extends Component
     required this.replaceChildren,
     })
     : super(key: key,gconfig:gconfig);
-  //final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   final Function replaceChildren;
+  
+  Empty.fromJson(Map<String, dynamic> json,this.resizeWidget,this.replaceChildren)
+  : super(
+      key:GlobalKey(),
+      gconfig:GeneralConfig<EmptyComponentConfig>.fromjson(
+        json['gconfig'],
+        EmptyComponentConfig.fromJson(json['gconfig']['cconfig'])
+      )
+    );
+
   @override
   EmptyState createState() => EmptyState();
-  Empty.fromJson(Map<String, dynamic> json,this.resizeWidget,this.replaceChildren)
-  :
-    super(key:GlobalKey(),gconfig:GeneralConfig<EmptyComponentConfig>.fromjson(json['gconfig'], EmptyComponentConfig.fromJson(json['gconfig']['cconfig'])))
-  ;
 }
 
 class EmptyState extends State<Empty> with ComponentBuild<Empty>

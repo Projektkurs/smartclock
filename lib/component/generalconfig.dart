@@ -7,19 +7,22 @@ import 'package:smartclock/main_header.dart';
 
 class GeneralConfig<ContentType>
 {
-    GeneralConfig(this.flex,this.cconfig,this.type);
-    int flex;
-    ContentType cconfig;
-    Type type;
+  GeneralConfig(this.flex,this.cconfig,this.type);
+ 
+  int flex;
+  ContentType cconfig;
+  Type type;
+  
   Map<String, dynamic> toJson() => {
     'flex':flex,
     'type':type.toString(),
     'cconfig':cconfig
   };
-  GeneralConfig.fromjson(Map<String,dynamic> json,ContentType cconfig):
+
+  GeneralConfig.fromjson(Map<String,dynamic> json,this.cconfig):
     flex=json['flex'],
-    type=stringtoType(json['type']),
-    cconfig=cconfig;
+    type=stringtoType(json['type']);
+
 }
 class EmptyConfig{
   Map<String, dynamic> toJson() =>{};

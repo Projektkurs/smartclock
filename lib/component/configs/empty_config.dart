@@ -13,14 +13,14 @@ class EmptyComponentConfig
   bool apply=false;
   Function? replace;
   late Key key;
+  EmptyComponentConfig();
+
   Map<String,dynamic> toJson() => {
     'width':width,
     'height':height,
-    //'repacement':replacement,
   };
-  EmptyComponentConfig();
 
   EmptyComponentConfig.fromJson(Map<String,dynamic> json)
-    :width=json['width'],
+  : width=json['width'],
     height=json['height'];
 }

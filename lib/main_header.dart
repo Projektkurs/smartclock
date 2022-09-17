@@ -8,23 +8,27 @@ export 'package:flutter/material.dart';
 export 'dart:async';
 export 'dart:math';
 export 'dart:convert';
-import 'package:http/http.dart';
-// Top Level UI
-export 'scaffholding/scaffolding.dart';
+export 'package:http/http.dart';
+
+// main
+export 'main.dart';
+
+//popups
 export 'popups/popup.dart';
 export 'popups/menuoptions.dart';
-export 'main.dart';
-//configmenus
-export 'popups/configmenus/empty_menu.dart';
+//popups::configmenus
+  export 'popups/configmenus/empty_menu.dart';
 
 //component
-export 'component/generalconfig.dart';
 export 'component/component.dart';
-// components
-export 'component/components/clock.dart';
-export 'component/components/example.dart';
-export 'component/components/empty.dart';
-
-// component configs
-export 'component/configs/clock_config.dart';
-export 'component/configs/empty_config.dart';
+export 'component/misc.dart';
+export 'component/generalconfig.dart';
+//component::components
+  export 'component/components/clock.dart';
+  export 'component/components/example.dart';
+  export 'component/components/empty.dart';
+//component::configs
+  export 'component/configs/clock_config.dart';
+  export 'component/configs/empty_config.dart';
+//component::scaffolding
+  export 'component/scaffholding/scaffolding.dart';

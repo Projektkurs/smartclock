@@ -25,36 +25,6 @@ class Clockconfig
 
   final Color indicatorColor;
 
-  Map<String,dynamic> toJson() => {
-    'digital':digital,
-    'secLength1':secLength1,
-    'secLength2':secLength2,
-    'minLength1':minLength1,
-    'minLength2':minLength2,
-    'hourLength1':hourLength1,
-    'hourLength2':hourLength2,
-    'backgroundColor':backgroundColor.value,
-    'outlineColor':outlineColor.value,
-    'hourColor':hourColor.value,
-    'minColor':minColor.value,
-    'secColor':secColor.value,
-    'indicatorColor':indicatorColor.value,
-  };
-  Clockconfig.fromJson(Map<String, dynamic> json)
-  : digital=json['digital'],
-    secLength1=json['secLength1'],
-    secLength2=json['secLength2'],
-    minLength1=json['minLength1'],
-    minLength2=json['minLength2'],
-    hourLength1=json['hourLength1'],
-    hourLength2=json['hourLength2'],
-    backgroundColor=Color(json['backgroundColor']),
-    outlineColor=Color(json['outlineColor']),
-    hourColor=Color(json['hourColor']),
-    minColor=Color(json['minColor']),
-    secColor=Color(json['secColor']),
-    indicatorColor=Color(json['indicatorColor']);
-
   const Clockconfig({
     this.digital = false,
     this.indicatorColor = const Color(0xFF000000),
@@ -103,4 +73,35 @@ class Clockconfig
     this.hourLength1 = 0,
     this.hourLength2 = 0,
   });
+
+  Map<String,dynamic> toJson() => {
+    'digital':digital,
+    'secLength1':secLength1,
+    'secLength2':secLength2,
+    'minLength1':minLength1,
+    'minLength2':minLength2,
+    'hourLength1':hourLength1,
+    'hourLength2':hourLength2,
+    'backgroundColor':backgroundColor.value,
+    'outlineColor':outlineColor.value,
+    'hourColor':hourColor.value,
+    'minColor':minColor.value,
+    'secColor':secColor.value,
+    'indicatorColor':indicatorColor.value,
+  };
+
+  Clockconfig.fromJson(Map<String, dynamic> json)
+  : digital=json['digital'],
+    secLength1=json['secLength1'],
+    secLength2=json['secLength2'],
+    minLength1=json['minLength1'],
+    minLength2=json['minLength2'],
+    hourLength1=json['hourLength1'],
+    hourLength2=json['hourLength2'],
+    backgroundColor=Color(json['backgroundColor']),
+    outlineColor=Color(json['outlineColor']),
+    hourColor=Color(json['hourColor']),
+    minColor=Color(json['minColor']),
+    secColor=Color(json['secColor']),
+    indicatorColor=Color(json['indicatorColor']);
 }
