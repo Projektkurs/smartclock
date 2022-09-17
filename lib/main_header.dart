@@ -8,6 +8,7 @@ export 'package:flutter/material.dart';
 export 'dart:async';
 export 'dart:math';
 export 'dart:convert';
+import 'package:http/http.dart';
 // Top Level UI
 export 'scaffholding/scaffolding.dart';
 export 'popups/popup.dart';
