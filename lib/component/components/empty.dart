@@ -17,9 +17,6 @@ class Empty extends Component
   final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   final Function replaceChildren;
-  Map<String, dynamic> toJson() => {
-    'type':'empty'
-  };
   @override
   EmptyState createState() => EmptyState();
 }

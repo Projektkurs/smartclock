@@ -11,12 +11,10 @@ class GeneralConfig<ContentType>{
     int flex;
     ContentType cconfig;
     Type type;
-    Function? configMenu;
   Map<String, dynamic> toJson() => {
     'flex':flex,
-    'type':type,
-    'theme':theme,
-    'configmenu':configMenu,
+    //'type':type,
+    //'theme':theme,
     'cconfig':cconfig
   };
   }

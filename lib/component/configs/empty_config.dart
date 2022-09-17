@@ -13,4 +13,9 @@ class EmptyComponentConfig
   bool apply=false;
   Function? replace;
   late Key key;
+  Map<String,dynamic> toJson() => {
+    'width':width,
+    'height':height,
+    //'repacement':replacement,
+  };
 }

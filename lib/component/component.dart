@@ -14,9 +14,10 @@ abstract class Component extends StatefulWidget {
   GeneralConfig gconfig;
   bool built=false;
   Function? setState;
-  @override
     Map<String, dynamic> toJson() => {
+      'gconfig': gconfig,
   };
+  @override
   State<Component> createState() => ComponentState();
 }
 
