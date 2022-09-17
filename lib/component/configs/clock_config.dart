@@ -30,14 +30,13 @@ class Clockconfig
     'minLength2':minLength2,
     'hourLength1':hourLength1,
     'hourLength2':hourLength2,
-    'backgroundColor':backgroundColor,
-    'outlineColor':outlineColor,
-    'hourColor':hourColor,
-    'minColor':minColor,
-    'secColor':secColor,
+    'backgroundColor':backgroundColor.toString(),
+    'outlineColor':outlineColor.toString(),
+    'hourColor':hourColor.toString(),
+    'minColor':minColor.toString(),
+    'secColor':secColor.toString(),
     //'repacement':replacement,
   };
-
   
   final Color indicatorColor;
 

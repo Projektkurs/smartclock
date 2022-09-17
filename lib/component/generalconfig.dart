@@ -5,24 +5,17 @@
 
 import 'package:smartclock/main_header.dart';
 
-class GeneralConfig<ContentType>{
+class GeneralConfig<ContentType>
+{
     GeneralConfig(this.flex,this.cconfig,this.type);
     int flex;
     ContentType cconfig;
     Type type;
   Map<String, dynamic> toJson() => {
     'flex':flex,
-    'type':serialComponentType(type),
+    'type':type.toString(),
     'cconfig':cconfig
   };
-  }
-  String serialComponentType(Type type){
-    switch(type){
-      case(Scaffold):return "Scaffold";
-      case(Empty):return "Empty";
-      case(Clock):return "Clock";
-      case(ExampleComponent):return "ExampleComponent";
-      default:return "";
-    }
-  }
+  
+}
 class EmptyConfig{}
