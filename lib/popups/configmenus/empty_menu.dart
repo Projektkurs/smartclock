@@ -6,8 +6,6 @@
 import 'package:smartclock/main_header.dart';
 import 'package:smartclock/popups/selectableradio.dart';
 
-enum Componentenum {horizontal,vertical,clock,defaultcase}
-
 mixin Emptymenu
 {
   //start declaration

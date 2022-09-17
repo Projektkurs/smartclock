@@ -12,9 +12,17 @@ class GeneralConfig<ContentType>{
     Type type;
   Map<String, dynamic> toJson() => {
     'flex':flex,
-    //'type':type,
+    'type':serialComponentType(type),
     'cconfig':cconfig
   };
   }
-
+  String serialComponentType(Type type){
+    switch(type){
+      case(Scaffold):return "Scaffold";
+      case(Empty):return "Empty";
+      case(Clock):return "Clock";
+      case(ExampleComponent):return "ExampleComponent";
+      default:return "";
+    }
+  }
 class EmptyConfig{}

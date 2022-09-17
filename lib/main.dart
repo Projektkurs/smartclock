@@ -37,6 +37,9 @@ class App extends StatefulWidget
   @override
   AppState createState() => AppState();
 }
+
+enum Componentenum {horizontal,vertical,clock,defaultcase,empty}
+
 typedef Configmenu_t= void Function(List<Key> key,Type type,GeneralConfig config,double width,double height);
 Configmenu_t configmenu=(List<Key> key,Type type,GeneralConfig config,double width,double height){};
 
