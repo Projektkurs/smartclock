@@ -37,6 +37,8 @@ class App extends StatefulWidget
   @override
   AppState createState() => AppState();
 }
+typedef Configmenu_t= void Function(List<Key> key,Type type,GeneralConfig config,double width,double height);
+Configmenu_t configmenu=(List<Key> key,Type type,GeneralConfig config,double width,double height){};
 
 class AppState extends State<App> 
 {
@@ -63,9 +65,14 @@ class AppState extends State<App>
     _showlines=!_showlines;
   });}
 
+  @override
+  void initState() {
+    super.initState();
+    configmenu=configMenuMainParse;
+  }
   //editing mode
   bool _editmode=false;
-
+  String jsonsave="";
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
   final GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
@@ -79,13 +86,13 @@ class AppState extends State<App>
       2<<40,//arbitrary value for flex 
       //should be high as to have many to have smooth transition
       EmptyConfig(),
-      Scaffolding) ,configMenu: configMenuMainParse,
-      direction: true, subcontainers: _maincontainers,showlines:_showlines,
-      parentConfigMenu: configMenuMainParse);
+      Scaffolding),
+      direction: true, subcontainers: _maincontainers,showlines:_showlines);
 
     ()async{
-      //racing betweeen append to DOM and Future
-      await Future.delayed(const Duration(milliseconds: 800), (){});
+      while(!mainscaffolding.state.mounted){
+        await Future.delayed(const Duration(milliseconds: 10), (){});
+      }
       debugPrint(jsonEncode(mainscaffolding));
     }();
     return Scaffold(
@@ -124,6 +131,21 @@ class AppState extends State<App>
               leading: const Icon(Icons.settings),
               title: const  Text('Settings'),
               onTap: () => {Navigator.of(context).pop()},
+            ),
+            ListTile(
+              leading: const Icon(Icons.file_upload),
+              title: const  Text('save'),
+              onTap: (){jsonsave=jsonEncode(mainscaffolding);},
+            ),
+                        ListTile(
+              leading: const Icon(Icons.file_download),
+              title: const  Text('load'),
+              onTap: (){setState(()
+              {
+                debugPrint("apply Config");
+                _maincontainers=jsonDecode(jsonsave)['subcontainers'];
+
+                });},
             ),
           ],
         ),

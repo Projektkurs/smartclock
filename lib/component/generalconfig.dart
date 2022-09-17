@@ -12,6 +12,13 @@ class GeneralConfig<ContentType>{
     ContentType cconfig;
     Type type;
     Function? configMenu;
+  Map<String, dynamic> toJson() => {
+    'flex':flex,
+    'type':type,
+    'theme':theme,
+    'configmenu':configMenu,
+    'cconfig':cconfig
+  };
   }
 
 class EmptyConfig{}

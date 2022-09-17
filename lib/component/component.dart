@@ -9,14 +9,14 @@ abstract class Component extends StatefulWidget {
   Component({
     required Key key,
     required this.gconfig,
-    required this.configMenu
   }): super(key: key);
   //todo: configMenu should be final
-  Function configMenu;
   GeneralConfig gconfig;
   bool built=false;
   Function? setState;
   @override
+    Map<String, dynamic> toJson() => {
+  };
   State<Component> createState() => ComponentState();
 }
 
@@ -56,7 +56,7 @@ mixin ComponentBuild<Parent extends Component>
       {
         return GestureDetector(
           onDoubleTap:
-          (){widget.configMenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight);},
+          (){configmenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight);},
           child:Container(
           alignment: Alignment.center,
           // 5px and 20px should be changed to a value relative to screen size 

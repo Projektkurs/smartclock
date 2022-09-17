@@ -12,19 +12,14 @@ class Scaffolding extends Component
 {
   Scaffolding(
     {required Key key,
-    this.title,
     required gconfig,
     required this.direction, //false=vertical, true=horizontal
     required this.showlines,
-    required this.subcontainers,
-    required this.parentConfigMenu,
-    required configMenu}) //number of subcontainers
-  : super(key: key,gconfig:gconfig,configMenu: configMenu);
+    required this.subcontainers}) //number of subcontainers
+  : super(key: key,gconfig:gconfig);
   bool showlines;
-  final String? title;
   final bool direction;
   final int subcontainers;
-  final Function parentConfigMenu;
   var state=ScaffoldingState();
   @override
   ScaffoldingState createState() => ScaffoldingState();
@@ -33,10 +28,29 @@ class Scaffolding extends Component
       'direction': direction,
       'subcontainers': subcontainers,
       'length': state.childs.length};
+    if(state.childs.isNotEmpty){
     for(int i=0;i<(state.childs.length+1)/2;i++){
       retval["$i"] = state.childs[i*2];
-    }
+    }}
     return retval;
+  }
+
+  Map<String, dynamic>? jsonconf;
+  bool updatejson=false;
+  Scaffolding.scafffromJson(Map<String, dynamic> json,Key key, GeneralConfig gconfig)
+    :direction=true,//json['direction'],
+    subcontainers=1,//json['subcontainers'],
+    showlines=false,
+    jsonconf=json,
+    super(key: key,gconfig:gconfig)
+  {
+    //childs=[];
+    if(state.mounted){
+      state.setState(() {updatejson=true;});
+    }{
+      updatejson=true;
+    }
+    //updatejson=true
   }
 
 }
@@ -50,8 +64,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
   @override
   List<int> width = [];
   @override
-  BoxConstraints callconstraints=const BoxConstraints();
- 
+  BoxConstraints callconstraints=const BoxConstraints(); 
 
   @override
   Widget build(BuildContext context) 
@@ -98,7 +111,6 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,
-          configMenu: widget.configMenu,
         ));
       }
     if(widget.subcontainers*2-1 < childs.length){

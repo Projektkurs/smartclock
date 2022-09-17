@@ -18,10 +18,9 @@ class Clock extends Component
     required Key key,
     required gconfig,
     this.datetime,
-    required configMenu,
     isLive,
   })  : isLive = isLive ?? (datetime == null),
-        super(key: key,gconfig:gconfig,configMenu: configMenu);
+        super(key: key,gconfig:gconfig);
 
     Map<String, dynamic> toJson() => {
     'type':'clock'

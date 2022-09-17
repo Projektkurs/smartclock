@@ -12,15 +12,13 @@ class Empty extends Component
     required this.gconfig,
     required this.resizeWidget,
     required this.replaceChildren,
-    required configMenu,
     })
-    : super(key: key,gconfig:gconfig,configMenu:configMenu);
+    : super(key: key,gconfig:gconfig,);
   final GeneralConfig<EmptyComponentConfig> gconfig;
   final Function resizeWidget;
   final Function replaceChildren;
   Map<String, dynamic> toJson() => {
     'type':'empty'
-  
   };
   @override
   EmptyState createState() => EmptyState();
@@ -29,7 +27,6 @@ class Empty extends Component
 class EmptyState extends State<Empty> with ComponentBuild<Empty>
 {
   replace(){
-    widget.gconfig.cconfig.replacement.configMenu=widget.configMenu;
     widget.replaceChildren(widget.key, widget.gconfig.cconfig.replacement);
   }
   @override

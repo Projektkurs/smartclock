@@ -12,7 +12,7 @@ export 'dart:convert';
 export 'scaffholding/scaffolding.dart';
 export 'popups/popup.dart';
 export 'popups/menuoptions.dart';
-
+export 'main.dart';
 //configmenus
 export 'popups/configmenus/empty_menu.dart';
 

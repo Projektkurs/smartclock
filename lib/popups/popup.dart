@@ -26,10 +26,9 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
       applyCallback=() => handleOnPressed(-1);
       return  Row(
           children: [
-              Clock(
+              Clock( 
         key:const Key("0"),
-        gconfig: widget.componentconfig!,
-        configMenu:(){},),
+        gconfig: widget.componentconfig!),
             Expanded(
             flex:widget.componentconfig!.flex,
             child:
