@@ -35,10 +35,17 @@ class ResizeLine extends StatefulWidget {
 }
 
 class ResizeLineState extends State<ResizeLine> {
+
+  @override
+  void initState() {
+    super.initState();
+    SchedulerBinding.instance.scheduleFrameCallback((Duration duration){
+      widget.child=this;
+      widget.built=true;
+    });    
+  }
   @override
   Widget build(BuildContext context) {
-    widget.child=this;
-    widget.built=true;
     if(widget.enabled){
       return GestureDetector(
         onPanUpdate:  (details){

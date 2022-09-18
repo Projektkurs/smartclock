@@ -46,8 +46,10 @@ mixin ComponentBuild<Parent extends Component>
 {
   //constructor cannot be used as setState will not have been declared at that time
   defaultfirstbuild(){
-    widget.built=true;
-    widget.setState=setState;
+    SchedulerBinding.instance.scheduleFrameCallback((Duration duration){
+      widget.built=true;
+      widget.setState=setState;
+    });
   }
   Parent get widget;
   BuildContext get context;
@@ -59,7 +61,7 @@ mixin ComponentBuild<Parent extends Component>
       {
         return GestureDetector(
           onDoubleTap:
-          (){configmenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight);},
+          isepaper? (){} : (){configmenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight);},
           child:Container(
           alignment: Alignment.center,
           // 5px and 20px should be changed to a value relative to screen size 

@@ -4,7 +4,9 @@
  */
 
 import 'package:smartclock/main_header.dart';
+import 'package:smartclock/message.dart';
 
+const bool isepaper=false;
 void main() 
 {
   runApp(const Entry());
@@ -12,10 +14,10 @@ void main()
 //Entry class, used to set default theme
 class Entry extends StatelessWidget 
 {
-  const Entry({Key? key,this.isepaper=false} ) : super(key: key);
+  const Entry({Key? key,} ) : super(key: key);
   static const title = 'SmartClock';
   //will be used later to switch between end-user mode and embeddded
-  final bool isepaper;
+
 
   @override
   Widget build(BuildContext context) 
@@ -40,11 +42,11 @@ class App extends StatefulWidget
 }
 
 
-class AppState extends State<App> 
+class AppState extends State<App> with message
 {
+  File fifo=File('./updatefifo');
   //main menu laying on top the top of Widget stack
   late Popup menu=Popup();
-
   //own method to parse up a config to be configured by menu
   configMenuMainParse(List<Key> key,Type type,GeneralConfig config,double width,double height){
     menu.componenttype=type;
@@ -69,12 +71,16 @@ class AppState extends State<App>
   void initState() {
     super.initState();
     configmenu=configMenuMainParse;
+    if(isepaper){
+      epaperUpdateInterrupt();
+    }
   }
   //editing mode
   bool _editmode=false;
   String jsonsave="";
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
+  //exception to this is if the whole widget tree is droped 
   GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
   final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
   Scaffolding? mainscaffolding;
@@ -94,14 +100,9 @@ class AppState extends State<App>
       mainscaffolding=Scaffolding.fromJson(jsonDecode(jsonsave),key:scaffholdingkey);
       scafffromjson=false;
     }
-
-    ()async{
-      while(!mainscaffolding!.state.mounted){
-        await Future.delayed(const Duration(milliseconds: 10), (){});
-      }
-      debugPrint(jsonEncode(mainscaffolding));
-    }();
-    return Scaffold(
+    return isepaper ? 
+    Column (children:[mainscaffolding!]) : 
+    Scaffold(
       key:scaffoldkey,
       drawer: Drawer(
         child: ListView(
@@ -141,7 +142,12 @@ class AppState extends State<App>
             ListTile(
               leading: const Icon(Icons.file_upload),
               title: const  Text('save'),
-              onTap: (){jsonsave=jsonEncode(mainscaffolding);},
+              onTap: (){
+                jsonsave=jsonEncode(mainscaffolding);
+                debugPrint(jsonsave);
+                var response = post(
+                  Uri(scheme:'http',host: 'localhost',path:'/config',port: 8000),
+                  body: jsonsave);}
             ),
             ListTile(
               leading: const Icon(Icons.file_download),

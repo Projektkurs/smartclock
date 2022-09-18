@@ -88,8 +88,8 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
         alignment: Alignment.center,
         child:LayoutBuilder(builder:(BuildContext context, BoxConstraints constraints){
       callconstraints=constraints;
-      //must be before any constructor of Widthline to avoid a racing condition 
-      //where the State already finished build but wasn't appended to the DOM
+      //must be before any constructor of Widthline to ensure the children are
+      //already appended to the DOM
       for(int i=0;i<childs.length;i++){
         if(childs[i].runtimeType==ResizeLine && (childs[i] as ResizeLine).built){
           (childs[i] as ResizeLine).child.setState(() {
@@ -103,6 +103,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
           });
         }
       }
+      
       for(int i=0; widget.subcontainers*2-1 > childs.length;i++){
         if(childs.isNotEmpty){
           childs.add(ResizeLine(
