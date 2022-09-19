@@ -14,7 +14,7 @@ export 'package:http/http.dart';
 
 // main
 export 'main.dart';
-
+export 'config.dart';
 //popups
 export 'popups/popup.dart';
 export 'popups/menuoptions.dart';
