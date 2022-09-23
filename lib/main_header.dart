@@ -4,7 +4,7 @@
  */
 
 // dart and flutter packages
-export 'package:flutter/material.dart' hide Flow;
+export 'package:flutter/material.dart';
 export 'package:flutter/scheduler.dart';
 export 'dart:async';
 export 'dart:io';

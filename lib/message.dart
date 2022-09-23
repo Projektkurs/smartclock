@@ -9,7 +9,7 @@ mixin message{
   File fifo=File('./updatefifo');
   void setState(void Function() fn);
   late String jsonsave;
-  late int _maincontainers;
+  late int maincontainers;
   late bool scafffromjson;
 
   epaperUpdateInterrupt() async{
@@ -18,7 +18,7 @@ mixin message{
       setState(() {
         debugPrint("apply Config");
         jsonsave=File('./config.json').readAsStringSync();
-        _maincontainers=jsonDecode(jsonsave)['subcontainers'];
+        maincontainers=jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;
       });
     epaperUpdateInterrupt();});

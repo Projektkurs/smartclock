@@ -7,7 +7,8 @@ import 'package:smartclock/main_header.dart';
 import 'package:smartclock/message.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
-
+import 'package:smartclock/screens/settings_screen.dart';
+import 'screens/main_screen.dart';
 
 const bool isepaper=false;
 late String supportdir;
@@ -59,19 +60,16 @@ class AppState extends State<App> with message
     menu.componentconfig=config;
     menu.openMenu(1);
   }
-
+  //textcontroller
   //number of Widgets by the first scaffholding
-  int _maincontainers = 1;
-  _addContainer() {setState(() {
-    _maincontainers<6 ? _maincontainers++: null;});}
-  _removeContainer() {setState(() {
-    _maincontainers>1 ? _maincontainers--: null ;});}
+  int maincontainers = 1;
+  addContainer() {setState(() {
+    maincontainers<6 ? maincontainers++: null;});}
+  removeContainer() {setState(() {
+    maincontainers>1 ? maincontainers--: null ;});}
 
   //changes variable "enabled" of every resizeline  -> see resizeline.dart
   bool _showlines=false;
-  _updatelines() {setState(() {
-    _showlines=!_showlines;
-  });}
 
   late Future<bool> configisload;
   @override
@@ -102,19 +100,22 @@ class AppState extends State<App> with message
           File(p.join(supportdir,'config')).writeAsString(jsonEncode(jsonconfig));
         });
       }else{
-        print("applyingconfig: ${p.join(supportdir,'configs',jsonconfig.defaultconfig)}");
+        debugPrint("applyingconfig: ${p.join(supportdir,'configs',jsonconfig.defaultconfig)}");
         jsonsave=await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsString();
-        print("jsonsave:$jsonsave");
+        debugPrint("jsonsave:$jsonsave");
         if(jsonDecode(jsonsave)==null){
           debugPrint("Error: the json file is corrupted or the versions are not compatible");
+          //await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).delete();
+          //File(p.join(supportdir,'config'));
         }
-        _maincontainers=jsonDecode(jsonsave)['subcontainers'];
+        maincontainers=jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;
       }
-      return true;
-    }
+      //needs to be initialized at the point where settings is opened
+      return true;    }
     configisload= loadconfig();
   }
+
   //editing mode
   bool _editmode=false;
   String jsonsave="";
@@ -123,6 +124,8 @@ class AppState extends State<App> with message
   //exception to this is if the whole widget tree is droped 
   GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
   final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
+  final GlobalKey mainscreenkey=GlobalKey();
+  final GlobalKey settingsscreenkey=GlobalKey();
   Scaffolding? mainscaffolding;
   bool scafffromjson=false;
   bool firstbuild=true;
@@ -130,112 +133,31 @@ class AppState extends State<App> with message
   Widget build(BuildContext context) 
   {
     print("firstbuild:$firstbuild");
-    if(firstbuild){
-      configisload.then((value){
-        firstbuild=false;
-        setState(() {});
-      });
-    }else{
-      if(scafffromjson){
-        scaffholdingkey=GlobalKey();
-        mainscaffolding=Scaffolding.fromJson(jsonDecode(jsonsave),key:scaffholdingkey);
-        scafffromjson=false;
-      }else{
-        mainscaffolding=Scaffolding(key:scaffholdingkey,
-        gconfig:GeneralConfig<EmptyConfig>(
-        2<<40,//arbitrary value for flex 
-        //should be high as to have many to have smooth transition
-        EmptyConfig(),
-        Scaffolding),
-        direction: true, subcontainers: _maincontainers,showlines:_showlines);
-      }
+   // return MainScreen(
+   //   key:mainscreenkey,
+   //   appState: this);
+
+  return MaterialApp(
+    home: MainScreen(
+    key:mainscreenkey,
+    appState: this),
+    routes: <String, WidgetBuilder> {
+      '/mainScreen': (BuildContext context) => MainScreen(
+        key:mainscreenkey,
+        appState: this),
+      '/settingsScreen': (BuildContext context) => SettingsScreen(
+    key:settingsscreenkey,
+    appState: this),
     }
-    return isepaper ? 
-    Column (children:[mainscaffolding!]) : 
-    Scaffold(
-      key:scaffoldkey,
-      drawer: Drawer(
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              leading: const Icon(Icons.add),
-              title: const Text('add Container'),
-              onTap: _addContainer,
-            ),
-            ListTile(
-              leading: const Icon(Icons.remove),
-              title: const Text('remove Container'),
-              onTap: _removeContainer,
-            ),
-            ListTile(
-              leading: const Icon(Icons.edit),
-              title: const  Text('editmode'),
-              trailing: Switch(
-                onChanged: (bool val){Navigator.of(context).pop();},
-                value: _editmode,),
-              onTap: (){setState((){_editmode=!_editmode;});
-              Navigator.of(context).pop();}
-            ),
-            ListTile(
-              leading: const Icon(Icons.view_array_outlined),
-              title: const Text('resize widgets'),
-              onTap: () {
-                _updatelines();
-                //Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const  Text('Settings'),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-            ListTile(
-              leading: const Icon(Icons.file_upload),
-              title: const  Text('save'),
-              onTap: (){
-                jsonsave=jsonEncode(mainscaffolding);
-                debugPrint(jsonsave);
-                jsonconfig.updateconfig(jsonconfig.defaultconfig,jsonsave);
-                post(
-                  Uri(scheme:'http',host: 'localhost',path:'/config',port: 8000),
-                  body: jsonsave);
-              }
-            ),
-            ListTile(
-              leading: const Icon(Icons.file_download),
-              title: const  Text('load'),
-              onTap: (){setState(() {
-                debugPrint("apply Config");
-                _maincontainers=jsonDecode(jsonsave)['subcontainers'];
-                scafffromjson=true;
-              });
-                },
-            ),
-          ],
-        ),
-      ),
-      body: Center(
-        child: Stack(children: [
-          // menu laying on top of the main Scaffholding
-          Flex(direction: Axis.horizontal,
-            children: [mainscaffolding ?? Container()]),
-          menu
-        ])
-      ),
-      //start: Buttons in the bottom right to add/remove Containers 
-      //and enable/disable resizelines
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Flexible(
-            child: FloatingActionButton(
-              onPressed: () => scaffoldkey.currentState!.openDrawer(),
-              tooltip: 'menu',
-              child: const Icon(Icons.menu),
-            )
-          ),
-        ]
-      )//end: Buttons
-    ); 
-  } 
+  );
+  
+  }
 }
+
+    /*TextField(
+  obscureText: false,
+  decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    labelText: 'epaper IP',
+  ),
+)*/

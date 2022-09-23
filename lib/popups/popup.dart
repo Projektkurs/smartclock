@@ -141,6 +141,7 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
     //}
     // Button in upper left corner to open and close menu
     returnStack.add(FloatingActionButton(
+      heroTag: "9BQwlr5WDnqfmJRet38XAYaUj1V6FId0sMETPH",
       onPressed: () => applyCallback(),
       tooltip: 'menu',
       child: AnimatedIcon(
