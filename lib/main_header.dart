@@ -21,6 +21,7 @@ export 'popups/popup.dart';
 export 'popups/menuoptions.dart';
 //popups::configmenus
   export 'popups/configmenus/empty_menu.dart';
+  export 'popups/configmenus/clock_menu.dart';
 
 //component
 export 'component/component.dart';

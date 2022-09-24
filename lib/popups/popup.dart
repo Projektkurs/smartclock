@@ -17,39 +17,16 @@ class Popup extends StatefulWidget
   State<Popup> createState() => PopupState();
 }
 
-class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions, Componentmenu, Emptymenu 
+class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions, Componentmenu, Emptymenu, Clockmenu
 {
   VoidCallback applyCallback=(){};
   @override
   bool emptyVal=false;
   Widget showComponent(){
     switch(widget.componenttype){
-      case(Clock):debugPrint("$widget.componenttype");
-      applyCallback=() => handleOnPressed(-1);
-      return  Row(
-          children: [
-              Clock( 
-        key:const Key("0"),
-        gconfig: widget.componentconfig!),
-            Expanded(
-            flex:widget.componentconfig!.flex,
-            child:
-              SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('darkmode'),
-          Switch(
-            onChanged: (bool value) {
-              setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==Clockconfig){
-                (widget.componentconfig! as GeneralConfig<Clockconfig>).cconfig=const Clockconfig.dark();
-              }else{
-                (widget.componentconfig! as GeneralConfig<Clockconfig>).cconfig=const Clockconfig();
-              }
-              });
-            },
-            value: _darkmode,
-          )
-        ])))
-        ]);
+      case(Clock):
+      applyCallback= clockmenuapplycallback;
+      return  clockmenu();
       case(Empty): 
         applyCallback=emptymenuapplycallback;
         return emptymenu();
