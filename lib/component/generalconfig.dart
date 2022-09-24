@@ -22,8 +22,8 @@ class GeneralConfig<ContentType>
   GeneralConfig.fromjson(Map<String,dynamic> json,this.cconfig):
     flex=json['flex'],
     type=stringtoType(json['type']);
-
 }
+enum Bordertype{round,sharp,fused}  
 class EmptyConfig{
   Map<String, dynamic> toJson() =>{};
 }

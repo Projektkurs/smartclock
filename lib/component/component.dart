@@ -53,6 +53,7 @@ mixin ComponentBuild<Parent extends Component>
   }
   Parent get widget;
   BuildContext get context;
+  bool unitedborder=true;
   void setState(VoidCallback fn);
   Widget componentbuild(Widget child) {
     return Expanded(
@@ -61,15 +62,26 @@ mixin ComponentBuild<Parent extends Component>
       {
         return GestureDetector(
           onDoubleTap:
-          isepaper? (){} : (){configmenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight);},
+          isepaper? (){} : (){configmenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight,setState);},
           child:Container(
           alignment: Alignment.center,
           // 5px and 20px should be changed to a value relative to screen size 
           // and relative position
-          margin: const EdgeInsets.all(5.0),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
+          margin: unitedborder ? 
+            const EdgeInsets.symmetric(vertical: 5) 
+          : const EdgeInsets.all(5.0),
+          padding: EdgeInsets.all(5.0),
+          decoration: 
+            unitedborder ? 
+            BoxDecoration(
+              border:Border.symmetric(vertical: BorderSide(width: 2,color: const Color.fromARGB(255, 73, 73, 73)),horizontal: BorderSide(width: 4,color: const Color.fromARGB(255, 73, 73, 73)))
+
+
+            )
+            : 
+            BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+              border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
           child: SizedBox.expand(child:child)),
       );})
     );

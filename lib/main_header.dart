@@ -5,12 +5,13 @@
 
 // dart and flutter packages
 export 'package:flutter/material.dart';
-export 'package:flutter/scheduler.dart';
+export 'package:flutter/scheduler.dart' hide Flow;
 export 'dart:async';
 export 'dart:io';
 export 'dart:math';
 export 'dart:convert';
 export 'package:http/http.dart';
+export 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 // main
 export 'main.dart';

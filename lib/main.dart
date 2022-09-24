@@ -55,10 +55,11 @@ class AppState extends State<App> with message
   //main menu laying on top the top of Widget stack
   late Popup menu=Popup();
   //own method to parse up a config to be configured by menu
-  configMenuMainParse(List<Key> key,Type type,GeneralConfig config,double width,double height){
+  configMenuMainParse(List<Key> key,Type type,GeneralConfig config,double width,double height,void Function(VoidCallback fn) configsetState){
     menu.componenttype=type;
     menu.componentconfig=config;
     menu.openMenu(1);
+    menu.configsetState=configsetState;
   }
   //textcontroller
   //number of Widgets by the first scaffholding

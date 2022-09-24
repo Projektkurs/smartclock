@@ -4,9 +4,9 @@
  */
 
 import 'package:smartclock/main_header.dart';
-import 'package:smartclock/popups/selectableradio.dart';
+import 'package:smartclock/popups/component_menu.dart';
 
-mixin Emptymenu
+mixin Emptymenu on Componentmenu
 {
   //start declaration
   Popup get widget;
@@ -19,10 +19,10 @@ mixin Emptymenu
 
   Widget emptymenu(){
   return Row(children: [
-    const Spacer(flex: 2),
+    const Spacer(flex: 1),
     Expanded(//start Component Radio
-      flex:1, 
-      child: Column(children: [
+      flex:10, 
+      child: ListView(children: [
         SelectableRadio<Componentenum>(
           value: Componentenum.horizontal,
           groupvalue: components,
@@ -43,10 +43,11 @@ mixin Emptymenu
           onPressed: (){setState(() {components=Componentenum.clock;});},
           text: 'Clock',
           leading: const Icon(Icons.query_builder ),
-        )
+        ),
+        componentTile()
       ])//end Component Radio
     ),
-    const Spacer(flex: 2)
+    const Spacer(flex: 1)
     ]);
   }
   emptymenuapplycallback(){
@@ -61,7 +62,9 @@ mixin Emptymenu
         break;
       default:break;
 
-
+    }
+    if(widget.configsetState != null){
+      widget.configsetState!((){});
     }
     handleOnPressed(-1);
   }

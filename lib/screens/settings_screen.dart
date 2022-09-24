@@ -28,8 +28,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //experimental 
+      resizeToAvoidBottomInset: true,
         appBar: AppBar(
-          leading: Container(),
+          leading: const Icon(Icons.settings),
           title: const Text('Settings'),
         ),
         floatingActionButton: FloatingActionButton(
@@ -37,7 +39,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
           onPressed: () {
             Navigator.pushReplacementNamed(context, "/mainScreen");
           }),
-        body:Column(children: [
+        body:
+        ListView(
+        children:[
+        ExpansionTile(
+          title: const Text("E-Paper"),
+        children:[
+          Container(
+            margin: const EdgeInsets.all(8),
+            child: 
           TextField(
             controller: _textcontroller,
             onSubmitted: (String value){
@@ -48,8 +58,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             decoration: const InputDecoration(
             border: OutlineInputBorder(),
             labelText: 'epaper IP',),
-          ),
-          TextField(
+          )),
+          Container(
+            margin: const EdgeInsets.all(8),
+            child: TextField(
             keyboardType: TextInputType.number,
             controller: _porttextcontroller,
             onSubmitted: (String value){
@@ -71,8 +83,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             decoration: InputDecoration(
               errorText: _validport ? null : (){return "Invalid port";}(),
               border: const OutlineInputBorder(),
+              
               labelText: 'epaper Port',),)
-        ]),
-    );
+    )])],
+    ));
   }
 }

@@ -4,23 +4,25 @@
  */
 
 import 'package:smartclock/main_header.dart';
+import 'package:smartclock/popups/component_menu.dart';
+
 class Popup extends StatefulWidget 
 {
   Popup({Key? key, }) : super(key: key);
   Type componenttype=Container;
   GeneralConfig? componentconfig;
   Function openMenu= (){};
+  void Function(VoidCallback fn)? configsetState;
   @override
   State<Popup> createState() => PopupState();
 }
 
-class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions, Emptymenu
+class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuoptions, Componentmenu, Emptymenu 
 {
   VoidCallback applyCallback=(){};
   @override
   bool emptyVal=false;
   Widget showComponent(){
-    debugPrint("showComponent");
     switch(widget.componenttype){
       case(Clock):debugPrint("$widget.componenttype");
       applyCallback=() => handleOnPressed(-1);
@@ -88,9 +90,6 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
   @override
   Widget build(BuildContext context)
   {
-
-    double width = MediaQuery.of(context).size.width;
-    debugPrint("$width");
     widget.openMenu=handleOnPressed;
     List<Widget> returnStack = [];
     //background greys if Menu is open

@@ -13,7 +13,7 @@ mixin callbacks
   List<int> get width;
   BoxConstraints get callconstraints;
   double get resizelineWidth;
-  void setState(void Function() fn);
+  void setState(VoidCallback fn);
 
   int _caller(key)
   {
