@@ -17,6 +17,9 @@ void main()
   //tz.initializeTimeZones();
   runApp(const Entry());
 }
+
+GeneralConfig? defaultgconf;
+
 //Entry class, used to set default theme
 class Entry extends StatelessWidget 
 {
@@ -82,7 +85,7 @@ class AppState extends State<App> with message
     }
     Future<bool> loadconfig() async{
       supportdir = (await getApplicationSupportDirectory()).path;
-      Directory(p.join(supportdir,"configs")).create();
+      await Directory(p.join(supportdir,"configs")).create();
       //var directory = await Directory('./data/configs').create(recursive: true);
       if( await File(p.join(supportdir,'config')).exists()){
         debugPrint("Config found at ${p.join(supportdir,'config')}");
@@ -90,8 +93,14 @@ class AppState extends State<App> with message
         debugPrint("No Config found, writing new on to ${p.join(supportdir,'config')}");
         await File(p.join(supportdir,'config')).writeAsString(jsonEncode(JsonConfig()));
       }
-
-      jsonconfig=JsonConfig.fromJson(jsonDecode(await File(p.join(supportdir,'config')).readAsString()));
+      String tmpjsonstr=await File(p.join(supportdir,'config')).readAsString();
+      try{
+        jsonconfig=JsonConfig.fromJson(jsonDecode(tmpjsonstr));
+      }on FormatException{
+        debugPrint("ERROR: jsonconfig is corrupted, generating new one");
+        jsonconfig=JsonConfig();
+        File(p.join(supportdir,'config')).writeAsString(jsonEncode(jsonconfig));
+      }
       if(jsonconfig.defaultconfig==""){
         debugPrint("no Widget tree config found, will use the default init as config");
         SchedulerBinding.instance.scheduleFrameCallback((Duration duration){
@@ -101,13 +110,19 @@ class AppState extends State<App> with message
           File(p.join(supportdir,'config')).writeAsString(jsonEncode(jsonconfig));
         });
       }else{
+        if(await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).exists()){
         debugPrint("applyingconfig: ${p.join(supportdir,'configs',jsonconfig.defaultconfig)}");
         jsonsave=await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsString();
-        debugPrint("jsonsave:$jsonsave");
+        debugPrint("jsonsave:$jsonsave");          
+        }else{
+          jsonconfig.configs.remove(jsonconfig.defaultconfig);
+          jsonconfig.defaultconfig="";
+        }
         if(jsonDecode(jsonsave)==null){
           debugPrint("Error: the json file is corrupted or the versions are not compatible");
-          //await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).delete();
-          //File(p.join(supportdir,'config'));
+          await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).delete();
+          await File(p.join(supportdir,'config')).delete();
+
         }
         maincontainers=jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;
@@ -117,8 +132,6 @@ class AppState extends State<App> with message
     configisload= loadconfig();
   }
 
-  //editing mode
-  bool _editmode=false;
   String jsonsave="";
   //Key is used for callbacks(scaffholding/callbacks.dart)
   //it mustn't change, as they are saved at various places in the Widget tree
