@@ -3,6 +3,7 @@
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 
+import 'package:smartclock/component/componentconfig.dart';
 import 'package:smartclock/main_header.dart';
 
 import 'callbacks.dart';
@@ -33,8 +34,10 @@ class Scaffolding extends Component
       'gconfig':gconfig};
     if(state.childs.isNotEmpty){
     for(int i=0;i<(state.childs.length+1)/2;i++){
+      print("encode Childs");
       retval["Child$i"] = state.childs[i*2];
     }}
+    print("return");
     return retval;
   }
 
@@ -46,7 +49,7 @@ class Scaffolding extends Component
     showlines=false,
     jsonconf=json,
     updatejson=true,
-    super(key: key ?? GlobalKey(),gconfig:GeneralConfig.fromjson(json['gconfig'],EmptyConfig()))
+    super(key: key ?? GlobalKey(),gconfig:GeneralConfig.fromjson(json['gconfig'],ScaffoldingConfig.fromJson(json["gconfig"]["cconfig"])))
   {
     if(state.mounted){
       state.setState(() {updatejson=true;});
@@ -60,12 +63,13 @@ class Scaffolding extends Component
 class ScaffoldingState extends State<Scaffolding> with callbacks
 {
   Component? jsontoComp(Map<String,dynamic> json,Function resizeWidget,Function replaceChildren){
-    switch(json['gconfig']['type']){
-      case("Scaffolding"):return Scaffolding.fromJson(json);
-      case("Empty"):return Empty.fromJson(json,resizeWidget,replaceChildren);
-      case("Clock"):return Clock.fromJson(json);
+    //switch(json['gconfig']["cconfig"]['type']){
+      switch(json['gconfig']['type']){
+      case("ScaffoldingConfig"):return Scaffolding.fromJson(json);
+      case("EmptyComponentConfig"):return Empty.fromJson(json,resizeWidget,replaceChildren);
+      case("ClockConfig"):return Clock.fromJson(json);
       //case("ExampleComponent"):return ExampleComponent;
-      default:return null;
+      default:debugPrint("Warning: jsontoComp from Scaffolding returned null");return null;
     }
   }
   bool updatejson=false;
@@ -121,7 +125,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
           tmpcomp=jsontoComp(widget.jsonconf!['Child$i'],resizeWidget,replaceChildren); 
         }
         tmpcomp??=Empty(
-          gconfig:GeneralConfig<EmptyComponentConfig>(widget.gconfig.flex, EmptyComponentConfig(), Empty),
+          gconfig:GeneralConfig(widget.gconfig.flex, EmptyComponentConfig()),
           key: GlobalKey(),
           resizeWidget: resizeWidget,
           replaceChildren: replaceChildren,

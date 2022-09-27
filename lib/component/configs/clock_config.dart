@@ -5,7 +5,7 @@
 */
 import 'package:smartclock/main_header.dart';
 
-class Clockconfig
+class ClockConfig
 {
   final bool digital;
 
@@ -25,7 +25,7 @@ class Clockconfig
 
   final Color indicatorColor;
 
-  const Clockconfig({
+  const ClockConfig({
     this.digital = false,
     this.indicatorColor = const Color(0xFF000000),
     this.outlineColor = const Color(0xFF000000),
@@ -41,7 +41,7 @@ class Clockconfig
     this.hourLength2 = 0.7,
   });
 
-  const Clockconfig.dark({
+  const ClockConfig.dark({
     this.digital = false,
     this.indicatorColor = const Color(0xFFFFFFFF),
     this.outlineColor = const Color(0x00000000),
@@ -56,9 +56,8 @@ class Clockconfig
     this.hourLength1 = 0,
     this.hourLength2 = 0.7,
   });
-
   ///The default digitalclock
-  const Clockconfig.digital({
+  const ClockConfig.digital({
     this.digital = true,
     this.indicatorColor = const Color(0x00000000),
     this.outlineColor = const Color(0x00000000),
@@ -90,7 +89,7 @@ class Clockconfig
     'indicatorColor':indicatorColor.value,
   };
 
-  Clockconfig.fromJson(Map<String, dynamic> json)
+  ClockConfig.fromJson(Map<String, dynamic> json)
   : digital=json['digital'],
     secLength1=json['secLength1'],
     secLength2=json['secLength2'],

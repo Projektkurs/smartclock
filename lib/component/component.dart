@@ -62,7 +62,7 @@ mixin ComponentBuild<Parent extends Component>
       {
         return GestureDetector(
           onDoubleTap:
-          isepaper? (){} : (){configmenu([widget.key!],Parent,widget.gconfig,constraints.maxWidth,constraints.maxHeight,setState);},
+          isepaper? (){} : (){configmenu([widget.key!],widget.gconfig,constraints.maxWidth,constraints.maxHeight,setState);},
           child:Container(
           alignment: Alignment.center,
           // 5px and 20px should be changed to a value relative to screen size 

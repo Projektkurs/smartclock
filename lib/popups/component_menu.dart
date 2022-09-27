@@ -21,36 +21,23 @@ mixin Componentmenu{
               top: Radius.circular(500),
               bottom: Radius.circular(100),
             )
-            : const BorderRadius.horizontal(right: Radius.circular(500)),
-                      ),
+            //right radius should be as large as possible
+            : const BorderRadius.horizontal(right: Radius.circular(9999),left: Radius.circular(400)),
+          ),
           content:SingleChildScrollView(
-          child:
-          HueRingPicker(
-            pickerColor: color,
-            onColorChanged: (e){setState(() {color=e;});},
-            //colorPickerWidth: 400,
-            pickerAreaBorderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(2),
-              topRight: Radius.circular(2),
-                          ),
-          ),),
-          /*actions: <Widget>[
-            TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.titleLarge,
-              ),
-              child: const Text('Apply'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            child:
+            HueRingPicker(
+              pickerColor: color,
+              onColorChanged: (e){setState(() {color=e;});},
             ),
-          ],*/
+          ),
         );
       },
     );
     return color;
   }
   void setState(VoidCallback fn);
+
   Color testcolor=Colors.blue;
   double _border_width=5;
   double _border_radius=8;
@@ -58,7 +45,7 @@ mixin Componentmenu{
   static final List<String> _cornerlist=Bordertype.values.map((dynamic e) => e.toString().split('.').last).toList();
   final List<DropdownMenuItem<String>> _cornerstyle=_cornerlist.map((String e) => DropdownMenuItem<String>(value:e,child: Text(e),)).toList();
   String _corner_style_val=_cornerlist[0];
-  Widget componentTile(){
+  Widget componentTile(GeneralConfig generalconfig){
     return ExpansionTile(
     title: const Text("General"),
     children:[
@@ -66,7 +53,22 @@ mixin Componentmenu{
       title: const Text("Border"),
       children:[
         ListTile(
-          leading:Text("Width",style: Theme.of(context).textTheme.titleMedium),
+          leading:SizedBox(
+            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*4,
+            child:Text("Width",style: Theme.of(context).textTheme.titleMedium)
+          ),
+          trailing: SizedBox(
+            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
+            child: Text(_border_width.toStringAsFixed(2))),
+          title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;});},
+            min:0,
+            max:10)
+        ),
+        ListTile(
+          leading:SizedBox(
+            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*4,
+            child:Text("Padding",style: Theme.of(context).textTheme.titleMedium)
+          ),
           trailing: Container(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
             child: Text("${_border_width.toStringAsFixed(2)}")),
@@ -75,17 +77,11 @@ mixin Componentmenu{
             max:10)
         ),
         ListTile(
-          leading:Text("Padding",style: Theme.of(context).textTheme.titleMedium),
-          trailing: Container(
-            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
-            child: Text("${_border_width.toStringAsFixed(2)}")),
-          title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;});},
-            min:0,
-            max:10)
-        ),
-        ListTile(
-          leading:Text("Margin",style: Theme.of(context).textTheme.titleMedium),
-          trailing: Container(
+          leading:SizedBox(
+            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*4,
+            child:Text("Margin",style: Theme.of(context).textTheme.titleMedium)
+          ),
+          trailing: SizedBox(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
             child: Text(_border_width.toStringAsFixed(2))),
           title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;});},
@@ -106,8 +102,10 @@ mixin Componentmenu{
         ListTile(
           enabled: true,
           leading:Text("Border Color",style: Theme.of(context).textTheme.titleMedium),
+          //replace at some point with relative size
+          title: Icon(Icons.color_lens,color: testcolor,size: 45),
           onTap: () {
-            _ColorDialog(context,testcolor).then((value) => testcolor=value);
+            _ColorDialog(context,testcolor).then((value) => setState((){testcolor=value;}));
           },
         ),
       ]),

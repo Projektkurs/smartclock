@@ -8,8 +8,8 @@ enum Componentenum {horizontal,vertical,clock,defaultcase,empty}
 
 //used by most Components to open the config menu if they are pressed. 
 //assigned to configMenuMainParse in main.dart
-typedef Configmenu_t= void Function(List<Key> key,Type type,GeneralConfig config,double width,double height, void Function(VoidCallback fn) configsetState);
-Configmenu_t configmenu=(List<Key> key,Type type,GeneralConfig config,double width,double height,void Function(VoidCallback fn) configsetState){};
+typedef Configmenu_t= void Function(List<Key> key,GeneralConfig config,double width,double height, void Function(VoidCallback fn) configsetState);
+Configmenu_t configmenu=(List<Key> key,GeneralConfig config,double width,double height,void Function(VoidCallback fn) configsetState){};
 
 //returns Type of Component
 Type stringtoType(String type){

@@ -20,11 +20,10 @@ class Empty extends Component
   Empty.fromJson(Map<String, dynamic> json,this.resizeWidget,this.replaceChildren)
   : super(
       key:GlobalKey(),
-      gconfig:GeneralConfig<EmptyComponentConfig>.fromjson(
-        json['gconfig'],
-        EmptyComponentConfig.fromJson(json['gconfig']['cconfig'])
+      gconfig:GeneralConfig.fromjson(
+        json['gconfig'],EmptyComponentConfig.fromJson(json["gconfig"]["cconfig"])
       )
-    );
+    ){print("Emptyfromjson:$gconfig");}
 
   @override
   EmptyState createState() => EmptyState();

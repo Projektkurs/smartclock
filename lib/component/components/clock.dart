@@ -35,9 +35,8 @@ class Clock extends Component
     isLive =json['isLive'],
     super(
       key:GlobalKey(),
-      gconfig: GeneralConfig<Clockconfig>.fromjson(
-        json['gconfig'],
-        Clockconfig.fromJson(json['gconfig']['cconfig'])
+      gconfig: GeneralConfig.fromjson(
+        json['gconfig'],ClockConfig.fromJson(json["gconfig"]["cconfig"])
       )
     );
 
@@ -83,7 +82,7 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
             child: CustomPaint(
                 size: const Size(double.infinity, double.infinity),
                 painter:
-                    ClockPainter(cconf: (widget.gconfig.cconfig as Clockconfig), datetime: datetime)))));
+                    ClockPainter(cconf: (widget.gconfig.cconfig as ClockConfig), datetime: datetime)))));
   }
 }
 
@@ -91,7 +90,7 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
 class ClockPainter extends CustomPainter
 {
   DateTime datetime;
-  Clockconfig cconf;
+  ClockConfig cconf;
   ClockPainter({required this.cconf, required this.datetime});
 
   //draws an analog clock

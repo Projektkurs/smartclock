@@ -44,7 +44,7 @@ mixin Emptymenu on Componentmenu
           text: 'Clock',
           leading: const Icon(Icons.query_builder ),
         ),
-        componentTile()
+        componentTile(widget.componentconfig!)
       ])//end Component Radio
     ),
     const Spacer(flex: 1)
@@ -53,12 +53,13 @@ mixin Emptymenu on Componentmenu
   emptymenuapplycallback(){
     switch(components){
       case Componentenum.clock:
-        (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replacement=Clock(
-          key: (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.key,
-          gconfig: GeneralConfig<Clockconfig>(widget.componentconfig!.flex,
-          const Clockconfig(), Clock));
-        (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.apply=true;
-        (widget.componentconfig! as GeneralConfig<EmptyComponentConfig>).cconfig.replace!();
+
+        (widget.componentconfig! as GeneralConfig).cconfig.replacement=Clock(
+          key: (widget.componentconfig!.cconfig as EmptyComponentConfig).key,
+          gconfig: GeneralConfig(widget.componentconfig!.flex,
+          const ClockConfig()));
+        (widget.componentconfig!.cconfig as EmptyComponentConfig).apply=true;
+        (widget.componentconfig!.cconfig as EmptyComponentConfig).replace!();
         break;
       default:break;
 

@@ -30,10 +30,10 @@ mixin Clockmenu
           Switch(
             onChanged: (bool value) {
               setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==Clockconfig){
-                (widget.componentconfig! as GeneralConfig<Clockconfig>).cconfig=const Clockconfig.dark();
+              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==ClockConfig){
+                widget.componentconfig!.cconfig=const ClockConfig.dark();
               }else{
-                (widget.componentconfig! as GeneralConfig<Clockconfig>).cconfig=const Clockconfig();
+                widget.componentconfig!.cconfig=const ClockConfig();
               }
               });
             },

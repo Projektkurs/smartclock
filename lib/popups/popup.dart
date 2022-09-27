@@ -9,7 +9,6 @@ import 'package:smartclock/popups/component_menu.dart';
 class Popup extends StatefulWidget 
 {
   Popup({Key? key, }) : super(key: key);
-  Type componenttype=Container;
   GeneralConfig? componentconfig;
   Function openMenu= (){};
   void Function(VoidCallback fn)? configsetState;
@@ -23,11 +22,11 @@ class PopupState extends State<Popup> with SingleTickerProviderStateMixin, Menuo
   @override
   bool emptyVal=false;
   Widget showComponent(){
-    switch(widget.componenttype){
-      case(Clock):
+    switch(widget.componentconfig!.type){
+      case(ClockConfig):
       applyCallback= clockmenuapplycallback;
       return  clockmenu();
-      case(Empty): 
+      case(EmptyComponentConfig): 
         applyCallback=emptymenuapplycallback;
         return emptymenu();
       default:return Container();

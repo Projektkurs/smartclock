@@ -1,5 +1,6 @@
 
 
+import 'package:smartclock/component/componentconfig.dart';
 import 'package:smartclock/main_header.dart';
 
 class MainScreen extends StatefulWidget
@@ -39,11 +40,10 @@ class _MainScreenState extends State<MainScreen>
         widget.appState.scafffromjson=false;
       }else{
         mainscaffolding=Scaffolding(key:widget.appState.scaffholdingkey,
-        gconfig:GeneralConfig<EmptyConfig>(
+        gconfig:GeneralConfig(
         2<<40,//arbitrary value for flex 
         //should be high as to have many to have smooth transition
-        EmptyConfig(),
-        Scaffolding),
+        ScaffoldingConfig()),
         direction: true, subcontainers: widget.appState.maincontainers,showlines:showlines);
       }
     }
