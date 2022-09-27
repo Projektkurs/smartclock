@@ -17,6 +17,7 @@ void main()
   //tz.initializeTimeZones();
   runApp(const Entry());
 }
+GeneralConfig globalgconf=GeneralConfig.createGeneral();
 //Entry class, used to set default theme
 class Entry extends StatelessWidget 
 {

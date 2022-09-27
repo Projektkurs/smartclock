@@ -60,7 +60,7 @@ mixin Componentmenu{
           trailing: SizedBox(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
             child: Text(_border_width.toStringAsFixed(2))),
-          title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;});},
+          title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;generalconfig.borderWidth=value;});},
             min:0,
             max:10)
         ),

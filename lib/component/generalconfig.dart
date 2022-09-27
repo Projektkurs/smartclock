@@ -8,14 +8,16 @@ import 'package:smartclock/main_header.dart';
 class Defaultgeneral{}
 class GeneralConfig
 {
-  GeneralConfig(this.flex,this.cconfig):
+  GeneralConfig(this.flex,this.cconfig);
+
+ //must be of ContentType Defaultgeneral 
+  GeneralConfig.createGeneral():
+    cconfig=Defaultgeneral(),
+    flex=1,
     borderWidth=5,
     borderRadius=10,
     padding=5;
- //must be of ContentType Defaultgeneral 
-  GeneralConfig.createGeneral():
-    cconfig=(Defaultgeneral() as ContentType),
-    flex=1;
+
   
   Type get type{
     print("Gconf-Type get:$cconfig");
@@ -34,34 +36,19 @@ class GeneralConfig
   Map<String, dynamic> toJson() => {
     'flex':flex,
     'type':type.toString(),
-    'cconfig':cconfig
+    'cconfig':cconfig,
+    //border:
+    'borderWidth':borderWidth,
+    'borderRadius':borderRadius
   };
 
   GeneralConfig.fromjson(Map<String,dynamic> json,dynamic cconf):
     flex=json['flex'],
-    cconfig=cconf
-    {
-      //print(1);
-      //cconfig=cconffromjson(json);
-      //print(2);
-    }
+    cconfig=cconf,
+    //border
+    borderWidth=json["borderWidth"],
+    borderRadius=json["borderRadius"]; 
     //type=stringtoType(json['type']);
-  dynamic cconffromjson(Map<String,dynamic> json){
-    switch(json['type']){
-      case("ScaffholdingConfig"):
-        return ScaffoldingConfig.fromJson(json["cconfig"]);
-      case("EmptyComponentConfig"):
-        return EmptyComponentConfig.fromJson(json["cconfig"]);
-      case("ClockConfig"):
-        return ClockConfig.fromJson(json["cconfig"]);
-      default:
-        return EmptyConfig;
-    }
-  }
 }
 
 enum Bordertype{round,sharp,fused}  
-//TODO: remove EmptyConfig
-class EmptyConfig{
-  Map<String, dynamic> toJson() =>{};
-}

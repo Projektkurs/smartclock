@@ -35,7 +35,7 @@ class ComponentState extends State<Component>{
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(20)),
-        border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
+        border:Border.all(width: widget.gconfig.borderWidth?? globalgconf.borderWidth!, color: const Color.fromARGB(255, 73, 73, 73))),
       child: SizedBox.expand(child:Container()),
     )
       );
@@ -74,7 +74,7 @@ mixin ComponentBuild<Parent extends Component>
           decoration: 
             unitedborder ? 
             BoxDecoration(
-              border:Border.symmetric(vertical: BorderSide(width: 2,color: const Color.fromARGB(255, 73, 73, 73)),horizontal: BorderSide(width: 4,color: const Color.fromARGB(255, 73, 73, 73)))
+              border:Border.symmetric(vertical: BorderSide(width: widget.gconfig.borderWidth?? globalgconf.borderWidth!/2,color: const Color.fromARGB(255, 73, 73, 73)),horizontal: BorderSide(width: widget.gconfig.borderWidth?? globalgconf.borderWidth!,color: const Color.fromARGB(255, 73, 73, 73)))
 
 
             )
