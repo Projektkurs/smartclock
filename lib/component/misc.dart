@@ -2,6 +2,7 @@
  *
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
+import 'package:smartclock/component/componentconfig.dart';
 import 'package:smartclock/main_header.dart';
 
 enum Componentenum {horizontal,vertical,clock,defaultcase,empty}
@@ -15,8 +16,11 @@ Configmenu_t configmenu=(List<Key> key,GeneralConfig config,double width,double 
 Type stringtoType(String type){
     switch(type){
       case("Scaffolding"):return Scaffolding;
+      case("ScaffoldingConfig"): return ScaffoldingConfig;
       case("Empty"):return Empty;
+      case("EmptyComponentConfig"):return EmptyComponentConfig;
       case("Clock"):return Clock;
+      case("ClockConfig"):return ClockConfig;
       case("ExampleComponent"):return ExampleComponent;
       default:return Component;
     }

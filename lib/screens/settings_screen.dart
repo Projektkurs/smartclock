@@ -1,3 +1,8 @@
+/* settings_screen.dart - settings Menu for general use
+ *
+ * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
+ */
+
 import 'package:smartclock/main_header.dart';
 import 'package:path/path.dart' as p;
 

@@ -1,4 +1,7 @@
-
+/* main_screen.dart - base screen for AppState
+ *
+ * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
+ */
 
 import 'package:smartclock/component/componentconfig.dart';
 import 'package:smartclock/main_header.dart';
