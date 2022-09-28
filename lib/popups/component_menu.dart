@@ -39,8 +39,6 @@ mixin Componentmenu{
   void setState(VoidCallback fn);
 
   Color testcolor=Colors.blue;
-  double _border_width=5;
-  double _border_radius=8;
   //static final List<String> _cornermap=["round","test"];
   static final List<String> _cornerlist=Bordertype.values.map((dynamic e) => e.toString().split('.').last).toList();
   final List<DropdownMenuItem<String>> _cornerstyle=_cornerlist.map((String e) => DropdownMenuItem<String>(value:e,child: Text(e),)).toList();
@@ -59,24 +57,24 @@ mixin Componentmenu{
           ),
           trailing: SizedBox(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
-            child: Text(_border_width.toStringAsFixed(2))),
-          title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;generalconfig.borderWidth=value;});},
+            child: Text((generalconfig.borderWidth ??globalgconf.borderWidth!).toStringAsFixed(2))),
+          title: Slider(value: generalconfig.borderWidth ??globalgconf.borderWidth!, onChanged: (double value){setState((){generalconfig.borderWidth=value;});},
             min:0,
             max:10)
         ),
         ListTile(
           leading:SizedBox(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*4,
-            child:Text("Padding",style: Theme.of(context).textTheme.titleMedium)
+            child:Text("Radius",style: Theme.of(context).textTheme.titleMedium)
           ),
           trailing: Container(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
-            child: Text("${_border_width.toStringAsFixed(2)}")),
-          title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;});},
+            child: Text((generalconfig.borderRadius ??globalgconf.borderRadius!).toStringAsFixed(2))),
+          title: Slider(value: generalconfig.borderRadius ??globalgconf.borderRadius!, onChanged: (double value){setState((){generalconfig.borderRadius=value;});},
             min:0,
-            max:10)
+            max:30)
         ),
-        ListTile(
+        /*ListTile(
           leading:SizedBox(
             width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*4,
             child:Text("Margin",style: Theme.of(context).textTheme.titleMedium)
@@ -87,7 +85,7 @@ mixin Componentmenu{
           title: Slider(value: _border_width, onChanged: (double value){setState((){_border_width=value;});},
             min:0,
             max:10)
-        ),
+        ),*/
         ListTile(
           leading:Text("Corner Style",style: Theme.of(context).textTheme.titleMedium),
           title:DropdownButton<String>(

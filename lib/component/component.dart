@@ -53,7 +53,7 @@ mixin ComponentBuild<Parent extends Component>
   }
   Parent get widget;
   BuildContext get context;
-  bool unitedborder=true;
+  bool unitedborder=false;
   void setState(VoidCallback fn);
   Widget componentbuild(Widget child) {
     return Expanded(
@@ -80,8 +80,8 @@ mixin ComponentBuild<Parent extends Component>
             )
             : 
             BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-              border:Border.all(width: 4.0, color: const Color.fromARGB(255, 73, 73, 73))),
+              borderRadius: BorderRadius.all(Radius.circular(widget.gconfig.borderRadius?? globalgconf.borderRadius!)),
+              border:Border.all(width: widget.gconfig.borderWidth?? globalgconf.borderWidth!, color: const Color.fromARGB(255, 73, 73, 73))),
           child: SizedBox.expand(child:child)),
       );})
     );
