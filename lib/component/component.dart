@@ -81,7 +81,7 @@ mixin ComponentBuild<Parent extends Component>
             : 
             BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(widget.gconfig.borderRadius?? globalgconf.borderRadius!)),
-              border:Border.all(width: widget.gconfig.borderWidth?? globalgconf.borderWidth!, color: const Color.fromARGB(255, 73, 73, 73))),
+              border:Border.all(width: widget.gconfig.borderWidth?? globalgconf.borderWidth!, color: widget.gconfig.borderColor ?? const Color.fromARGB(255, 73, 73, 73))),
           child: SizedBox.expand(child:child)),
       );})
     );

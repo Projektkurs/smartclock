@@ -3,8 +3,9 @@
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 import 'package:smartclock/main_header.dart';
+import 'package:smartclock/popups/component_menu.dart';
 
-mixin Clockmenu
+mixin Clockmenu on Componentmenu
 {
   //start declaration
   Popup get widget;
@@ -17,12 +18,17 @@ mixin Clockmenu
   bool _darkmode=false;
 
   Widget clockmenu(){
-  return Row(
+  return 
+  Row(
           children: [
               Clock( 
         key:const Key("0"),
         gconfig: widget.componentconfig!),
-            Expanded(
+        Expanded(flex: widget.componentconfig!.flex,child:
+        ListView(
+          children:
+          
+                    [Expanded(
             flex:widget.componentconfig!.flex,
             child:
               SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -39,8 +45,9 @@ mixin Clockmenu
             },
             value: _darkmode,
           )
-        ])))
-        ]);
+        ]))),
+        //componentTile(widget.componentconfig!)
+        ]))]);
   }
   clockmenuapplycallback(){
     if(widget.configsetState != null){

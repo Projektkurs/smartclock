@@ -44,14 +44,23 @@ class _MainScreenState extends State<MainScreen>
       }else{
         mainscaffolding=Scaffolding(key:widget.appState.scaffholdingkey,
         gconfig:GeneralConfig(
-        2<<40,//arbitrary value for flex 
+        2<<40,//arbitrary value for flex
         //should be high as to have many to have smooth transition
         ScaffoldingConfig()),
         direction: true, subcontainers: widget.appState.maincontainers,showlines:showlines);
       }
     }
     if(isepaper){
-      return mainscaffolding!;
+      return Scaffold(
+      key:widget.appState.scaffoldkey,
+      body: Center(
+        child: Stack(children: [
+          // menu laying on top of the main Scaffholding
+          Flex(direction: Axis.horizontal,
+            children: [mainscaffolding ?? Container()]),
+          widget.appState.menu
+        ])
+      ));
     }else{
     return Scaffold(
       key:widget.appState.scaffoldkey,

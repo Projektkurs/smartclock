@@ -36,3 +36,5 @@ export 'component/generalconfig.dart';
   export 'component/configs/empty_config.dart';
 //component::scaffolding
   export 'component/scaffholding/scaffolding.dart';
+
+const bool isepaper=bool.fromEnvironment("isepaper");

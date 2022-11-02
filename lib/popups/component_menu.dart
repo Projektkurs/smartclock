@@ -101,9 +101,9 @@ mixin Componentmenu{
           enabled: true,
           leading:Text("Border Color",style: Theme.of(context).textTheme.titleMedium),
           //replace at some point with relative size
-          title: Icon(Icons.color_lens,color: testcolor,size: 45),
+          title: Icon(Icons.color_lens,color: generalconfig.borderColor ?? const Color.fromARGB(255, 73, 73, 73),size: 45),
           onTap: () {
-            _ColorDialog(context,testcolor).then((value) => setState((){testcolor=value;}));
+            _ColorDialog(context,generalconfig.borderColor ?? const Color.fromARGB(255, 73, 73, 73)).then((value) => setState((){generalconfig.borderColor=value;}));
           },
         ),
       ]),

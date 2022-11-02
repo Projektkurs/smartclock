@@ -10,7 +10,6 @@ import 'package:path/path.dart' as p;
 import 'package:smartclock/screens/settings_screen.dart';
 import 'screens/main_screen.dart';
 
-const bool isepaper=false;
 late String supportdir;
 void main() 
 {
@@ -51,7 +50,7 @@ class App extends StatefulWidget
 
 class AppState extends State<App> with message
 {
-  File fifo=File('./updatefifo');
+  //File fifo=File('./updatefifo');
   late JsonConfig jsonconfig;
   //main menu laying on top the top of Widget stack
   late Popup menu=Popup();
