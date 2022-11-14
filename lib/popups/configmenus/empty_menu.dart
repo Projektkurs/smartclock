@@ -3,6 +3,7 @@
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
  */
 
+import 'package:smartclock/component/componentconfig.dart';
 import 'package:smartclock/main_header.dart';
 import 'package:smartclock/popups/component_menu.dart';
 
@@ -52,6 +53,28 @@ mixin Emptymenu on Componentmenu
   }
   emptymenuapplycallback(){
     switch(components){
+      case Componentenum.horizontal:
+        (widget.componentconfig! as GeneralConfig).cconfig.replacement=Scaffolding(
+          key: (widget.componentconfig! as GeneralConfig).cconfig.key,
+          direction: true,
+          showlines: false,
+          subcontainers: 2,
+          gconfig: GeneralConfig(widget.componentconfig!.flex,
+          ScaffoldingConfig()));
+        (widget.componentconfig! as GeneralConfig).cconfig.apply=true;
+        (widget.componentconfig! as GeneralConfig).cconfig.replace!();
+        break;
+      case Componentenum.vertical:
+        (widget.componentconfig! as GeneralConfig).cconfig.replacement=Scaffolding(
+          key: (widget.componentconfig! as GeneralConfig).cconfig.key,
+          direction: false,
+          showlines: false,
+          subcontainers: 2,
+          gconfig: GeneralConfig(widget.componentconfig!.flex,
+          ScaffoldingConfig()));
+        (widget.componentconfig! as GeneralConfig).cconfig.apply=true;
+        (widget.componentconfig! as GeneralConfig).cconfig.replace!();
+        break;
       case Componentenum.clock:
 
         (widget.componentconfig! as GeneralConfig).cconfig.replacement=Clock(

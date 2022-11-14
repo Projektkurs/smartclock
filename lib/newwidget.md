@@ -1,0 +1,19 @@
+### Steps to create a new widget:
+- creating the widget itself 
+    - create a new folder in component/components called <component>.dart
+    - pasting the widget
+        - the widget inherits from Component instead of StatefulWidget
+        - gconfig must get linked
+        - create a toJson and a fromJson function
+            - see clock.dart as an example
+        - the state uses ComponentBuild<T> 
+        - the return of buildwidget is wrapped into componentbuild
+- creating a config 
+    - the config goes in component/components
+    - if there is no need for a config, use EmptyConfig instead of your own
+- updating stringtoType in misc.dart
+- updating ComponentEnum in misc.dart
+- adding a custom popup
+    - creating a custom callback in popups/configmenus
+        - use clock_menu.dart as an example
+    - adding the callback into popup.dart (currently line 26)
