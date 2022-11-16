@@ -20,21 +20,23 @@ export 'config.dart';
 export 'popups/popup.dart';
 export 'popups/menuoptions.dart';
 //popups::configmenus
-  export 'popups/configmenus/empty_menu.dart';
-  export 'popups/configmenus/clock_menu.dart';
+export 'popups/configmenus/empty_menu.dart';
+export 'popups/configmenus/clock_menu.dart';
 
 //component
 export 'component/component.dart';
 export 'component/misc.dart';
 export 'component/generalconfig.dart';
 //component::components
-  export 'component/components/clock.dart';
-  export 'component/components/example.dart';
-  export 'component/components/empty.dart';
+export 'component/components/clock.dart';
+export 'component/components/example.dart';
+export 'component/components/empty.dart';
+export 'component/components/vertretungsplan.dart';
 //component::configs
-  export 'component/configs/clock_config.dart';
-  export 'component/configs/empty_config.dart';
+export 'component/configs/clock_config.dart';
+export 'component/configs/empty_config.dart';
+export 'component/configs/vertretungsplan_config.dart';
 //component::scaffolding
-  export 'component/scaffholding/scaffolding.dart';
+export 'component/scaffholding/scaffolding.dart';
 
-const bool isepaper=bool.fromEnvironment("isepaper");
+const bool isepaper = bool.fromEnvironment("isepaper");
