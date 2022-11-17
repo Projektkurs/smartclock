@@ -102,6 +102,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
             (childs[i] as ResizeLine).enabled=widget.showlines;
           });
         }
+        //todo: built does currently include deleted nodes
         else if(childs[i].runtimeType==Scaffolding && (childs[i] as Scaffolding).built){
           (childs[i] as Scaffolding).setState!(() {
             (childs[i] as Scaffolding).showlines=widget.showlines;
