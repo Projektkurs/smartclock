@@ -41,6 +41,8 @@ Type stringtoType(String type) {
       return ExampleComponent;
     case ("Vertretungsplan"):
       return Vertretungsplan;
+    case ("VertretungsplanConfig"):
+      return VertretungsplanConfig;
     default:
       return Component;
   }

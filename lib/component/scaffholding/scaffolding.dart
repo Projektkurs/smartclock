@@ -68,6 +68,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
       case("ScaffoldingConfig"):return Scaffolding.fromJson(json);
       case("EmptyComponentConfig"):return Empty.fromJson(json,resizeWidget,replaceChildren);
       case("ClockConfig"):return Clock.fromJson(json);
+      case("VertretungsplanConfig"):return Vertretungsplan.fromJson(json);
       //case("ExampleComponent"):return ExampleComponent;
       default:debugPrint("Warning: jsontoComp from Scaffolding returned null");return null;
     }
