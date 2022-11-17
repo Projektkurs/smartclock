@@ -54,11 +54,33 @@ class VertretungsplanState extends State<Vertretungsplan>
     if(lesson==null){
       return const Text("");
     }else{
-      return Text("${lesson.level}: ${lesson.subject}, ${lesson.teacher}");
+      var note=lesson.info=="" ? "": "\nInfo:${lesson.info}"; 
+      return Text("${lesson.level}: ${lesson.subject}, ${lesson.teacher}$note",style: Theme.of(context).textTheme.titleMedium);
     }
   }
+  String getweekday(DateTime date){
+    switch(date.weekday){
+      case(1): return "Mo";
+      case(2): return "Di";
+      case(3): return "Mi";
+      case(4): return "Do";
+      case(5): return "Fr";
+      case(6): return "Sa";
+      case(7): return "So";
+      default: return "";
+      }
+  }
+  String getday(DateTime date){
+    if(date==vp.trim(DateTime.now())){
+      return "Heute";
+    }
+    if(date==vp.trim(DateTime.now().add(const Duration(days: 1)))){
+      return "Morgen";
+    }
+    return "${getweekday(date)} der ${date.day}. ${date.month}";
+  }
   TableRow onecollumn(int hour ){
-    List<Widget> text=[Text("$hour. Stunde")];
+    List<Widget> text=[Text("$hour. Stunde",style: Theme.of(context).textTheme.titleLarge)];
     for(var i in vplan!.lessons){
       text.add(hourformat(i[hour]));
     }
@@ -68,26 +90,15 @@ class VertretungsplanState extends State<Vertretungsplan>
     if(vplan==null){
       return [];
     }
-    List<TableRow> tables=[TableRow(children: [
-              Text("", textScaleFactor: 1.5),
-              Text("Montag", textScaleFactor: 1.5),
-              Text("Dienstag", textScaleFactor: 1.5),
-              Text(
-                "Mittwoch",
-                textScaleFactor: 1.5,
-              ),
-              Text(
-                "Donnerstag",
-                textScaleFactor: 1.5,
-              ),
-              Text(
-                "Freitag",
-                textScaleFactor: 1.5,
-              ),
-            ]),];
-      for(int i=0;i<7;i++){
-        tables.add(onecollumn(i));
-      }
+    List<Widget>firstrow=[Text("")];
+    for(int i =0;i<5;i++){
+      firstrow.add(Text(getday(vplan!.days[i].date),textScaleFactor: 1.5,));
+    }
+    List<TableRow> tables=[
+      TableRow(children: firstrow)];
+    for(int i=0;i<7;i++){
+      tables.add(onecollumn(i));
+    }
     return tables;
   }
   @override
