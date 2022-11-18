@@ -1,8 +1,7 @@
 /* clock.dart - a clock based upon the dart-libary: "analog_clock"
  *
  * Copyright 2022 by Béla Wohlers <bela.wohlers@gmx.de>
- * 
- * TODO: making (some) parameters not mandatory
+ *
 */
 
 import 'package:smartclock/main_header.dart';
@@ -41,14 +40,14 @@ class Clock extends Component
     );
 
   @override
-  State<Clock> createState() => _AnalogClockState(); //todo: outsource logic
+  State<Clock> createState() => _AnalogClockState(); 
 }
 
 class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
 {
   late DateTime initialDatetime; // to keep track of time changes
   late DateTime datetime;
-  Duration updateDuration = const Duration(seconds: 1); // repaint frequency
+  Duration updateDuration = isepaper ? const Duration(minutes: 1): const Duration(seconds: 1); // repaint frequency
   _AnalogClockState();
   @override
   initState()
@@ -58,7 +57,7 @@ class _AnalogClockState extends State<Clock> with ComponentBuild<Clock>
     defaultfirstbuild();
     super.initState();
     if (widget.isLive) {
-      // update clock every second or minute based on second hand's visibility.
+      // update clock every second or minute based on the secondhand's visibility.
       Timer.periodic(updateDuration, updateTimer);
     }
   }
@@ -109,19 +108,19 @@ class ClockPainter extends CustomPainter
 
     //paint style etc...
     final outerRing = Paint()
-      ..color = cconf.outlineColor
+      ..color = isepaper ? const Color.fromARGB(255, 128, 128, 128):  cconf.outlineColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = radius / 100;
 
     final innerRing = Paint()
       ..style = PaintingStyle.fill
-      ..color = cconf.backgroundColor;
+      ..color = isepaper ? Colors.white : cconf.backgroundColor;
 
     final hourIndicator = Paint()
       ..strokeWidth = radius / 25
-      ..color = cconf.indicatorColor;
+      ..color = isepaper ? Colors.black : cconf.indicatorColor;
     final minuteIndicator = Paint()
-      ..color = cconf.indicatorColor
+      ..color = isepaper ? Colors.black : cconf.indicatorColor
       ..strokeWidth = radius / 100;
 
 
@@ -133,27 +132,21 @@ class ClockPainter extends CustomPainter
         bool inner = false}) {
       double x = radius;
       double y = radius;
-      double hourRadiant =
-          (dateTimeIn12.hour + datetime.minute / 60) * (pi / 6);
-      double minuteRadiant =
-          (datetime.minute + datetime.second / 60) * (pi / 30);
-      double secondRadiant = (datetime.second) * (pi / 30);
-      double radiant = 0;
-      //sets the radiant dependig on clockhand(second/minute/hour)
+      double radiant = 0; //the radiant is the value used to convert the time in an angel for the clockhands
       late double innerShift;
       late double outerShift;
       if (hourHand) {
         innerShift = cconf.hourLength1 * radius;
         outerShift = cconf.hourLength2 * radius;
-        radiant = hourRadiant;
+        radiant = (dateTimeIn12.hour + datetime.minute / 60) * (pi / 6);
       } else if (minuteHand) {
         innerShift = cconf.minLength1 * radius;
         outerShift = cconf.minLength2 * radius;
-        radiant = minuteRadiant;
+        radiant = datetime.minute  * (pi / 30);
       } else if (secondHand) {
         innerShift = cconf.secLength1 * radius;
         outerShift = cconf.secLength2 * radius;
-        radiant = secondRadiant;
+        radiant = (datetime.second) * (pi / 30);
       }
 
       //sets the x-y variable for the Offset depending on which side of the hand is calculated
@@ -195,7 +188,7 @@ class ClockPainter extends CustomPainter
     drawHourHand()
     {
       canvas.drawLine(handOffset(hourHand: true),
-          handOffset(hourHand: true, inner: true), Paint()..color=cconf.hourColor..strokeWidth=radius/26);
+          handOffset(hourHand: true, inner: true), Paint()..color= isepaper ? Colors.black : cconf.hourColor..strokeWidth=radius/26);
     }
 
     void drawMinuteHand()
@@ -203,7 +196,7 @@ class ClockPainter extends CustomPainter
       canvas.drawLine(
           handOffset(minuteHand: true),
           handOffset(minuteHand: true, inner: true),
-          Paint()..strokeWidth = radius / 40..color=cconf.minColor);
+          Paint()..strokeWidth = radius / 40..color=isepaper ? Colors.black : cconf.minColor);
     }
 
     void drawSecondHand()
@@ -223,7 +216,7 @@ class ClockPainter extends CustomPainter
     drawIndicators(); //draws the time Hand
     drawHourHand(); //draws the hour Hand
     drawMinuteHand(); //draws the minute Hand
-    drawSecondHand(); //draws second Hand
+    if(!isepaper) drawSecondHand(); //draws second Hand
 
     canvas.drawCircle(center, radius * 0.05, Paint()); //draws pinhole
   }
