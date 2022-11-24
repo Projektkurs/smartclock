@@ -86,6 +86,7 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
   @override
   Widget build(BuildContext context) 
   {
+    widget.setState=setState;
     widget.state=this;
     return Expanded(
         flex: widget.gconfig.flex,
@@ -140,7 +141,8 @@ class ScaffoldingState extends State<Scaffolding> with callbacks
     }
 
     //immitation start componentbuild
-    widget.built=true;
+    SchedulerBinding.instance.scheduleFrameCallback((Duration d){widget.built=true;});
+    //widget.built=true;
 
     if(widget.direction){
       return Row(children: childs);

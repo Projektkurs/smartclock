@@ -103,7 +103,7 @@ class PopupState extends State<Popup>
         opacity: menuopacity,
         child: singleMenu(Scaffold(
 
-            floatingActionButton: isepaper ?ElevatedButton(
+            floatingActionButton: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 alignment: Alignment.center,
                 padding:
@@ -118,7 +118,7 @@ class PopupState extends State<Popup>
                           .textTheme
                           .headlineLarge!
                           .fontSize!)),
-            ): null,
+            ),
             body: frontmenu))));
     //}
     // Button in upper left corner to open and close menu
