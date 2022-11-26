@@ -38,17 +38,17 @@ class _MainScreenState extends State<MainScreen>
       });
     }else{
       if(widget.appState.scafffromjson){
-        widget.appState.scaffholdingkey=GlobalKey();
-        mainscaffolding=Scaffolding.fromJson(jsonDecode(widget.appState.jsonsave),key:widget.appState.scaffholdingkey);
-        widget.appState.scafffromjson=false;
-      }else{
-        mainscaffolding=Scaffolding(key:widget.appState.scaffholdingkey,
-        gconfig:GeneralConfig(
-        2<<40,//arbitrary value for flex
-        //should be high as to have many to have smooth transition
-        ScaffoldingConfig()),
-        direction: true, subcontainers: widget.appState.maincontainers,showlines:showlines);
-      }
+          widget.appState.scaffholdingkey=GlobalKey();
+          mainscaffolding=Scaffolding.fromJson(jsonDecode(widget.appState.jsonsave),key:widget.appState.scaffholdingkey);
+          widget.appState.scafffromjson=false;
+        }else{
+          mainscaffolding=Scaffolding(key:widget.appState.scaffholdingkey,
+          gconfig:GeneralConfig(
+          2<<40,//arbitrary value for flex
+          //should be high as to have many to have smooth transition
+          ScaffoldingConfig()),
+          direction: true, subcontainers: widget.appState.maincontainers,showlines:showlines);
+        }
     }
     if(isepaper){
       return Scaffold(
@@ -110,7 +110,7 @@ class _MainScreenState extends State<MainScreen>
                 post(
                   Uri(scheme:'http',host: 'localhost',path:'/config',port: 8000),
                   body: widget.appState.jsonsave);
-              }
+                }
             ),
             ListTile(
               leading: const Icon(Icons.file_download),
@@ -118,9 +118,22 @@ class _MainScreenState extends State<MainScreen>
               onTap: (){setState(() {
                 debugPrint("apply Config");
                 widget.appState.maincontainers=jsonDecode(widget.appState.jsonsave)['subcontainers'];
+                widget.appState.scafffromjson=true;});
+              }
+            ),
+            ListTile(
+              leading: const Icon(Icons.reset_tv),
+              title: const  Text('reset save'),
+              onTap: (){setState(() {
+                widget.appState.jsonsave=emptyjsonconfig;
+                debugPrint(widget.appState.jsonsave);
+                widget.appState.jsonconfig.updateconfig(widget.appState.jsonconfig.defaultconfig,widget.appState.jsonsave);
+                post(
+                  Uri(scheme:'http',host: 'localhost',path:'/config',port: 8000),
+                  body: widget.appState.jsonsave);});
+                widget.appState.maincontainers=jsonDecode(widget.appState.jsonsave)['subcontainers'];
                 widget.appState.scafffromjson=true;
-              });
-                },
+              }
             ),
           ],
         ),

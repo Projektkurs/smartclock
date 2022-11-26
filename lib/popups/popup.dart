@@ -121,8 +121,9 @@ class PopupState extends State<Popup>
             ),
             body: frontmenu))));
     //}
+    //currently not used
     // Button in upper left corner to open and close menu
-    returnStack.add(FloatingActionButton(
+    /*returnStack.add(FloatingActionButton(
       heroTag: "9BQwlr5WDnqfmJRet38XAYaUj1V6FId0sMETPH",
       onPressed: () => applyCallback(),
       tooltip: 'menu',
@@ -131,7 +132,7 @@ class PopupState extends State<Popup>
         progress: _animationController,
         semanticLabel: 'Show menu',
       ),
-    ));
+    ));*/
     return IgnorePointer(
         ignoring: !isOpen, child: Stack(children: returnStack));
   }

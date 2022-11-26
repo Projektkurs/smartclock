@@ -29,7 +29,7 @@ class Scaffolding extends Component
     Map<String,dynamic> retval={
       //'key':key.toString(),
       'direction': direction,
-      'subcontainers': subcontainers,
+      'subcontainers': state.childs.length,
       'length': state.childs.length,
       'gconfig':gconfig};
     if(state.childs.isNotEmpty){
@@ -48,14 +48,16 @@ class Scaffolding extends Component
     subcontainers=json['subcontainers'],
     showlines=false,
     jsonconf=json,
-    updatejson=true,
+    updatejson=false,
     super(key: key ?? GlobalKey(),gconfig:GeneralConfig.fromjson(json['gconfig'],ScaffoldingConfig.fromJson(json["gconfig"]["cconfig"])))
   {
-    if(state.mounted){
-      state.setState(() {updatejson=true;});
-    }{
-      state.updatejson=true;
-    }
+    if(subcontainers!=0){
+      if(state.mounted){
+        state.setState(() {updatejson=true;});
+      }else{
+        state.updatejson=true;
+      }
+    }else{subcontainers=1;print("new widget");}
   }
 
 }

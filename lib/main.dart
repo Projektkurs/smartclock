@@ -101,16 +101,18 @@ class AppState extends State<App> with message
       if(jsonconfig.defaultconfig==""){
         debugPrint("no Widget tree config found, will use the default init as config");
         SchedulerBinding.instance.scheduleFrameCallback((Duration duration){
-          jsonsave=jsonEncode(mainscaffolding);
+          //jsonsave=jsonEncode(mainscaffolding);
+          jsonsave=emptyjsonconfig;
           jsonconfig.addconfig("defaultconfig", jsonsave);
           jsonconfig.defaultconfig="defaultconfig";
           File(p.join(supportdir,'config')).writeAsString(jsonEncode(jsonconfig));
+          debugPrint("new jsonsave:$jsonsave");
         });
       }else{
         if(await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).exists()){
-        debugPrint("applyingconfig: ${p.join(supportdir,'configs',jsonconfig.defaultconfig)}");
-        jsonsave=await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsString();
-        debugPrint("jsonsave:$jsonsave");          
+          debugPrint("applyingconfig: ${p.join(supportdir,'configs',jsonconfig.defaultconfig)}");
+          jsonsave=await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsString();
+          debugPrint("jsonsave:$jsonsave");          
         }else{
           jsonconfig.configs.remove(jsonconfig.defaultconfig);
           jsonconfig.defaultconfig="";
@@ -119,7 +121,6 @@ class AppState extends State<App> with message
           debugPrint("Error: the json file is corrupted or the versions are not compatible");
           await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).delete();
           await File(p.join(supportdir,'config')).delete();
-
         }
         maincontainers=jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;

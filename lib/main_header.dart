@@ -40,3 +40,4 @@ export 'component/configs/vertretungsplan_config.dart';
 export 'component/scaffholding/scaffolding.dart';
 
 const bool isepaper = bool.fromEnvironment("isepaper");
+const String emptyjsonconfig="{\"direction\":true,\"subcontainers\":1,\"length\":1,\"gconfig\":{\"flex\":2199023255552,\"type\":\"ScaffoldingConfig\",\"cconfig\":{},\"borderWidth\":null,\"borderRadius\":null},\"Child0\":{\"gconfig\":{\"flex\":2199023255552,\"type\":\"EmptyComponentConfig\",\"cconfig\":{\"width\":0,\"height\":0},\"borderWidth\":null,\"borderRadius\":null}}}";
