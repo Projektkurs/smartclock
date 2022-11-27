@@ -18,20 +18,30 @@ mixin Clockmenu on Componentmenu
   bool _darkmode=false;
 
   Widget clockmenu(){
-  return 
-  Row(
-          children: [
-              Clock( 
-        key:const Key("0"),
+  return Row(children:[ Clock( 
+        key:GlobalKey(),
+        //key:const Key("0"),
         gconfig: widget.componentconfig!),
         Expanded(flex: widget.componentconfig!.flex,child:
-        ListView(
-          children:
-          
-                    [Expanded(
-            flex:widget.componentconfig!.flex,
-            child:
-              SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          ListView(
+          children:[
+            ListTile(
+            leading: Text("darkmode",style: Theme.of(context).textTheme.titleMedium),
+            title:Switch(
+            onChanged: (bool value) {
+              setState(()  {_darkmode = value;
+              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==ClockConfig){
+                widget.componentconfig!.cconfig=const ClockConfig.dark();
+              }else{
+                widget.componentconfig!.cconfig=const ClockConfig();
+              }
+              });
+            },
+            value: _darkmode,
+          )
+            ),
+            componentTile(widget.componentconfig!)]))]);
+         /*     SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           const Text('darkmode'),
           Switch(
             onChanged: (bool value) {
@@ -44,10 +54,9 @@ mixin Clockmenu on Componentmenu
               });
             },
             value: _darkmode,
-          )
-        ]))),
+          )*/
+        //]))),
         //componentTile(widget.componentconfig!)
-        ]))]);
   }
   clockmenuapplycallback(){
     if(widget.configsetState != null){

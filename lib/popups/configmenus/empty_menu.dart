@@ -16,7 +16,7 @@ mixin Emptymenu on Componentmenu {
   dynamic handleOnPressed(int enable);
   void setState(VoidCallback fn);
   //end declaration
-
+  int scaffoldingchilds=2;
   Widget emptymenu() {
     return Row(children: [
       const Spacer(flex: 1),
@@ -24,6 +24,18 @@ mixin Emptymenu on Componentmenu {
           //start Component Radio
           flex: 10,
           child: ListView(children: [
+                    ListTile(
+          leading:SizedBox(
+            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*4,
+            child:Text("Width",style: Theme.of(context).textTheme.titleMedium)
+          ),
+          trailing: SizedBox(
+            width: (Theme.of(context).textTheme.titleMedium!.fontSize ?? 16 )*2.5,
+            child: Text((scaffoldingchilds).toStringAsFixed(0))),
+            title: Slider(value: scaffoldingchilds.toDouble() , onChanged: (double value){setState((){scaffoldingchilds=value.round().toInt();});},
+            min:2,
+            max:8)
+            ),
             SelectableRadio<Componentenum>(
                 value: Componentenum.horizontal,
                 groupvalue: components,
@@ -93,7 +105,7 @@ mixin Emptymenu on Componentmenu {
                 key: (widget.componentconfig! as GeneralConfig).cconfig.key,
                 direction: false,
                 showlines: false,
-                subcontainers: 2,
+                subcontainers: scaffoldingchilds,
                 gconfig: GeneralConfig(
                     widget.componentconfig!.flex, ScaffoldingConfig()));
         (widget.componentconfig! as GeneralConfig).cconfig.apply = true;
@@ -120,6 +132,7 @@ mixin Emptymenu on Componentmenu {
       default:
         break;
     }
+    components=Componentenum.defaultcase;
     if (widget.configsetState != null) {
       widget.configsetState!(() {});
     }
