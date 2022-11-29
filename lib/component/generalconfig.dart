@@ -10,7 +10,7 @@ class GeneralConfig
 {
   GeneralConfig(this.flex,this.cconfig);
 
- //must be of ContentType Defaultgeneral 
+  //must be of ContentType Defaultgeneral 
   GeneralConfig.createGeneral():
     cconfig=Defaultgeneral(),
     flex=1,
@@ -20,7 +20,7 @@ class GeneralConfig
 
   
   Type get type{
-    print("Gconf-Type get:$cconfig");
+    debugPrint("Gconf-Type get:$cconfig");
     return cconfig.runtimeType;
   }
   int flex;
@@ -33,14 +33,26 @@ class GeneralConfig
 
 
   
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson(){
+    Map<String,dynamic> map= {
     'flex':flex,
     'type':type.toString(),
     'cconfig':cconfig,
     //border:
     'borderWidth':borderWidth,
-    'borderRadius':borderRadius
-  };
+    'borderRadius':borderRadius,
+    };
+    if(borderColor!=null){
+      map['bordercolor'] = borderColor!.value;
+    }
+    if(borderWidth!=null){
+      map['borderWidth'] = borderWidth;
+    }
+    if(borderRadius!=null){
+      map['borderRadius'] = borderRadius;
+    }
+    return map;
+  }
 
   GeneralConfig.fromjson(Map<String,dynamic> json,dynamic cconf):
     flex=json['flex'],

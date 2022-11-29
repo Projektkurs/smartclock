@@ -4,6 +4,7 @@
  */
 
 import 'package:smartclock/main_header.dart';
+import 'package:path/path.dart' as p;
 
 mixin message{
   File fifo=File('./updatefifo');
@@ -16,10 +17,15 @@ mixin message{
     Future<String> fifocontent=fifo.readAsString();
     fifocontent.then((message){
       setState(() {
+        if(message=="config"){
         debugPrint("apply Config");
         jsonsave=File('./config.json').readAsStringSync();
         maincontainers=jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;
+        }else if(message=="generalconfig"){
+            jsonconfig=jsonDecode(message);
+            File(p.join(supportdir,'config')).writeAsString(jsonEncode(jsonconfig));
+        }
       });
     epaperUpdateInterrupt();});
   }

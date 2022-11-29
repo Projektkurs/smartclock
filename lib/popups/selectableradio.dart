@@ -1,6 +1,9 @@
 /* selectableradio.dart - alternative to normal radio 
  *
  * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
+ * 
+ * this is a custom selectable radio which functions identicaly like the original,
+ * with some features not implemented. It just differs in appearance
  */
 
 import 'package:smartclock/main_header.dart';

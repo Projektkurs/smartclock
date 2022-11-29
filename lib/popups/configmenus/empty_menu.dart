@@ -88,31 +88,31 @@ mixin Emptymenu on Componentmenu {
   emptymenuapplycallback() {
     switch (components) {
       case Componentenum.horizontal:
-        (widget.componentconfig! as GeneralConfig).cconfig.replacement =
+        widget.componentconfig!.cconfig.replacement =
             Scaffolding(
-                key: (widget.componentconfig! as GeneralConfig).cconfig.key,
+                key: widget.componentconfig!.cconfig.key,
                 direction: true,
                 showlines: false,
                 subcontainers: 2,
                 gconfig: GeneralConfig(
                     widget.componentconfig!.flex, ScaffoldingConfig()));
-        (widget.componentconfig! as GeneralConfig).cconfig.apply = true;
-        (widget.componentconfig! as GeneralConfig).cconfig.replace!();
+        widget.componentconfig!.cconfig.apply = true;
+        widget.componentconfig!.cconfig.replace!();
         break;
       case Componentenum.vertical:
-        (widget.componentconfig! as GeneralConfig).cconfig.replacement =
+        widget.componentconfig!.cconfig.replacement =
             Scaffolding(
-                key: (widget.componentconfig! as GeneralConfig).cconfig.key,
+                key: widget.componentconfig!.cconfig.key,
                 direction: false,
                 showlines: false,
                 subcontainers: scaffoldingchilds,
                 gconfig: GeneralConfig(
                     widget.componentconfig!.flex, ScaffoldingConfig()));
-        (widget.componentconfig! as GeneralConfig).cconfig.apply = true;
-        (widget.componentconfig! as GeneralConfig).cconfig.replace!();
+        widget.componentconfig!.cconfig.apply = true;
+        widget.componentconfig!.cconfig.replace!();
         break;
       case Componentenum.clock:
-        (widget.componentconfig! as GeneralConfig).cconfig.replacement = Clock(
+        widget.componentconfig!.cconfig.replacement = Clock(
             key: (widget.componentconfig!.cconfig as EmptyComponentConfig).key,
             gconfig: GeneralConfig(
                 widget.componentconfig!.flex, const ClockConfig()));
@@ -120,12 +120,12 @@ mixin Emptymenu on Componentmenu {
         (widget.componentconfig!.cconfig as EmptyComponentConfig).replace!();
         break;
       case Componentenum.vertretungsplan:
-        (widget.componentconfig! as GeneralConfig).cconfig.replacement =
+        widget.componentconfig!.cconfig.replacement =
             Vertretungsplan(
                 key: (widget.componentconfig!.cconfig as EmptyComponentConfig)
                     .key,
                 gconfig: GeneralConfig(
-                    widget.componentconfig!.flex, VertretungsplanConfig()));
+                    widget.componentconfig!.flex, VertretungsplanConfig("007")));
         (widget.componentconfig!.cconfig as EmptyComponentConfig).apply = true;
         (widget.componentconfig!.cconfig as EmptyComponentConfig).replace!();
         break;

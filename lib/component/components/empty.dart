@@ -23,7 +23,7 @@ class Empty extends Component
       gconfig:GeneralConfig.fromjson(
         json['gconfig'],EmptyComponentConfig.fromJson(json["gconfig"]["cconfig"])
       )
-    ){print("Emptyfromjson:$gconfig");}
+    ){debugPrint("Emptyfromjson:$gconfig");}
 
   @override
   EmptyState createState() => EmptyState();

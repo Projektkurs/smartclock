@@ -16,10 +16,19 @@ class JsonConfig{
   int epaperPort=8000;
   int epaperRefreshtime=60;//in seconds
 
+  //vpmobil
+  String vpuser="";
+  String vppasswd="";
+
+
   //theme
   
   JsonConfig();
-
+  upload() async{
+    post(
+      Uri(scheme:'http',host: epaperIP,path:'/generalconfig',port: epaperPort),
+        body: jsonEncode(this));
+  }
   Future<int> addconfig(String name,String json) async{
     if(await File(p.join(supportdir,"configs",name)).exists()){
       debugPrint("${p.join(supportdir,"configs",name)} already exists");
@@ -37,7 +46,7 @@ class JsonConfig{
   }
 
   Future<int> renameconfig(String oldname,String newname) async{
-    if(configs.indexOf(oldname)==-1){
+    if(configs.contains(oldname)){
       debugPrint("ERROR: $oldname is not a name of a config");
       return 1;
     }
@@ -57,16 +66,22 @@ class JsonConfig{
     "enableepaper":enableepaper,
     "epaperIP":epaperIP,
     "epaperPort":epaperPort,
-    "epaperRefreshtime":epaperRefreshtime
+    "epaperRefreshtime":epaperRefreshtime,
+
+    "vpuser":vpuser,
+    "vppasswd":vppasswd
   };
   
   JsonConfig.fromJson(Map<String, dynamic> json)
   : defaultconfig=json["defaultconfig"],
     configs=List<String>.from(json["configs"]),
     
-    enableepaper=json["enableepaper"],
-    epaperIP=json["epaperIP"],
-    epaperPort=json["epaperPort"],
-    epaperRefreshtime=json["epaperRefreshtime"]
+    enableepaper=json["enableepaper"] ?? true,
+    epaperIP=json["epaperIP"] ?? "localhost",
+    epaperPort=json["epaperPort"] ?? 8000,
+    epaperRefreshtime=json["epaperRefreshtime"] ?? 10,
+
+    vpuser=json["vpuser"] ?? "",
+    vppasswd=json["vppasswd"] ?? ""
   ;
 }

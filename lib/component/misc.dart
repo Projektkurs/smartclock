@@ -17,9 +17,9 @@ enum Componentenum {
 
 //used by most Components to open the config menu if they are pressed.
 //assigned to configMenuMainParse in main.dart
-typedef Configmenu_t = void Function(List<Key> key, GeneralConfig config,
+typedef Configmenut = void Function(List<Key> key, GeneralConfig config,
     double width, double height, void Function(VoidCallback fn) configsetState);
-Configmenu_t configmenu = (List<Key> key, GeneralConfig config, double width,
+Configmenut configmenu = (List<Key> key, GeneralConfig config, double width,
     double height, void Function(VoidCallback fn) configsetState) {};
 
 //returns Type of Component

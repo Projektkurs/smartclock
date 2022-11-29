@@ -11,6 +11,7 @@ import 'package:smartclock/screens/settings_screen.dart';
 import 'screens/main_screen.dart';
 
 late String supportdir;
+late JsonConfig jsonconfig;
 void main() 
 {
   //tz.initializeTimeZones();
@@ -50,8 +51,6 @@ class App extends StatefulWidget
 
 class AppState extends State<App> with message
 {
-  //File fifo=File('./updatefifo');
-  late JsonConfig jsonconfig;
   //main menu laying on top the top of Widget stack
   late Popup menu=Popup();
   //own method to parse up a config to be configured by menu
@@ -81,7 +80,7 @@ class AppState extends State<App> with message
       epaperUpdateInterrupt();
     }
     Future<bool> loadconfig() async{
-      supportdir = (await getApplicationSupportDirectory()).path;
+      supportdir = isepaper ? "./" :(await getApplicationSupportDirectory()).path;
       await Directory(p.join(supportdir,"configs")).create();
       //var directory = await Directory('./data/configs').create(recursive: true);
       if( await File(p.join(supportdir,'config')).exists()){
@@ -122,11 +121,11 @@ class AppState extends State<App> with message
           await File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).delete();
           await File(p.join(supportdir,'config')).delete();
         }
-        maincontainers=jsonDecode(jsonsave)['subcontainers'];
+        maincontainers= jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;
       }
       //needs to be initialized at the point where settings is opened
-      return true;    }
+      return true; }
     configisload= loadconfig();
   }
 
@@ -144,10 +143,7 @@ class AppState extends State<App> with message
   @override
   Widget build(BuildContext context) 
   {
-    print("firstbuild:$firstbuild");
-   // return MainScreen(
-   //   key:mainscreenkey,
-   //   appState: this);
+    debugPrint("firstbuild:$firstbuild");
 
   return MaterialApp(
     home: MainScreen(
@@ -162,14 +158,5 @@ class AppState extends State<App> with message
     appState: this),
     }
   );
-  
   }
 }
-
-    /*TextField(
-  obscureText: false,
-  decoration: InputDecoration(
-    border: OutlineInputBorder(),
-    labelText: 'epaper IP',
-  ),
-)*/

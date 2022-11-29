@@ -3,12 +3,12 @@ import 'package:smartclock/main_header.dart';
 class VertretungsplanConfig {
 
   late Key key;
-  VertretungsplanConfig();
+  late String raum;
+  VertretungsplanConfig(this.raum);
 
   Map<String, dynamic> toJson() => {
+      "raum":raum
     };
 
-  VertretungsplanConfig.fromJson(Map<String, dynamic> json){
-    VertretungsplanConfig();
-  }
+  VertretungsplanConfig.fromJson(Map<String, dynamic> json):raum=json["raum"];
 }

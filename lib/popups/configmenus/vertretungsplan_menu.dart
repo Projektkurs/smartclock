@@ -1,3 +1,8 @@
+/* vertretungsplan.dart - config menu for Vertretungsplan 
+ *
+ * Copyright 2022 by Ben Mattes Krusekamp <ben.krause05@gmail.com>
+ */
+
 import 'package:smartclock/main_header.dart';
 import 'package:smartclock/popups/component_menu.dart';
 
@@ -12,37 +17,29 @@ mixin Vertretungsplanmenu on Componentmenu {
   //end declaration
 
   Widget vertretungsplanmenu() {
-    return const SizedBox.expand();
-
-    /*Row(
-          children: [
-              Vertretungsplan( 
-        key:const Key("0"),
+    return Row(children:[ Vertretungsplan( 
+        key:GlobalKey(),
+        //key:const Key("0"),
         gconfig: widget.componentconfig!),
         Expanded(flex: widget.componentconfig!.flex,child:
-        ListView(
-          children:
-          
-                    [Expanded(
-            flex:widget.componentconfig!.flex,
-            child:
-              SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('darkmode'),
-          Switch(
+          ListView(
+          children:[
+            /*ListTile(
+            leading: Text("darkmode",style: Theme.of(context).textTheme.titleMedium),
+            title:Switch(
             onChanged: (bool value) {
               setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==VertretungsplanConfig){
-                widget.componentconfig!.cconfig=const VertretungsplanConfig.dark();
+              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==ClockConfig){
+                widget.componentconfig!.cconfig=const ClockConfig.dark();
               }else{
-                widget.componentconfig!.cconfig=const VertretungsplanConfig();
+                widget.componentconfig!.cconfig=const ClockConfig();
               }
               });
             },
             value: _darkmode,
           )
-        ]))),
-        //componentTile(widget.componentconfig!)
-        ]))]);*/
+            ),
+            componentTile(widget.componentconfig!)*/]))]);
   }
 
   vertretungsplanmenuapplycallback() {

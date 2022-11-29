@@ -1,9 +1,9 @@
 //import "package:smartclock/main_header.dart";
 import "package:http/http.dart" as http;
-import "package:path/path.dart";
 //import "package:smartclock/main_header.dart";
 import "dart:convert";
 import "package:xml/xml.dart";
+import "main_header.dart";
 
 const MAXHOURSPERDAY=7;
 class Plan{
@@ -28,17 +28,12 @@ class Plan{
       currentday=nextday(currentday, freedates)!; //the next times needs to exist
       XmlDay? tmpday=await XmlDay.async(currentday);
       if(tmpday==null){
-        print("no day found");
         break;
       }
       days.add(tmpday);
     }
     for(var i in days){
       lessons.add(await roomallocation(i,room));
-      for(var u in lessons.last){
-        if(u!=null)
-        print(u.printString());
-      }
     }
     return Plan(lessons,days,freedates);
   }
@@ -90,7 +85,7 @@ class XmlDay{
     http.Response? plan;
     try{
     plan = await http.get(Uri.https("www.stundenplan24.de","/52002736/mobil/mobdaten/$xmlname"),
-      headers: {'authorization': "Basic ${base64Encode(utf8.encode('schueler:An-nette-1690'))}"});
+      headers: {'authorization': "Basic ${base64Encode(utf8.encode('${jsonconfig.vpuser}:${jsonconfig.vppasswd}'))}"});
     }catch(_){
       return null;
     }

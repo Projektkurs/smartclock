@@ -70,7 +70,7 @@ mixin ComponentBuild<Parent extends Component>
           margin: unitedborder ? 
             const EdgeInsets.symmetric(vertical: 5) 
           : const EdgeInsets.all(5.0),
-          padding: EdgeInsets.all(5.0),
+          padding: const EdgeInsets.all(5.0),
           decoration: 
             unitedborder ? 
             BoxDecoration(

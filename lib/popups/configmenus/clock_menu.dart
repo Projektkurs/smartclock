@@ -41,22 +41,6 @@ mixin Clockmenu on Componentmenu
           )
             ),
             componentTile(widget.componentconfig!)]))]);
-         /*     SizedBox.expand(child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          const Text('darkmode'),
-          Switch(
-            onChanged: (bool value) {
-              setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==ClockConfig){
-                widget.componentconfig!.cconfig=const ClockConfig.dark();
-              }else{
-                widget.componentconfig!.cconfig=const ClockConfig();
-              }
-              });
-            },
-            value: _darkmode,
-          )*/
-        //]))),
-        //componentTile(widget.componentconfig!)
   }
   clockmenuapplycallback(){
     if(widget.configsetState != null){

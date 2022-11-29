@@ -106,9 +106,9 @@ class _MainScreenState extends State<MainScreen>
               onTap: (){
                 widget.appState.jsonsave=jsonEncode(mainscaffolding);
                 debugPrint(widget.appState.jsonsave);
-                widget.appState.jsonconfig.updateconfig(widget.appState.jsonconfig.defaultconfig,widget.appState.jsonsave);
+                jsonconfig.updateconfig(jsonconfig.defaultconfig,widget.appState.jsonsave);
                 post(
-                  Uri(scheme:'http',host: 'localhost',path:'/config',port: 8000),
+                  Uri(scheme:'http',host: jsonconfig.epaperIP,path:'/config',port: jsonconfig.epaperPort),
                   body: widget.appState.jsonsave);
                 }
             ),
@@ -127,9 +127,9 @@ class _MainScreenState extends State<MainScreen>
               onTap: (){setState(() {
                 widget.appState.jsonsave=emptyjsonconfig;
                 debugPrint(widget.appState.jsonsave);
-                widget.appState.jsonconfig.updateconfig(widget.appState.jsonconfig.defaultconfig,widget.appState.jsonsave);
+                jsonconfig.updateconfig(jsonconfig.defaultconfig,widget.appState.jsonsave);
                 post(
-                  Uri(scheme:'http',host: 'localhost',path:'/config',port: 8000),
+                  Uri(scheme:'http',host: jsonconfig.epaperIP,path:'/config',port: jsonconfig.epaperPort),
                   body: widget.appState.jsonsave);});
                 widget.appState.maincontainers=jsonDecode(widget.appState.jsonsave)['subcontainers'];
                 widget.appState.scafffromjson=true;

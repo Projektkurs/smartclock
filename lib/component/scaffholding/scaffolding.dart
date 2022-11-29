@@ -29,15 +29,14 @@ class Scaffolding extends Component
     Map<String,dynamic> retval={
       //'key':key.toString(),
       'direction': direction,
-      'subcontainers': state.childs.length,
-      'length': state.childs.length,
+      'subcontainers': ((state.childs.length+1)/2).floor(),
       'gconfig':gconfig};
     if(state.childs.isNotEmpty){
     for(int i=0;i<(state.childs.length+1)/2;i++){
-      print("encode Childs");
+      debugPrint("encode Childs");
       retval["Child$i"] = state.childs[i*2];
     }}
-    print("return");
+    debugPrint("return");
     return retval;
   }
 
@@ -57,7 +56,7 @@ class Scaffolding extends Component
       }else{
         state.updatejson=true;
       }
-    }else{subcontainers=1;print("new widget");}
+    }else{subcontainers=1;}
   }
 
 }

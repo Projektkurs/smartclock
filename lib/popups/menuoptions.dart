@@ -8,6 +8,7 @@ import 'package:smartclock/main_header.dart';
 mixin Menuoptions
 {
   BuildContext get context;
+  //the border of the Popup menu
   Widget singleMenu(child){
   return Stack(
     children: [Container(
