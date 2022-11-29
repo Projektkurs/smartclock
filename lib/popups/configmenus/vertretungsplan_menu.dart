@@ -15,34 +15,32 @@ mixin Vertretungsplanmenu on Componentmenu {
   dynamic handleOnPressed(int enable);
   void setState(VoidCallback fn);
   //end declaration
-
+  late TextEditingController _roomtextcontroller;
   Widget vertretungsplanmenu() {
+    _roomtextcontroller= TextEditingController(text: widget.componentconfig!.cconfig.raum);
     return Row(children:[ Vertretungsplan( 
         key:GlobalKey(),
         //key:const Key("0"),
         gconfig: widget.componentconfig!),
         Expanded(flex: widget.componentconfig!.flex,child:
           ListView(
-          children:[
-            /*ListTile(
-            leading: Text("darkmode",style: Theme.of(context).textTheme.titleMedium),
-            title:Switch(
-            onChanged: (bool value) {
-              setState(()  {_darkmode = value;
-              if(_darkmode && widget.componentconfig!.cconfig.runtimeType==ClockConfig){
-                widget.componentconfig!.cconfig=const ClockConfig.dark();
-              }else{
-                widget.componentconfig!.cconfig=const ClockConfig();
-              }
-              });
-            },
-            value: _darkmode,
-          )
-            ),
-            componentTile(widget.componentconfig!)*/]))]);
+          children:[Container(
+            margin: const EdgeInsets.all(8),
+            child: TextField(
+            keyboardType: TextInputType.number,
+            controller: _roomtextcontroller,
+            onSubmitted: (String value){
+                widget.componentconfig!.cconfig.raum= value;
+            },  
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              
+              labelText: 'Raum',),)
+        )]))]);
   }
 
   vertretungsplanmenuapplycallback() {
+    _roomtextcontroller= TextEditingController(text: widget.componentconfig!.cconfig.raum);
     if (widget.configsetState != null) {
       widget.configsetState!(() {});
     }

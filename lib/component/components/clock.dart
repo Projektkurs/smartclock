@@ -234,21 +234,21 @@ class ClockPainter extends CustomPainter
         .padLeft(2, "0"); //assures double digit notation
 
     TextStyle txtstyle =
-        TextStyle(color: Colors.black, fontSize: width * 0.405);
+        TextStyle(color: Colors.black, fontSize: width * 0.305);
 
     TextSpan span = TextSpan(text: '$hour∶$minute', style: txtstyle);
     TextPainter tp = TextPainter(
         text: span,
-        textAlign: TextAlign.left,
+        textAlign: TextAlign.center,
         textDirection: TextDirection.ltr);
     //draws the clocks outlining
-    canvas.drawRect(
-        Offset(0, height * 0.333) & Size(width, height),
-        Paint()
-          ..color = cconf.backgroundColor
-          ..style = PaintingStyle.fill);
+    //canvas.drawRect(
+    //    Offset(0, height * 0.333) & Size(width, height),
+    //    Paint()
+    //      ..color = cconf.backgroundColor
+    //      ..style = PaintingStyle.fill);
     tp.layout(); //computes the text
-    tp.paint(canvas, Offset(0, width * 0.27)); //paints the text
+    tp.paint(canvas, Offset(0, size.height -width*.35)); //paints the text
   }
 
   @override

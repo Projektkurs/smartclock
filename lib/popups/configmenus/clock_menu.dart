@@ -16,6 +16,7 @@ mixin Clockmenu on Componentmenu
   void setState(VoidCallback fn);
   //end declaration
   bool _darkmode=false;
+  bool _digital=false;
 
   Widget clockmenu(){
   return Row(children:[ Clock( 
@@ -23,8 +24,24 @@ mixin Clockmenu on Componentmenu
         //key:const Key("0"),
         gconfig: widget.componentconfig!),
         Expanded(flex: widget.componentconfig!.flex,child:
+        
           ListView(
           children:[
+            ListTile(
+            leading: Text("digital",style: Theme.of(context).textTheme.titleMedium),
+            title:Switch(
+            onChanged: (bool value) {
+              setState(()  {_digital = value;
+              if(_digital && widget.componentconfig!.cconfig.runtimeType==ClockConfig){
+                widget.componentconfig!.cconfig=const ClockConfig.digital();
+              }else{
+                widget.componentconfig!.cconfig=const ClockConfig();
+              }
+              });
+            },
+            value: _digital,
+          )
+            ),
             ListTile(
             leading: Text("darkmode",style: Theme.of(context).textTheme.titleMedium),
             title:Switch(
