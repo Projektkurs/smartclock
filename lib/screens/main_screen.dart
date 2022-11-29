@@ -5,6 +5,7 @@
 
 import 'package:smartclock/component/componentconfig.dart';
 import 'package:smartclock/main_header.dart';
+import 'package:path/path.dart' as p;
 
 class MainScreen extends StatefulWidget
 {
@@ -32,6 +33,9 @@ class _MainScreenState extends State<MainScreen>
   Widget build(BuildContext context) {
     //cannot be in initstate as setState should cannot be called there
     if(firstbuild){
+      if(isepaper){
+        widget.appState.jsonsave=File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsStringSync();
+      }
       widget.appState.configisload.then((value){
         firstbuild=false;
         setState(() {});
