@@ -21,6 +21,7 @@ mixin message{
         print("apply Config");
         jsonsave=File('./configs/defaultconfig').readAsStringSync();
         maincontainers=jsonDecode(jsonsave)['subcontainers'];
+        (this as AppState).mainscreenkey=GlobalKey();
         scafffromjson=true;
         //}else if(message=="generalconfig"){
         //jsonconfig=jsonDecode(message);

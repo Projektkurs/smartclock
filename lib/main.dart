@@ -149,9 +149,9 @@ class AppState extends State<App> with message
   //it mustn't change, as they are saved at various places in the Widget tree
   //exception to this is if the whole widget tree is droped 
   GlobalKey<ScaffoldingState> scaffholdingkey=GlobalKey();
-  final GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
-  final GlobalKey mainscreenkey=GlobalKey();
-  final GlobalKey settingsscreenkey=GlobalKey();
+  GlobalKey<ScaffoldState> scaffoldkey=GlobalKey(); 
+  GlobalKey mainscreenkey=GlobalKey();
+  GlobalKey settingsscreenkey=GlobalKey();
   Scaffolding? mainscaffolding;
   bool scafffromjson=false;
   bool firstbuild=true;
