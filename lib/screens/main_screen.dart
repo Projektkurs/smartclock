@@ -34,6 +34,7 @@ class _MainScreenState extends State<MainScreen>
     //cannot be in initstate as setState should cannot be called there
     if(firstbuild){
       widget.appState.configisload.then((value){
+        print("a");
         if(isepaper){
         widget.appState.jsonsave=File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsStringSync();
         widget.appState.scafffromjson=true;
