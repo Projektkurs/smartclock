@@ -37,6 +37,7 @@ class _MainScreenState extends State<MainScreen>
         if(isepaper){
         widget.appState.jsonsave=File(p.join(supportdir,'configs',jsonconfig.defaultconfig)).readAsStringSync();
         widget.appState.scafffromjson=true;
+        widget.appState.scaffholdingkey=GlobalKey();
         }
         firstbuild=false;
         setState(() {});
