@@ -17,15 +17,15 @@ mixin message{
     Future<String> fifocontent=fifo.readAsString();
     fifocontent.then((message){
       setState(() {
-        if(message=="config"){
-        debugPrint("apply Config");
-        jsonsave=File('./config.json').readAsStringSync();
+        //if(message=="config"){
+        print("apply Config");
+        jsonsave=File('./configs/defaultconfig').readAsStringSync();
         maincontainers=jsonDecode(jsonsave)['subcontainers'];
         scafffromjson=true;
-        }else if(message=="generalconfig"){
-            jsonconfig=jsonDecode(message);
-            File(p.join(supportdir,'config')).writeAsString(jsonEncode(jsonconfig));
-        }
+        //}else if(message=="generalconfig"){
+        //jsonconfig=jsonDecode(message);
+        File('config').writeAsString(jsonEncode(jsonconfig));
+        //}
       });
     epaperUpdateInterrupt();});
   }

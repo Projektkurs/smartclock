@@ -127,6 +127,21 @@ class AppState extends State<App> with message
       //needs to be initialized at the point where settings is opened
       return true; }
     configisload= loadconfig();
+    if(isepaper){
+          updatescreen()async{
+          Future.delayed(const Duration(minutes: 5)).then((value)async {
+            setState(() {
+            print("apply Config");
+              jsonsave=File('./configs/defaultconfig').readAsStringSync();
+              maincontainers=jsonDecode(jsonsave)['subcontainers'];
+              scafffromjson=true;
+            File('config').writeAsString(jsonEncode(jsonconfig));
+            updatescreen();
+        });
+      });
+      }
+      SchedulerBinding.instance.scheduleFrameCallback((Duration duration){updatescreen();});
+    }
   }
 
   String jsonsave="";
