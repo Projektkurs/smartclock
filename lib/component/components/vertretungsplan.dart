@@ -34,7 +34,9 @@ class VertretungsplanState extends State<Vertretungsplan>
     updateplan()async{
       vplan=await vp.Plan.newplan(widget.gconfig.cconfig.raum);
       if(widget.built){
-        setState(() {});
+        if(this.mounted){
+          setState(() {});
+        }
         debugPrint("plan loaded");
         Future.delayed(const Duration(minutes: 5)).then((value)async {updateplan();});
       }
