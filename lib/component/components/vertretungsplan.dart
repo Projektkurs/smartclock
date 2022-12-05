@@ -97,6 +97,18 @@ class VertretungsplanState extends State<Vertretungsplan>
   }
   @override
   Widget build(BuildContext context) {
+    //update vetretungsplan if new room is applied
+    if((widget.gconfig.cconfig as VertretungsplanConfig).neuerplan==true){
+      print("ja");
+      ()async{
+        vplan=await vp.Plan.newplan(widget.gconfig.cconfig.raum);
+        (widget.gconfig.cconfig as VertretungsplanConfig).neuerplan=false;
+        if(mounted){
+          setState(() {});
+        }
+      }();
+    }
+
     return componentbuild(Column(children: <Widget>[
        Padding(
         padding: const EdgeInsets.all(8.0),

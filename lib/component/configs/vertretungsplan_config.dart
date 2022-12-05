@@ -4,6 +4,7 @@ class VertretungsplanConfig {
 
   late Key key;
   late String raum;
+  bool neuerplan=false;
   VertretungsplanConfig(this.raum);
 
   Map<String, dynamic> toJson() => {

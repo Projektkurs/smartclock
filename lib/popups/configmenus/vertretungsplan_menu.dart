@@ -42,6 +42,7 @@ mixin Vertretungsplanmenu on Componentmenu {
   vertretungsplanmenuapplycallback() {
     _roomtextcontroller= TextEditingController(text: widget.componentconfig!.cconfig.raum);
     if (widget.configsetState != null) {
+      (widget.componentconfig!.cconfig as VertretungsplanConfig).neuerplan=true;
       widget.configsetState!(() {});
     }
     handleOnPressed(-1);
