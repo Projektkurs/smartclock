@@ -74,7 +74,7 @@ class VertretungsplanState extends State<Vertretungsplan>
     return "${getweekday(date)} der ${date.day}. ${date.month}";
   }
   TableRow onecollumn(int hour ){
-    List<Widget> text=[Text("$hour. Stunde",style: Theme.of(context).textTheme.titleLarge)];
+    List<Widget> text=[Text("${hour+1}. Stunde",style: Theme.of(context).textTheme.titleLarge)];
     for(var i in vplan!.lessons){
       text.add(hourformat(i[hour]));
     }

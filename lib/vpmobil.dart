@@ -78,6 +78,7 @@ class XmlDay{
   XmlDay(this.xml,this.date);
   
   static Future<XmlDay?> async(DateTime? date) async{
+    date??=trim(DateTime.now());
     //vpmobil needs day and month to have two digits; eg. January, 4th -> 01.04
     String pad(int date) => date<10 ? "0$date": date.toString();
 
