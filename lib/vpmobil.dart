@@ -1,4 +1,6 @@
 //import "package:smartclock/main_header.dart";
+import "dart:ffi";
+
 import "package:http/http.dart" as http;
 //import "package:smartclock/main_header.dart";
 import "dart:convert";
@@ -82,15 +84,17 @@ class XmlDay{
     //vpmobil needs day and month to have two digits; eg. January, 4th -> 01.04
     String pad(int date) => date<10 ? "0$date": date.toString();
 
-    String xmlname = date == null ? "Klassen.xml" : "PlanKl${date.year}${pad(date.month)}${pad(date.day)}.xml";
+    String xmlname ="PlanKl${date.year}${pad(date.month)}${pad(date.day)}.xml";
+    print(xmlname);
     http.Response? plan;
     try{
-    plan = await http.get(Uri.https("www.stundenplan24.de","/52002736/mobil/mobdaten/$xmlname"),
+    plan = await http.get(Uri.https("z2.stundenplan24.de","/schulen/52002736/mobil/mobdaten/$xmlname"),
       headers: {'authorization': "Basic ${base64Encode(utf8.encode('${jsonconfig.vpuser}:${jsonconfig.vppasswd}'))}"});
     }catch(_){
       return null;
     }
-    return XmlDay(XmlDocument.parse(plan.body),date?? trim(DateTime.now())); 
+    try{return XmlDay(XmlDocument.parse(plan.body),date);}
+    catch(_){return null;}  
   }
 }
 DateTime trim(DateTime date){

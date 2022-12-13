@@ -86,6 +86,7 @@ class VertretungsplanState extends State<Vertretungsplan>
     }
     List<Widget>firstrow=[Text("")];
     for(int i =0;i<5;i++){
+      if(i==vplan!.days.length){break;}
       firstrow.add(Text(getday(vplan!.days[i].date),textScaleFactor: 1.5,));
     }
     List<TableRow> tables=[
